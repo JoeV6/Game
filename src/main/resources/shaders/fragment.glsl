@@ -1,12 +1,12 @@
 #version 330 core
 
-in vec2 fragTexCoord;  // Texture coordinates from vertex shader
+in vec2 fragTexCoord;
+
 out vec4 fragColor;
 
-uniform sampler2D textureSampler;
+uniform sampler2D tex;
 
-void main()
-{
-    fragColor = texture(textureSampler, fragTexCoord);  // Sample the texture
+void main() {
+    fragColor = texture(tex, fragTexCoord);
 }
 

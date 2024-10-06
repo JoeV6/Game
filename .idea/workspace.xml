@@ -4,19 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Commit before shader rework">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/shaders/ShaderLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/shaders/TileVertex.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/fragment.glsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/fragment_3d.glsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/vertex_3d.glsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Starting on shaders">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/ModelLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/RawModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/TexturedModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/shaders/ShaderProgram.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/shaders/StaticShader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/ModelTexture.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/Texture.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/TextureLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/shaders/ShaderLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/shaders/TileVertex.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/textures/Texture.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/textures/TextureHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/AbstractTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/AbstractTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/fragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/fragment_3d.glsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/vertex_3d.glsl" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +84,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -108,7 +124,7 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "Downloaded.Files.Path.Enabled": "false",
-    "Gradle.sandbox [:org.lpc.Main.main()].executor": "Debug",
+    "Gradle.sandbox [:org.lpc.Main.main()].executor": "Run",
     "Gradle.sandbox [build].executor": "Run",
     "Gradle.sandbox [clean].executor": "Run",
     "Gradle.sandbox [run].executor": "Run",
@@ -118,7 +134,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "shaders",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/DesktopStorage/Intellij_Projects/Others/sandbox/src/main/resources/textures",
@@ -318,8 +334,27 @@
       <option name="project" value="LOCAL" />
       <updated>1728220904018</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Starting on shaders">
+      <option name="closed" value="true" />
+      <created>1728225158707</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1728225158707</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -328,7 +363,8 @@
     <MESSAGE value="Removed RenderHandler.java" />
     <MESSAGE value="Updated render functionality&#10;TODO: implement zoom properly" />
     <MESSAGE value="Commit before shader rework" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit before shader rework" />
+    <MESSAGE value="Starting on shaders" />
+    <option name="LAST_COMMIT_MESSAGE" value="Starting on shaders" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

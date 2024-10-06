@@ -4,11 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.lpc.Game;
-import org.lpc.render.textures.TextureHandler;
 
 
 @Getter @Setter
-@ToString(callSuper = true, includeFieldNames = true, exclude = {"game", "textureHandler", "textureLocation"})
+@ToString(callSuper = true, includeFieldNames = true, exclude = {"game", "textureLocation"})
 public abstract class AbstractTile {
     protected int x, y;
     protected double width;
@@ -17,7 +16,7 @@ public abstract class AbstractTile {
     protected int tileID;
     protected boolean isSolid;
     protected Game game;
-    protected TextureHandler textureHandler;
+    //protected TextureHandler textureHandler;
     protected String textureLocation;
     
     public AbstractTile(int x, int y, double width, double height, int textureID, int tileID, boolean isSolid) {
@@ -29,7 +28,7 @@ public abstract class AbstractTile {
         this.tileID = tileID;
         this.isSolid = isSolid;
         this.game = Game.getInstance();
-        this.textureHandler = game.getTextureHandler();
+        //this.textureHandler = game.getTextureHandler();
         this.textureLocation = "src/main/resources/textures/tile_" + tileID + ".png";
     }
 }

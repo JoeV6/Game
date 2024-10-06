@@ -5,7 +5,11 @@ import lombok.Setter;
 import org.lpc.handler.InputHandler;
 import org.lpc.handler.UpdateHandler;
 import org.lpc.render.Renderer;
-import org.lpc.render.textures.TextureHandler;
+import org.lpc.render.pipeline.ModelLoader;
+import org.lpc.render.pipeline.models.RawModel;
+import org.lpc.render.pipeline.models.TexturedModel;
+import org.lpc.render.pipeline.shaders.StaticShader;
+import org.lpc.render.pipeline.textures.ModelTexture;
 import org.lpc.world.World;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFW;
@@ -37,22 +41,36 @@ public class Game {
 
     private InputHandler inputHandler;
     private UpdateHandler updateHandler;
-    private TextureHandler textureHandler;
+    //private TextureHandler textureHandler;
     private Renderer renderer;
 
     private World world;
 
-    private Game() {
-        window = 0;
-        fullscreen = false;
-    }
+    private ModelLoader modelLoader;
 
-    public static Game getInstance() {
-        if (instance == null) {
-            instance = new Game();
-        }
-        return instance;
-    }
+    float[] vertices = {
+            -0.5f, 0.5f, 0,
+            -0.5f, -0.5f, 0,
+            0.5f, -0.5f, 0,
+            0.5f, 0.5f, 0
+    };
+
+    int[] indices = {
+            0, 1, 3,
+            3, 1, 2
+    };
+
+    float[] textureCoords = {
+            0, 0,
+            0, 1,
+            1, 1,
+            1, 0
+    };
+
+    RawModel model;
+    StaticShader shader;
+    ModelTexture texture;
+    TexturedModel texturedModel;
 
     public void run() {
         System.out.println("LWJGL " + Version.getVersion());
@@ -104,6 +122,7 @@ public class Game {
             previousTime = currentTime;
             lag += elapsedTime;
 
+            renderer.prepare();
             inputHandler.processInput();
             GLFW.glfwPollEvents();
 
@@ -115,8 +134,9 @@ public class Game {
                 lag -= nanosecondsPerUpdate;
             }
 
-            // TODO: maybe add interpolation
-            renderer.renderGame();
+            shader.start();
+            renderer.render(texturedModel);
+            shader.stop();
 
             // Swap buffers and poll for events (input)
             GLFW.glfwSwapBuffers(window);
@@ -124,6 +144,8 @@ public class Game {
     }
 
     private void exitGracefully() {
+        shader.cleanUp();
+
         glfwFreeCallbacks(window);
         glfwDestroyWindow(window);
 
@@ -134,8 +156,15 @@ public class Game {
     private void initClasses() {
         inputHandler = new InputHandler();
         updateHandler = new UpdateHandler();
-        textureHandler = new TextureHandler();
+        //textureHandler = new TextureHandler();
         renderer = new Renderer();
+
+
+        modelLoader = new ModelLoader();
+        model = modelLoader.loadToVAO(vertices, indices, textureCoords);
+        shader = new StaticShader();
+        texture = new ModelTexture(modelLoader.loadTexture("tiles/tile_0"));
+        texturedModel = new TexturedModel(model, texture);
     }
 
     private void setCallBacks(){
@@ -168,6 +197,19 @@ public class Game {
             );
         }
     }
+
+    private Game() {
+        window = 0;
+        fullscreen = false;
+    }
+
+    public static Game getInstance() {
+        if (instance == null) {
+            instance = new Game();
+        }
+        return instance;
+    }
+
     /**
      * Get the current screen size
      * @return int[] containing the width [0] and height [1] of the screen

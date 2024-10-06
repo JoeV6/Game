@@ -1,4 +1,3 @@
-// src/main/java/org/lpc/render/Renderer.java
 package org.lpc.render;
 
 import org.lpc.Game;
@@ -17,27 +16,19 @@ import static org.lwjgl.opengl.GL11C.GL_QUADS;
  * coordinate system for OpenGL is (-1, -1) in the bottom left corner, and (1, 1) in the top right corner.
  * coordinate system for the game is (0, 0) in the top left corner, and (worldwidth, worldheight) in the bottom right corner.
  */
-
 public class Renderer {
     public static final int MIN_TILE_SIZE = 32;
     public static int TILESIZE = 32;
 
-    private final Game game;
     private final TextureHandler textureHandler;
     private final World world;
 
     public Renderer() {
-        game = Game.getInstance();
+        Game game = Game.getInstance();
         textureHandler = game.getTextureHandler();
         world = game.getWorld();
-
-        initTextures();
     }
 
-    public void initTextures() {
-        textureHandler.loadTexture(0, "src/main/resources/textures/tile_0.png");
-        textureHandler.loadTexture(1, "src/main/resources/textures/tile_1.png");
-    }
 
     public void renderGame() {
         clearScreen();

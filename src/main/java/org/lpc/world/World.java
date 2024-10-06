@@ -2,14 +2,15 @@ package org.lpc.world;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.lpc.world.tiles.AbstractTile;
 import org.lpc.world.tiles.FloorTile;
 import org.lpc.world.tiles.WallTile;
 import org.lpc.world.tiles.floor_tiles.GrassTile;
 import org.lpc.world.tiles.wall_tiles.StoneWallTile;
 
-@Getter
-@Setter
+@Getter @Setter
+@ToString(exclude = {"tiles"})
 public class World {
     private AbstractTile[][] tiles;
     private int width, height;
@@ -26,10 +27,8 @@ public class World {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (x == 0 || y == 0 || x == width - 1 || y == height - 1) {
-                    // Wall
                     setTile(x, y, new StoneWallTile(x, y));
                 } else {
-                    // Floor
                     setTile(x, y, new GrassTile(x, y));
                 }
             }

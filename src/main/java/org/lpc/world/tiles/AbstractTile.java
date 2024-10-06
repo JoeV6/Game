@@ -2,24 +2,25 @@ package org.lpc.world.tiles;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.lpc.Game;
-import org.lpc.render.Renderer;
 import org.lpc.render.textures.TextureHandler;
 
-@Getter
-@Setter
+
+@Getter @Setter
+@ToString(callSuper = true, includeFieldNames = true, exclude = {"game", "textureHandler", "textureLocation"})
 public abstract class AbstractTile {
     protected int x, y;
-    protected int width, height;
+    protected double width;
+    protected double height;
     protected int textureID;
     protected int tileID;
     protected boolean isSolid;
     protected Game game;
     protected TextureHandler textureHandler;
     protected String textureLocation;
-
-
-    public AbstractTile(int x, int y, int width, int height, int textureID, int tileID, boolean isSolid) {
+    
+    public AbstractTile(int x, int y, double width, double height, int textureID, int tileID, boolean isSolid) {
         this.x = x;
         this.y = y;
         this.width = width;

@@ -15,10 +15,12 @@ import static org.lwjgl.system.MemoryStack.stackPush;
 @Getter
 public class Texture {
     private final int textureID;
+    private final String filepath;
 
     public Texture(String filepath) {
         stbi_set_flip_vertically_on_load(true);  // Flip the image vertically
         textureID = loadTexture(filepath);
+        this.filepath = filepath;
     }
 
     private int loadTexture(String filepath) {

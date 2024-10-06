@@ -2,20 +2,23 @@ package org.lpc.world;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.lpc.world.tiles.Tile;
-import org.lpc.world.tiles.floor_tiles.FloorTile;
-import org.lpc.world.tiles.wall_tiles.WallTile;
+import org.lpc.world.tiles.AbstractTile;
+import org.lpc.world.tiles.FloorTile;
+import org.lpc.world.tiles.WallTile;
+import org.lpc.world.tiles.floor_tiles.GrassTile;
+import org.lpc.world.tiles.wall_tiles.StoneWallTile;
 
 @Getter
 @Setter
 public class World {
-    private Tile[][] tiles;
+    private AbstractTile[][] tiles;
     private int width, height;
 
     public World(int width, int height) {
         this.width = width;
         this.height = height;
-        this.tiles = new Tile[width][height];
+        this.tiles = new AbstractTile[width][height];
+
         initWorld();
     }
 
@@ -23,24 +26,28 @@ public class World {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (x == 0 || y == 0 || x == width - 1 || y == height - 1) {
-                    tiles[x][y] = new WallTile(x, y, 32, 32, 1);
+                    // Wall
+                    setTile(x, y, new StoneWallTile(x, y));
                 } else {
-                    tiles[x][y] = new FloorTile(x, y, 32, 32, 2, 1.0);
+                    // Floor
+                    setTile(x, y, new GrassTile(x, y));
                 }
             }
         }
     }
 
-    public Tile getTileAt(int x, int y) {
+    public AbstractTile getTileAt(int x, int y) {
         if (x < 0 || y < 0 || x >= width || y >= height) {
             return null;
         }
         return tiles[x][y];
     }
 
-    public void setTile(int x, int y, Tile tile) {
+    public void setTile(int x, int y, AbstractTile tile) {
         if (x >= 0 && y >= 0 && x < width && y < height) {
             tiles[x][y] = tile;
+        } else {
+            System.out.println("Tile out of bounds: " + x + ", " + y);
         }
     }
 }

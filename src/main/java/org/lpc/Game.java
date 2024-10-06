@@ -5,17 +5,17 @@ import lombok.Setter;
 import org.lpc.handler.InputHandler;
 import org.lpc.handler.RenderHandler;
 import org.lpc.handler.UpdateHandler;
+import org.lpc.render.Renderer;
 import org.lpc.render.textures.TextureHandler;
+import org.lpc.world.World;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.IntBuffer;
-import java.util.Objects;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -29,8 +29,8 @@ public class Game {
     private static Game instance = null;
 
 
-    public static final int DEFAULT_WIDTH = 800;
-    public static final int DEFAULT_HEIGHT = 600;
+    public static final int DEFAULT_WIDTH = 1280;
+    public static final int DEFAULT_HEIGHT = 640;
     public static final double UPDATES_PER_SECOND = 60.0;
 
     private long window;
@@ -40,6 +40,8 @@ public class Game {
     private UpdateHandler updateHandler;
     private TextureHandler textureHandler;
     private RenderHandler renderHandler;
+
+    private World world;
 
     private Game() {
         window = 0;
@@ -56,12 +58,13 @@ public class Game {
     public void run() {
         System.out.println("LWJGL " + Version.getVersion());
 
-        init();
-        loop();
+        initGLFW();
+        initGame();
+        initGameLoop();
         exitGracefully();
     }
 
-    private void init() {
+    private void initGLFW() {
         GLFWErrorCallback.createPrint(System.err).set();
 
         // Initialize GLFW. Most GLFW functions will not work before doing this.
@@ -101,7 +104,11 @@ public class Game {
         glfwShowWindow(window);
     }
 
-    private void loop() {
+    private void initGame() {
+        world = new World(DEFAULT_WIDTH / Renderer.TILESIZE, DEFAULT_HEIGHT / Renderer.TILESIZE);
+    }
+
+    private void initGameLoop() {
         GL.createCapabilities();
 
         initHandlers();
@@ -149,6 +156,21 @@ public class Game {
         updateHandler = new UpdateHandler();
         textureHandler = new TextureHandler();
         renderHandler = new RenderHandler();
+    }
+
+    /**
+     * Get the current screen size
+     * @return int[] containing the width [0] and height [1] of the screen
+     */
+    public int[] getCurrentWindowSize() {
+        try (MemoryStack stack = stackPush()) {
+            IntBuffer pWidth = stack.mallocInt(1);
+            IntBuffer pHeight = stack.mallocInt(1);
+
+            glfwGetWindowSize(window, pWidth, pHeight);
+
+            return new int[]{pWidth.get(0), pHeight.get(0)};
+        }
     }
 }
 

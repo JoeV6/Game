@@ -4,146 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hs_err_pid11876.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hs_err_pid17752.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lombok-1.18.28-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lombok-1.18.28.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lombok.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-javadoc.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-javadoc1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-javadoc2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-javadoc3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-javadoc4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-natives-windows.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-natives-windows1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-natives-windows2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-natives-windows3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-natives-windows4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-sources1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-sources2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-sources3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-sources4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-javadoc.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-javadoc1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-javadoc2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-javadoc3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-javadoc4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-natives-windows.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-natives-windows1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-natives-windows2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-natives-windows3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-natives-windows4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-sources1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-sources2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-sources3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-sources4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-javadoc.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-javadoc1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-javadoc2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-javadoc3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-javadoc4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-natives-windows.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-natives-windows1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-natives-windows2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-natives-windows3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-natives-windows4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-javadoc.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-javadoc1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-javadoc2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-javadoc3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-javadoc4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-natives-windows.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-natives-windows1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-natives-windows2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-natives-windows3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-natives-windows4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-sources1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-sources2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-sources3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-sources4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-javadoc.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-javadoc1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-javadoc2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-javadoc3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-javadoc4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-natives-windows.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-natives-windows1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-natives-windows2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-natives-windows3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-natives-windows4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-sources1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-sources2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-sources3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-sources4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-sources1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-sources2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-sources3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-sources4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-javadoc.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-javadoc1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-javadoc2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-javadoc3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-javadoc4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-natives-windows.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-natives-windows1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-natives-windows2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-natives-windows3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-natives-windows4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-sources1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-sources2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-sources3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-sources4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lwjgl4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Test.java" afterDir="false" />
+    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Initial Commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/textures/Texture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/textures/Texture.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/textures/TextureHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/textures/TextureHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -383,10 +249,21 @@
       <option name="presentableId" value="Default" />
       <updated>1728066239369</updated>
     </task>
+    <task id="LOCAL-00001" summary="Initial Commit">
+      <option name="closed" value="true" />
+      <created>1728201267093</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1728201267093</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Initial Commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial Commit" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

@@ -7,10 +7,6 @@ import java.util.Map;
 public class TextureHandler {
     private final Map<Integer, Texture> textures = new HashMap<>();
 
-    public TextureHandler() {
-
-    }
-
     public void loadTexture(int id, String path) {
         textures.put(id, new Texture(path));
     }

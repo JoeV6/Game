@@ -1,3 +1,4 @@
+// src/main/java/org/lpc/render/Renderer.java
 package org.lpc.render;
 
 import org.lpc.Game;
@@ -9,41 +10,38 @@ import static org.lwjgl.opengl.GL11C.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11C.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11C.GL_QUADS;
 
-
 public class Renderer {
     private final Game game;
-    private final long window;
     private final TextureHandler textureHandler;
 
     public Renderer() {
         game = Game.getInstance();
-        window = game.getWindow();
         textureHandler = game.getTextureHandler();
 
         initTextures();
     }
 
     public void initTextures() {
-        textureHandler.loadTexture(textureHandler.nextId(), "src/main/resources/textures/texture_grass_tile.png");
+        textureHandler.loadTexture(0, "src/main/resources/textures/texture_grass_tile.png");
     }
 
     public void renderGame() {
-        clearScreen(); // Ensure the screen is cleared before rendering
+        clearScreen();
 
-        renderTexture(textureHandler.getTexture(0)); // Render the texture
+        renderTexture(textureHandler.getTexture(0), -1, -1, 1, 1);
     }
 
-    private void renderTexture(Texture texture) {
-        texture.bind(); // Ensure the texture is bound before rendering
+    private void renderTexture(Texture texture, float x, float y, float width, float height) {
+        texture.bind();  // Bind the texture
 
+        glEnable(GL_TEXTURE_2D);  // Enable 2D texturing
 
-        glBegin(GL_QUADS); // Begin drawing a quad
-            glTexCoord2f(0, 0); glVertex2f(-0.5f, -0.5f);
-            glTexCoord2f(1, 0); glVertex2f(0.5f, -0.5f);
-            glTexCoord2f(1, 1); glVertex2f(0.5f, 0.5f);
-            glTexCoord2f(0, 1); glVertex2f(-0.5f, 0.5f);
-        glEnd(); // End drawing the quad
-
+        glBegin(GL_QUADS);
+        glTexCoord2f(0, 0); glVertex2f(x, y);
+        glTexCoord2f(1, 0); glVertex2f(x + width, y);
+        glTexCoord2f(1, 1); glVertex2f(x + width, y + height);
+        glTexCoord2f(0, 1); glVertex2f(x, y + height);
+        glEnd();
     }
 
     private void clearScreen() {

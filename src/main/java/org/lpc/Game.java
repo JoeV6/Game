@@ -24,32 +24,26 @@ import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 
+@Getter
 public class Game {
     private static Game instance = null;
 
 
     public static final int DEFAULT_WIDTH = 800;
     public static final int DEFAULT_HEIGHT = 600;
+    public static final double UPDATES_PER_SECOND = 60.0;
 
-    private final double UPDATES_PER_SECOND = 60.0;
-    private final double NANOSEC_PER_UPDATE = 1_000_000_000.0 / UPDATES_PER_SECOND;
+    private long window;
+    @Setter boolean fullscreen;
 
-    @Getter private long window;
-    @Getter @Setter boolean fullscreen;
-
-    private double lastTime;
-    private double deltaTime;
-
-    @Getter private InputHandler inputHandler;
-    @Getter private UpdateHandler updateHandler;
-    @Getter private TextureHandler textureHandler;
-    @Getter private RenderHandler renderHandler;
+    private InputHandler inputHandler;
+    private UpdateHandler updateHandler;
+    private TextureHandler textureHandler;
+    private RenderHandler renderHandler;
 
     private Game() {
         window = 0;
         fullscreen = false;
-        lastTime = 0;
-        deltaTime = 0;
     }
 
     public static Game getInstance() {
@@ -79,7 +73,7 @@ public class Game {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
 
-        window = glfwCreateWindow(800, 500, "Game", NULL, NULL);
+        window = glfwCreateWindow(DEFAULT_WIDTH, DEFAULT_HEIGHT, "Game", NULL, NULL);
         if ( window == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
 
@@ -126,9 +120,11 @@ public class Game {
             inputHandler.processInput();
 
             // Update game logic with fixed time-step
-            while (lag >= NANOSEC_PER_UPDATE) {
+            double nanosecondsPerUpdate = 1_000_000_000.0 / UPDATES_PER_SECOND;
+
+            while (lag >= nanosecondsPerUpdate) {
                 updateHandler.update();
-                lag -= NANOSEC_PER_UPDATE;
+                lag -= nanosecondsPerUpdate;
             }
 
             // Render the frame (optional interpolation)

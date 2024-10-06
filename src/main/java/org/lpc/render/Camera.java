@@ -18,4 +18,8 @@ public class Camera {
         this.x += x;
         this.y += y;
     }
+
+    public void update() {
+
+    }
 }

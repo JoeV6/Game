@@ -56,6 +56,9 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.28'
     annotationProcessor 'org.projectlombok:lombok:1.18.28'
 
+
+    implementation 'org.joml:joml:1.10.5'
+
 }
 
 application {

@@ -4,19 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Updated render functionality&#10;TODO: implement zoom properly">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/Entity.java" afterDir="false" />
+    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Commit before shader rework">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/shaders/ShaderLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/shaders/TileVertex.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/fragment.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/fragment_3d.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/vertex_3d.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/textures/Texture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/textures/Texture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/textures/TextureHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/textures/TextureHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/AbstractTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/AbstractTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/FloorTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/FloorTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/WallTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/WallTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/tile_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/textures/tiles/tile_0.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/tile_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/textures/tiles/tile_1.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,30 +104,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Gradle.sandbox [:org.lpc.Main.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.sandbox [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.sandbox [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.sandbox [run].executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/DesktopStorage/Intellij_Projects/Others/sandbox/src/main/resources/textures&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.customizations&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Gradle.sandbox [:org.lpc.Main.main()].executor": "Debug",
+    "Gradle.sandbox [build].executor": "Run",
+    "Gradle.sandbox [clean].executor": "Run",
+    "Gradle.sandbox [run].executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/DesktopStorage/Intellij_Projects/Others/sandbox/src/main/resources/textures",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.customizations"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="org.lpc.render.textures" />
@@ -310,7 +310,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728215373011</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Commit before shader rework">
+      <option name="closed" value="true" />
+      <created>1728220904018</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1728220904018</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -319,7 +327,8 @@
     <MESSAGE value="Rendering Fixed&#10;TODO: convert coordinates properly" />
     <MESSAGE value="Removed RenderHandler.java" />
     <MESSAGE value="Updated render functionality&#10;TODO: implement zoom properly" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated render functionality&#10;TODO: implement zoom properly" />
+    <MESSAGE value="Commit before shader rework" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit before shader rework" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
@@ -331,6 +340,8 @@
     <watches-manager>
       <configuration name="GradleRunConfiguration">
         <watch expression="((RenderHandler)((Game)this).renderHandler).renderer" language="JAVA" custom="org.lpc.Game,org.lpc.handler.RenderHandler" />
+        <watch expression="vertexBuffer" />
+        <watch expression="vertexBuffer" />
       </configuration>
     </watches-manager>
   </component>

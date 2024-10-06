@@ -51,32 +51,15 @@ public class InputHandler {
         float y = mouseY;
 
         if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT && action == GLFW.GLFW_PRESS) {
-            System.out.println("Mouse left click at: " + x + ", " + y);
-            World world = main.getWorld();
-            int[] tileCoordinates = Renderer.convertMouseToTileCoordinates(x, y);
-
-            if (tileCoordinates != null) {
-                world.setTile(tileCoordinates[0], tileCoordinates[1], new StoneWallTile(tileCoordinates[0], tileCoordinates[1]));
-            }
+            System.out.println("Mouse input: " + x + ", " + y);
         }
         if(button == GLFW.GLFW_MOUSE_BUTTON_RIGHT && action == GLFW.GLFW_PRESS) {
-            System.out.println("Mouse right click at: " + x + ", " + y);
-            World world = main.getWorld();
-            int[] tileCoordinates = Renderer.convertMouseToTileCoordinates(x, y);
-
-            if (tileCoordinates != null) {
-                world.setTile(tileCoordinates[0], tileCoordinates[1], new GrassTile(tileCoordinates[0], tileCoordinates[1]));
-            }
+            System.out.println("Mouse input: " + x + ", " + y);
         }
     }
 
     public void scrollInput(double xoffset, double yoffset) {
         System.out.println("Scroll input: " + xoffset + ", " + yoffset);
-
-        if (Renderer.TILESIZE + (int) (yoffset * scrollVelocity * 20) < Renderer.MIN_TILE_SIZE) {
-            return;
-        }
-        Renderer.TILESIZE += (int) (yoffset * scrollVelocity * 20);
     }
 
     public void keyInput(int key, int scancode, int action, int mods) {

@@ -19,7 +19,8 @@ import static org.lwjgl.opengl.GL11C.GL_QUADS;
  */
 
 public class Renderer {
-    public static final int TILESIZE = 32;
+    public static final int MIN_TILE_SIZE = 32;
+    public static int TILESIZE = 32;
 
     private final Game game;
     private final TextureHandler textureHandler;
@@ -62,7 +63,7 @@ public class Renderer {
     }
 
     private void clearScreen() {
-        glClearColor(0.1f, 0.2f, 0.5f, 1.0f);
+        glClearColor(0.10f, 0.12f, 0.15f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
@@ -84,38 +85,80 @@ public class Renderer {
      * @param tile The tile to convert.
      * @return A float array containing the x, y, width, and height in OpenGL coordinates.
      */
-    private float[] convertToOpenglCoordinates(AbstractTile tile) {
-        int windowWidth = game.getCurrentWindowSize()[0];  // Total screen width in pixels
-        int windowHeight = game.getCurrentWindowSize()[1]; // Total screen height in pixels
+    public static float[] convertToOpenglCoordinates(AbstractTile tile) {
+        Game game = Game.getInstance();
+        World world = game.getWorld();
 
-        // Calculate the number of tiles horizontally and vertically based on the world dimensions
+        int windowWidth = game.getCurrentWindowSize()[0];
+        int windowHeight = game.getCurrentWindowSize()[1];
+
         int numTilesX = world.getWidth();
         int numTilesY = world.getHeight();
 
-        // Fixed tile size in pixels
-        float pixelWidth = TILESIZE;  // Each tile is always 32 pixels wide
-        float pixelHeight = TILESIZE; // Each tile is always 32 pixels tall
+        float pixelWidth = TILESIZE;
+        float pixelHeight = TILESIZE;
 
-        // Calculate the pixel coordinates of the tile
-        float pixelX = tile.getX() * TILESIZE; // X position
-        float pixelY = tile.getY() * TILESIZE; // Y position
+        float pixelX = tile.getX() * TILESIZE;
+        float pixelY = tile.getY() * TILESIZE;
 
-        // Check if the tile is completely within the window bounds
+
         if (pixelX + pixelWidth < 0 || pixelX > windowWidth ||
                 pixelY + pixelHeight < 0 || pixelY > windowHeight) {
             // Tile is out of window bounds, don't render it
             return null; // Return null to indicate the tile should not be rendered
         }
 
-        // Calculate the normalized device coordinates (NDC) of the tile
-        float ndcX = (2 * pixelX) / windowWidth - 1; // X NDC
-        float ndcY = 1 - (2 * pixelY) / windowHeight; // Y NDC
+        float ndcX = (2 * pixelX) / windowWidth - 1;
+        float ndcY = 1 - (2 * pixelY) / windowHeight;
 
-        // convert 32 pixels to NDC
-        float ndcWidth = (2 * pixelWidth) / windowWidth; // Width NDC
-        float ndcHeight = (2 * pixelHeight) / windowHeight; // Height NDC
 
-        return new float[]{ndcX, ndcY, ndcWidth, ndcHeight}; // Return NDC values
+        float ndcWidth = (2 * pixelWidth) / windowWidth;
+        float ndcHeight = (2 * pixelHeight) / windowHeight;
+
+        if (numTilesX * TILESIZE < windowWidth) {
+            float diff = (float) (windowWidth - numTilesX * TILESIZE) / windowWidth;
+            ndcX += diff;
+        }
+        if (numTilesY * TILESIZE < windowHeight) {
+            float diff = (float) (windowHeight - numTilesY * TILESIZE) / windowHeight;
+            ndcY -= diff;
+        }
+
+        return new float[]{ndcX, ndcY, ndcWidth, ndcHeight};
+    }
+
+    /**
+     * Converts the mouse coordinates to tile coordinates.
+     * @param mouseX The x-coordinate of the mouse.
+     * @param mouseY The y-coordinate of the mouse.
+     * @return An integer array containing the x and y tile coordinates
+     *         or null if the mouse is outside the map bounds.
+     */
+    public static int[] convertMouseToTileCoordinates(float mouseX, float mouseY) {
+        Game game = Game.getInstance();
+        World world = game.getWorld();
+
+        int windowWidth = game.getCurrentWindowSize()[0];
+        int windowHeight = game.getCurrentWindowSize()[1];
+
+        int numTilesX = world.getWidth();
+        int numTilesY = world.getHeight();
+
+        int mapWidth = numTilesX * TILESIZE;
+        int mapHeight = numTilesY * TILESIZE;
+
+
+        if (mouseX < (float) (windowWidth - mapWidth) / 2 || mouseX > (float) (windowWidth + mapWidth) / 2 ||
+                mouseY < (float) (windowHeight - mapHeight) / 2 || mouseY > (float) (windowHeight + mapHeight) / 2) {
+            // Mouse is outside the map bounds, return null
+            return null;
+        }
+
+        int tileX = (int) ((mouseX - (float) (windowWidth - mapWidth) / 2) / TILESIZE);
+        int tileY = (int) ((mouseY - (float) (windowHeight - mapHeight) / 2) / TILESIZE);
+
+
+        return new int[]{tileX, tileY};
     }
 }
 

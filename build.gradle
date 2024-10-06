@@ -1,0 +1,68 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    //mavenCentral()
+}
+
+dependencies {
+    /*
+    implementation platform("org.lwjgl:lwjgl-bom:3.2.3")
+
+    implementation "org.lwjgl:lwjgl"
+    implementation "org.lwjgl:lwjgl-assimp"
+    implementation "org.lwjgl:lwjgl-glfw"
+    implementation "org.lwjgl:lwjgl-openal"
+    implementation "org.lwjgl:lwjgl-opengl"
+    implementation "org.lwjgl:lwjgl-stb"
+    runtimeOnly "org.lwjgl:lwjgl::natives-windows"
+    runtimeOnly "org.lwjgl:lwjgl-assimp::natives-windows"
+    runtimeOnly "org.lwjgl:lwjgl-glfw::natives-windows"
+    runtimeOnly "org.lwjgl:lwjgl-openal::natives-windows"
+    runtimeOnly "org.lwjgl:lwjgl-opengl::natives-windows"
+    runtimeOnly "org.lwjgl:lwjgl-stb::natives-windows"
+
+    // Lombok
+    implementation 'org.projectlombok:lombok:1.18.28'
+    implementation 'org.projectlombok:lombok:1.18.28'
+    implementation 'org.projectlombok:lombok:1.18.28'
+    implementation 'org.projectlombok:lombok:1.18.28'
+
+
+    compileOnly 'org.projectlombok:lombok:1.18.28'
+    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.28'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.28'
+    */
+
+    // Use implementation instead of compile
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation platform("org.lwjgl:lwjgl-bom:3.2.3")
+    implementation "org.lwjgl:lwjgl"
+    implementation "org.lwjgl:lwjgl-glfw"
+    implementation "org.lwjgl:lwjgl-opengl"
+    implementation "org.lwjgl:lwjgl-stb"
+
+    runtimeOnly "org.lwjgl:lwjgl::natives-windows"
+    runtimeOnly "org.lwjgl:lwjgl-glfw::natives-windows"
+    runtimeOnly "org.lwjgl:lwjgl-opengl::natives-windows"
+    runtimeOnly "org.lwjgl:lwjgl-stb::natives-windows"
+
+    implementation 'org.projectlombok:lombok:1.18.28'
+    compileOnly 'org.projectlombok:lombok:1.18.28'
+    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+
+}
+
+application {
+    mainClass = "org.lpc.Main"
+    applicationDefaultJvmArgs = ["-Djava.library.path=libs/natives"]
+}
+
+repositories {
+    mavenCentral()
+}

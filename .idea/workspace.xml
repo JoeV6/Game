@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hs_err_pid11876.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hs_err_pid17752.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lombok-1.18.28-sources.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lombok-1.18.28.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lombok.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-javadoc.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-javadoc1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-javadoc2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-javadoc3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-javadoc4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-natives-windows.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-natives-windows1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-natives-windows2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-natives-windows3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-natives-windows4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-sources.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-sources1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-sources2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-sources3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp-sources4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-assimp4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-javadoc.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-javadoc1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-javadoc2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-javadoc3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-javadoc4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-natives-windows.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-natives-windows1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-natives-windows2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-natives-windows3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-natives-windows4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-sources.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-sources1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-sources2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-sources3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw-sources4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-glfw4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-javadoc.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-javadoc1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-javadoc2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-javadoc3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-javadoc4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-natives-windows.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-natives-windows1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-natives-windows2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-natives-windows3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-natives-windows4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-javadoc.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-javadoc1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-javadoc2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-javadoc3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-javadoc4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-natives-windows.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-natives-windows1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-natives-windows2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-natives-windows3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-natives-windows4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-sources.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-sources1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-sources2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-sources3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal-sources4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-openal4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-javadoc.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-javadoc1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-javadoc2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-javadoc3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-javadoc4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-natives-windows.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-natives-windows1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-natives-windows2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-natives-windows3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-natives-windows4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-sources.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-sources1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-sources2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-sources3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl-sources4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-opengl4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-sources.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-sources1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-sources2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-sources3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-sources4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-javadoc.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-javadoc1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-javadoc2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-javadoc3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-javadoc4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-natives-windows.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-natives-windows1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-natives-windows2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-natives-windows3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-natives-windows4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-sources.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-sources1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-sources2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-sources3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb-sources4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl-stb4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lwjgl4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Test.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="sandbox" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="sandbox" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="sandbox" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="application" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="sandbox" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="uz13l7w3" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2mz4n4Ctvz4rVpi4btNstyqKXXD" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Gradle.sandbox [:org.lpc.Main.main()].executor": "Run",
+    "Gradle.sandbox [build].executor": "Run",
+    "Gradle.sandbox [clean].executor": "Run",
+    "Gradle.sandbox [run].executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/DesktopStorage/lwjgl-release-3.2.3-custom",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.annotationProcessors"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.lpc.render.textures" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src" />
+      <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src\main\resources\textures" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.sandbox [run]">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.lpc.Main" />
+      <module name="sandbox.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.lpc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="sandbox [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="sandbox [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="sandbox [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dependencies" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="sandbox [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="run" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Gradle.sandbox [build]" />
+      <item itemvalue="Gradle.sandbox [clean]" />
+      <item itemvalue="Gradle.sandbox [dependencies]" />
+      <item itemvalue="Gradle.sandbox [run]" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.sandbox [run]" />
+        <item itemvalue="Gradle.sandbox [build]" />
+        <item itemvalue="Gradle.sandbox [clean]" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Gradle.sandbox [dependencies]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="" />
+      <created>1728066239369</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1728066239369</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="org.lpc.render.Renderer" memberName="game" />
+        <PinnedItemInfo parentTag="org.lpc.Game" memberName="deltaTime" />
+      </pinned-members>
+    </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="GradleRunConfiguration">
+        <watch expression="((RenderHandler)((Game)this).renderHandler).renderer" custom="org.lpc.Game,org.lpc.handler.RenderHandler" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

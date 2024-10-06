@@ -3,7 +3,6 @@ package org.lpc;
 import lombok.Getter;
 import lombok.Setter;
 import org.lpc.handler.InputHandler;
-import org.lpc.handler.RenderHandler;
 import org.lpc.handler.UpdateHandler;
 import org.lpc.render.Renderer;
 import org.lpc.render.textures.TextureHandler;
@@ -28,18 +27,18 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 public class Game {
     private static Game instance = null;
 
-
     public static final int DEFAULT_WIDTH = 1280;
     public static final int DEFAULT_HEIGHT = 640;
     public static final double UPDATES_PER_SECOND = 60.0;
 
     private long window;
     @Setter boolean fullscreen;
+    private float mouseX, mouseY;
 
     private InputHandler inputHandler;
     private UpdateHandler updateHandler;
     private TextureHandler textureHandler;
-    private RenderHandler renderHandler;
+    private Renderer renderer;
 
     private World world;
 
@@ -102,6 +101,23 @@ public class Game {
         glfwMakeContextCurrent(window);
         glfwSwapInterval(1);
         glfwShowWindow(window);
+
+        // Set the mouse position callback
+        glfwSetCursorPosCallback(window, (window, xpos, ypos) -> {
+            mouseX = (float) xpos;
+            mouseY = (float) ypos;
+        });
+        // Set the mouse button callback
+        glfwSetMouseButtonCallback(window, (window, button, action, mods) -> {
+            if (button == GLFW_MOUSE_BUTTON_1 && action == GLFW_PRESS) {
+                inputHandler.mouseInput(GLFW_MOUSE_BUTTON_1, GLFW_PRESS, mouseX, mouseY);
+            }
+        });
+        // Set key input callback
+        glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
+            inputHandler.keyInput(key, scancode, action, mods);
+        });
+
     }
 
     private void initGame() {
@@ -111,7 +127,7 @@ public class Game {
     private void initGameLoop() {
         GL.createCapabilities();
 
-        initHandlers();
+        initClasses();
 
         glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 
@@ -135,7 +151,7 @@ public class Game {
             }
 
             // Render the frame (optional interpolation)
-            renderHandler.render();
+            renderer.renderGame();
 
             // Swap buffers and poll for events (input)
             GLFW.glfwSwapBuffers(window);
@@ -151,11 +167,11 @@ public class Game {
         glfwSetErrorCallback(null).free();
     }
 
-    private void initHandlers() {
+    private void initClasses() {
         inputHandler = new InputHandler();
         updateHandler = new UpdateHandler();
         textureHandler = new TextureHandler();
-        renderHandler = new RenderHandler();
+        renderer = new Renderer();
     }
 
     /**

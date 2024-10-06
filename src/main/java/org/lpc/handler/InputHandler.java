@@ -1,6 +1,9 @@
 package org.lpc.handler;
 
 import org.lpc.Game;
+import org.lpc.world.World;
+import org.lpc.world.tiles.FloorTile;
+import org.lpc.world.tiles.wall_tiles.StoneWallTile;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;
 
@@ -11,10 +14,6 @@ public class InputHandler {
     private final Game main;
     private final long window;
 
-    private boolean
-            wasEscPressed,
-            wasF11Pressed = false;
-
     public InputHandler() {
         System.out.println(Game.getInstance());
         this.main = Game.getInstance();
@@ -22,17 +21,7 @@ public class InputHandler {
     }
 
     public void processInput() {
-        boolean escPressed = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_ESCAPE) == GLFW.GLFW_PRESS;
-        if (escPressed && !wasEscPressed) {
-            GLFW.glfwSetWindowShouldClose(window, true);
-        }
-        wasEscPressed = escPressed;
 
-        boolean f11Pressed = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_F11) == GLFW.GLFW_PRESS;
-        if (f11Pressed && !wasF11Pressed) {
-            toggleFullscreen();
-        }
-        wasF11Pressed = f11Pressed;
     }
 
     private void toggleFullscreen() {
@@ -47,6 +36,25 @@ public class InputHandler {
         }
 
         main.setFullscreen(!main.isFullscreen());
+    }
+
+    public void mouseInput(int button, int action, float x, float y) {
+        if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT && action == GLFW.GLFW_PRESS) {
+            System.out.println("Mouse left click at: " + x + ", " + y);
+            World world = main.getWorld();
+            int tileX = (int) (x / 32);
+            int tileY = (int) (y / 32);
+            world.setTile(tileX, tileY, new StoneWallTile(tileX, tileY));
+        }
+    }
+
+    public void keyInput(int key, int scancode, int action, int mods) {
+        if(key == GLFW.GLFW_KEY_ESCAPE && action == GLFW.GLFW_PRESS) {
+            GLFW.glfwSetWindowShouldClose(window, true);
+        }
+        if(key == GLFW.GLFW_KEY_F11 && action == GLFW.GLFW_PRESS) {
+            toggleFullscreen();
+        }
     }
 
 }

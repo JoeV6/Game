@@ -4,19 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Initial Commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/AbstractTile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/textures/tile_1.png" afterDir="false" />
+    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Rendering Fixed&#10;TODO: convert coordinates properly">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/Tile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/floor_tiles/FloorTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/FloorTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/floor_tiles/GrassTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/floor_tiles/GrassTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/wall_tiles/StoneWallTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/wall_tiles/StoneWallTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/wall_tiles/WallTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/WallTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/texture_grass_tile.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/textures/tile_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/RenderHandler.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -285,13 +279,22 @@
       <option name="project" value="LOCAL" />
       <updated>1728202220498</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Rendering Fixed&#10;TODO: convert coordinates properly">
+      <option name="closed" value="true" />
+      <created>1728207178638</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1728207178638</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Initial Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial Commit" />
+    <MESSAGE value="Rendering Fixed&#10;TODO: convert coordinates properly" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rendering Fixed&#10;TODO: convert coordinates properly" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

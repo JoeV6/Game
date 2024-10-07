@@ -4,21 +4,23 @@ import lombok.Getter;
 import lombok.Setter;
 import org.lpc.handler.InputHandler;
 import org.lpc.handler.UpdateHandler;
+import org.lpc.render.Camera;
 import org.lpc.render.Renderer;
 import org.lpc.render.pipeline.ModelLoader;
-import org.lpc.render.pipeline.models.RawModel;
-import org.lpc.render.pipeline.models.TexturedModel;
+import org.lpc.render.pipeline.models.FullModel;
 import org.lpc.render.pipeline.shaders.StaticShader;
-import org.lpc.render.pipeline.textures.ModelTexture;
 import org.lpc.world.World;
+import org.lpc.world.block.AbstractBlock;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
@@ -32,7 +34,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 public class Game {
     private static Game instance = null;
 
-    public static final int DEFAULT_WIDTH = 720;
+    public static final int DEFAULT_WIDTH = 1080;
     public static final int DEFAULT_HEIGHT = 720;
     public static final double UPDATES_PER_SECOND = 60.0;
 
@@ -41,48 +43,22 @@ public class Game {
 
     private InputHandler inputHandler;
     private UpdateHandler updateHandler;
-    //private TextureHandler textureHandler;
     private Renderer renderer;
 
     private World world;
 
+    private StaticShader shader;
+    private Camera camera;
     private ModelLoader modelLoader;
 
-    float[] vertices = {
-            -0.5f, 0.5f, 0,
-            -0.5f, -0.5f, 0,
-            0.5f, -0.5f, 0,
-            0.5f, 0.5f, 0
-    };
-
-    int[] indices = {
-            0, 1, 3,
-            3, 1, 2
-    };
-
-    float[] textureCoords = {
-            0, 0,
-            0, 1,
-            1, 1,
-            1, 0
-    };
-
-    RawModel model;
-    StaticShader shader;
-    ModelTexture texture;
-    TexturedModel texturedModel;
+    private final ArrayList<FullModel> renderModels = new ArrayList<>();
 
     public void run() {
         System.out.println("LWJGL " + Version.getVersion());
 
         initGLFW();
-        initGame();
         initGameLoop();
         exitGracefully();
-    }
-
-    private void initGame() {
-        world = new World(20, 20);
     }
 
     private void initGLFW() {
@@ -103,7 +79,6 @@ public class Game {
 
         glfwMakeContextCurrent(window);
         glfwSwapInterval(1);
-        glfwShowWindow(window);
         centerWindow(window);
         setCallBacks();
     }
@@ -112,6 +87,8 @@ public class Game {
         GL.createCapabilities();
 
         initClasses();
+
+        glfwShowWindow(window);
 
         double previousTime = System.nanoTime();
         double lag = 0.0;
@@ -124,6 +101,7 @@ public class Game {
 
             renderer.prepare();
             inputHandler.processInput();
+
             GLFW.glfwPollEvents();
 
             // Update game logic with fixed time-step
@@ -135,7 +113,9 @@ public class Game {
             }
 
             shader.start();
-            renderer.render(texturedModel);
+            for (FullModel fullModel : renderModels) {
+                renderer.render(fullModel, shader);
+            }
             shader.stop();
 
             // Swap buffers and poll for events (input)
@@ -154,17 +134,27 @@ public class Game {
     }
 
     private void initClasses() {
+        modelLoader = new ModelLoader();
+        shader = new StaticShader();
+        camera = new Camera();
+        renderer = new Renderer(shader, camera);
+
+        world = new World(20, 20, 20);
+
+
+        for(AbstractBlock[][] block : world.getBlocks()) {
+            for(AbstractBlock[] block1 : block) {
+                for(AbstractBlock block2 : block1) {
+                    if (block2 == null) {
+                        continue;
+                    }
+                    renderModels.add(block2.getCubeModel().getModel());
+                }
+            }
+        }
+
         inputHandler = new InputHandler();
         updateHandler = new UpdateHandler();
-        //textureHandler = new TextureHandler();
-        renderer = new Renderer();
-
-
-        modelLoader = new ModelLoader();
-        model = modelLoader.loadToVAO(vertices, indices, textureCoords);
-        shader = new StaticShader();
-        texture = new ModelTexture(modelLoader.loadTexture("tiles/tile_0"));
-        texturedModel = new TexturedModel(model, texture);
     }
 
     private void setCallBacks(){
@@ -183,6 +173,29 @@ public class Game {
         });
         glfwSetFramebufferSizeCallback(window, (window, width, height) -> {
             glViewport(0, 0, width, height);
+        });
+
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        glfwSetCursorPosCallback(window, new GLFWCursorPosCallback() {
+            private double lastX = 0, lastY = 0;
+            private boolean firstMouse = true; // ignore the initial jump
+
+            @Override
+            public void invoke(long window, double xpos, double ypos) {
+                if (firstMouse) { // Initially set the lastX, lastY to the first cursor position
+                    lastX = xpos;
+                    lastY = ypos;
+                    firstMouse = false;
+                }
+
+                float xOffset = (float) (xpos - lastX);
+                float yOffset = (float) (ypos - lastY);
+
+                lastX = xpos;
+                lastY = ypos;
+
+                inputHandler.mouseMovement(xOffset, yOffset);
+            }
         });
     }
 

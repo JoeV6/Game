@@ -3,50 +3,28 @@ package org.lpc.world;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.lpc.world.tiles.AbstractTile;
-import org.lpc.world.tiles.FloorTile;
-import org.lpc.world.tiles.WallTile;
-import org.lpc.world.tiles.floor_tiles.GrassTile;
-import org.lpc.world.tiles.wall_tiles.StoneWallTile;
+import org.lpc.world.block.AbstractBlock;
+import org.lpc.world.block.blocks.GrassBlock;
 
 @Getter @Setter
-@ToString(exclude = {"tiles"})
 public class World {
-    private AbstractTile[][] tiles;
-    private int width, height;
+    AbstractBlock[][][] blocks;
 
-    public World(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.tiles = new AbstractTile[width][height];
-
-        initWorld();
-    }
-
-    private void initWorld() {
+    public World(int width, int height, int depth) {
+        blocks = new AbstractBlock[width][height][depth];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                if (x == 0 || y == 0 || x == width - 1 || y == height - 1) {
-                    setTile(x, y, new StoneWallTile(x, y));
-                } else {
-                    setTile(x, y, new GrassTile(x, y));
+                for (int z = 0; z < depth; z++) {
+                    if (y==0 || x==0 || z==0) {
+                        blocks[x][y][z] = new GrassBlock(x, y, z);
+                        System.out.println("Block at " + x + ", " + y + ", " + z + " is a grass block");
+                    }
                 }
             }
         }
     }
 
-    public AbstractTile getTileAt(int x, int y) {
-        if (x < 0 || y < 0 || x >= width || y >= height) {
-            return null;
-        }
-        return tiles[x][y];
-    }
-
-    public void setTile(int x, int y, AbstractTile tile) {
-        if (x >= 0 && y >= 0 && x < width && y < height) {
-            tiles[x][y] = tile;
-        } else {
-            System.out.println("Tile out of bounds: " + x + ", " + y);
-        }
+    public AbstractBlock getBlock(int x, int y, int z) {
+        return blocks[x][y][z];
     }
 }

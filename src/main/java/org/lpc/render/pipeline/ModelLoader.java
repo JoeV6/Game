@@ -16,9 +16,9 @@ import static org.lwjgl.opengl.GL30C.glBindVertexArray;
 import static org.lwjgl.opengl.GL30C.glGenVertexArrays;
 
 public class ModelLoader {
-    private List<Integer> vaos = new ArrayList<>();
-    private List<Integer> vbos = new ArrayList<>();
-    private List<Integer> textures = new ArrayList<>();
+    private final List<Integer> vaos = new ArrayList<>();
+    private final List<Integer> vbos = new ArrayList<>();
+    private final List<Integer> textures = new ArrayList<>();
 
     public RawModel loadToVAO(float[] positions, int[] indices, float[] textureCoords) {
         int vaoID = createVAO();
@@ -30,8 +30,7 @@ public class ModelLoader {
     }
 
     public int loadTexture(String fileName){
-        Texture texture = null;
-        texture = TextureLoader.getTexture("src/main/resources/textures/" + fileName + ".png");
+        Texture texture = TextureLoader.getTexture("src/main/resources/textures/" + fileName + ".png");
         textures.add(texture.getTextureID());
         return texture.getTextureID();
     }

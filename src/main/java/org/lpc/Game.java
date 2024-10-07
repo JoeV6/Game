@@ -2,10 +2,13 @@ package org.lpc;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.joml.Vector3f;
 import org.lpc.handler.InputHandler;
 import org.lpc.handler.UpdateHandler;
+import org.lpc.render.Camera;
 import org.lpc.render.Renderer;
 import org.lpc.render.pipeline.ModelLoader;
+import org.lpc.render.pipeline.entities.Entity;
 import org.lpc.render.pipeline.models.RawModel;
 import org.lpc.render.pipeline.models.TexturedModel;
 import org.lpc.render.pipeline.shaders.StaticShader;
@@ -49,28 +52,93 @@ public class Game {
     private ModelLoader modelLoader;
 
     float[] vertices = {
-            -0.5f, 0.5f, 0,
-            -0.5f, -0.5f, 0,
-            0.5f, -0.5f, 0,
-            0.5f, 0.5f, 0
-    };
+            -0.5f,0.5f,-0.5f,
+            -0.5f,-0.5f,-0.5f,
+            0.5f,-0.5f,-0.5f,
+            0.5f,0.5f,-0.5f,
 
-    int[] indices = {
-            0, 1, 3,
-            3, 1, 2
+            -0.5f,0.5f,0.5f,
+            -0.5f,-0.5f,0.5f,
+            0.5f,-0.5f,0.5f,
+            0.5f,0.5f,0.5f,
+
+            0.5f,0.5f,-0.5f,
+            0.5f,-0.5f,-0.5f,
+            0.5f,-0.5f,0.5f,
+            0.5f,0.5f,0.5f,
+
+            -0.5f,0.5f,-0.5f,
+            -0.5f,-0.5f,-0.5f,
+            -0.5f,-0.5f,0.5f,
+            -0.5f,0.5f,0.5f,
+
+            -0.5f,0.5f,0.5f,
+            -0.5f,0.5f,-0.5f,
+            0.5f,0.5f,-0.5f,
+            0.5f,0.5f,0.5f,
+
+            -0.5f,-0.5f,0.5f,
+            -0.5f,-0.5f,-0.5f,
+            0.5f,-0.5f,-0.5f,
+            0.5f,-0.5f,0.5f
+
     };
 
     float[] textureCoords = {
-            0, 0,
-            0, 1,
-            1, 1,
-            1, 0
+
+            0,0,
+            0,1,
+            1,1,
+            1,0,
+            0,0,
+            0,1,
+            1,1,
+            1,0,
+            0,0,
+            0,1,
+            1,1,
+            1,0,
+            0,0,
+            0,1,
+            1,1,
+            1,0,
+            0,0,
+            0,1,
+            1,1,
+            1,0,
+            0,0,
+            0,1,
+            1,1,
+            1,0
+
+
+
     };
+
+    int[] indices = {
+            0,1,3,
+            3,1,2,
+            4,5,7,
+            7,5,6,
+            8,9,11,
+            11,9,10,
+            12,13,15,
+            15,13,14,
+            16,17,19,
+            19,17,18,
+            20,21,23,
+            23,21,22
+
+
+    };
+
 
     RawModel model;
     StaticShader shader;
     ModelTexture texture;
     TexturedModel texturedModel;
+    Entity entity;
+    Camera camera;
 
     public void run() {
         System.out.println("LWJGL " + Version.getVersion());
@@ -124,6 +192,10 @@ public class Game {
 
             renderer.prepare();
             inputHandler.processInput();
+
+            entity.increaseRotation(0, 0, 0);
+            entity.increasePosition(0, 0, 0);
+
             GLFW.glfwPollEvents();
 
             // Update game logic with fixed time-step
@@ -135,7 +207,7 @@ public class Game {
             }
 
             shader.start();
-            renderer.render(texturedModel);
+            renderer.render(entity, shader);
             shader.stop();
 
             // Swap buffers and poll for events (input)
@@ -154,17 +226,21 @@ public class Game {
     }
 
     private void initClasses() {
-        inputHandler = new InputHandler();
-        updateHandler = new UpdateHandler();
         //textureHandler = new TextureHandler();
-        renderer = new Renderer();
-
 
         modelLoader = new ModelLoader();
         model = modelLoader.loadToVAO(vertices, indices, textureCoords);
         shader = new StaticShader();
+        camera = new Camera();
+
+        renderer = new Renderer(shader, camera);
+
         texture = new ModelTexture(modelLoader.loadTexture("tiles/tile_0"));
         texturedModel = new TexturedModel(model, texture);
+        entity = new Entity(texturedModel, new Vector3f(0, 0, -1), 0, 0, 0, 1);
+
+        inputHandler = new InputHandler();
+        updateHandler = new UpdateHandler();
     }
 
     private void setCallBacks(){

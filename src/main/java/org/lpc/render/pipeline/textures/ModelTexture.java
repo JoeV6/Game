@@ -5,7 +5,6 @@ import lombok.Setter;
 
 @Getter @Setter
 public class ModelTexture {
-
     private int textureID;
 
     public ModelTexture(int textureID) {

@@ -3,6 +3,8 @@ package org.lpc.render;
 import lombok.Getter;
 import lombok.Setter;
 import org.joml.Vector3f;
+import org.lpc.world.World;
+import org.lpc.world.block.AbstractBlock;
 
 @Getter @Setter
 public class Camera {
@@ -35,4 +37,6 @@ public class Camera {
         pitch += dpitch;
         roll += droll;
     }
+
+
 }

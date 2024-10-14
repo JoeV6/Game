@@ -11,6 +11,7 @@ import org.lpc.render.pipeline.models.FullModel;
 import org.lpc.render.pipeline.shaders.StaticShader;
 import org.lpc.world.World;
 import org.lpc.world.block.AbstractBlock;
+import org.lpc.world.chunk.Chunk;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
@@ -36,7 +37,7 @@ public class Game {
 
     public static final int DEFAULT_WIDTH = 1080;
     public static final int DEFAULT_HEIGHT = 720;
-    public static final double UPDATES_PER_SECOND = 60.0;
+    public static final double UPDATES_PER_SECOND = 20.0;
 
     private long window;
     @Setter boolean fullscreen;
@@ -89,6 +90,7 @@ public class Game {
         initClasses();
 
         glfwShowWindow(window);
+        glfwFocusWindow(window);
 
         double previousTime = System.nanoTime();
         double lag = 0.0;
@@ -128,7 +130,6 @@ public class Game {
 
         glfwFreeCallbacks(window);
         glfwDestroyWindow(window);
-
         glfwTerminate();
         Objects.requireNonNull(glfwSetErrorCallback(null)).free();
     }
@@ -139,19 +140,7 @@ public class Game {
         camera = new Camera();
         renderer = new Renderer(shader, camera);
 
-        world = new World(20, 20, 20);
-
-
-        for(AbstractBlock[][] block : world.getBlocks()) {
-            for(AbstractBlock[] block1 : block) {
-                for(AbstractBlock block2 : block1) {
-                    if (block2 == null) {
-                        continue;
-                    }
-                    renderModels.add(block2.getCubeModel().getModel());
-                }
-            }
-        }
+        world = new World();
 
         inputHandler = new InputHandler();
         updateHandler = new UpdateHandler();

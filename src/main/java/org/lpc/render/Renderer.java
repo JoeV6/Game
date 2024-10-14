@@ -50,6 +50,7 @@ public class Renderer {
 
     public void render(FullModel fullModel, StaticShader shader) {
         RawModel rawModel = fullModel.getModel().getRawModel();
+
         GL30C.glBindVertexArray(rawModel.getVaoID());
         GL20C.glEnableVertexAttribArray(0);
         GL20C.glEnableVertexAttribArray(1);

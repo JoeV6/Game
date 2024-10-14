@@ -4,30 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Rendering cube with shaders">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/AbstractBlock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/GrassBlock.java" afterDir="false" />
+    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Rendering world properly">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/chunk/Chunk.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/UpdateHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/UpdateHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/ModelLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/ModelLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/TexturedModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/TexturedModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/premade/Cube.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/premade/CubeModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/shaders/ShaderProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/shaders/ShaderProgram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/ModelTexture.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/Texture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/Texture.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/FullModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/FullModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/TextureLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/TextureLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/AbstractTile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/FloorTile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/WallTile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/floor_tiles/GrassTile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/wall_tiles/StoneWallTile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/tiles/tile_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/textures/blocks/block_0.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/tiles/tile_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/textures/blocks/block_1.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -355,7 +341,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728396893518</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Rendering world properly">
+      <option name="closed" value="true" />
+      <created>1728495752164</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1728495752164</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -378,7 +372,8 @@
     <MESSAGE value="Commit before shader rework" />
     <MESSAGE value="Starting on shaders" />
     <MESSAGE value="Rendering cube with shaders" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rendering cube with shaders" />
+    <MESSAGE value="Rendering world properly" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rendering world properly" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
@@ -394,6 +389,7 @@
         <watch expression="vertexBuffer" />
         <watch expression="vertexBuffer" />
         <watch expression="((FullModel)((java.util.ArrayList)((Game)this).renderModels).get(0)).rotZ" custom="org.lpc.Game,org.lpc.render.pipeline.models.FullModel,java.util.ArrayList" />
+        <watch expression="this" />
       </configuration>
     </watches-manager>
   </component>

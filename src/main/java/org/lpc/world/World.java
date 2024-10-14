@@ -2,29 +2,82 @@ package org.lpc.world;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
-import org.lpc.world.block.AbstractBlock;
-import org.lpc.world.block.blocks.GrassBlock;
+import org.lpc.world.chunk.Chunk;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Getter @Setter
 public class World {
-    AbstractBlock[][][] blocks;
+    Map<String, Chunk> chunks;
+    ArrayList<Chunk> loadedChunks;
 
-    public World(int width, int height, int depth) {
-        blocks = new AbstractBlock[width][height][depth];
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                for (int z = 0; z < depth; z++) {
-                    if (y==0 || x==0 || z==0) {
-                        blocks[x][y][z] = new GrassBlock(x, y, z);
-                        System.out.println("Block at " + x + ", " + y + ", " + z + " is a grass block");
-                    }
+    public World() {
+        chunks = new HashMap<>();
+        loadedChunks = new ArrayList<>();
+        init();
+    }
+
+    private void init() {
+        updateChunks(0, 0, 4);
+    }
+
+    public boolean updateChunks(int playerX, int playerZ, int renderDistance) {
+        boolean farChunks = unloadFarChunks(playerX, playerZ, renderDistance);
+        boolean loadChunksAround = loadChunksAround(playerX, playerZ, renderDistance);
+
+        return farChunks || loadChunksAround;
+    }
+
+    public boolean unloadFarChunks(int playerX, int playerZ, int renderDistance) {
+        // Convert player world coordinates to chunk coordinates
+        int playerChunkX = Math.floorDiv(playerX, Chunk.CHUNK_SIZE);
+        int playerChunkZ = Math.floorDiv(playerZ, Chunk.CHUNK_SIZE);
+
+        return loadedChunks.removeIf(chunk -> {
+            int dx = Math.abs(chunk.getChunkX() - playerChunkX);
+            int dz = Math.abs(chunk.getChunkZ() - playerChunkZ);
+            return dx > renderDistance || dz > renderDistance;
+        });
+    }
+
+    public boolean loadChunksAround(int playerX, int playerZ, int renderDistance) {
+        // Convert player world coordinates to chunk coordinates
+        int playerChunkX = Math.floorDiv(playerX, Chunk.CHUNK_SIZE);
+        int playerChunkZ = Math.floorDiv(playerZ, Chunk.CHUNK_SIZE);
+
+        boolean change = false;
+
+        // Load chunks around the player
+        for (int x = -renderDistance; x <= renderDistance; x++) {
+            for (int z = -renderDistance; z <= renderDistance; z++) {
+                int chunkX = playerChunkX + x;
+                int chunkZ = playerChunkZ + z;
+
+                Chunk chunk = getChunk(chunkX, chunkZ);
+                if (chunk == null) {
+                    chunk = new Chunk(chunkX, chunkZ);
+                    chunks.put(getChunkKey(chunkX, chunkZ), chunk);
+                    System.out.println("Created chunk at " + chunkX + ", " + chunkZ);
+                    change = true;
+                }
+                if (!loadedChunks.contains(chunk)) {
+                    loadedChunks.add(chunk);
+                    System.out.println("Loaded chunk at " + chunkX + ", " + chunkZ);
+                    change = true;
                 }
             }
         }
+
+        return  change;
     }
 
-    public AbstractBlock getBlock(int x, int y, int z) {
-        return blocks[x][y][z];
+    private String getChunkKey(int x, int z) {
+        return x + ":" + z;
+    }
+
+    public Chunk getChunk(int chunkX, int chunkZ) {
+        return chunks.get(getChunkKey(chunkX, chunkZ));
     }
 }

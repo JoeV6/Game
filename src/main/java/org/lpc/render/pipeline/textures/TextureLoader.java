@@ -17,7 +17,6 @@ public class TextureLoader {
     private static final Map<String, Texture> textureCache = new HashMap<>();
 
     public static Texture getTexture(String file) {
-        // Check if the texture is already loaded
         if (textureCache.containsKey(file)) {
             return textureCache.get(file);
         }
@@ -28,14 +27,13 @@ public class TextureLoader {
             IntBuffer height = stack.mallocInt(1);
             IntBuffer channels = stack.mallocInt(1);
 
-            // Load the image
             ByteBuffer image = STBImage.stbi_load(file, width, height, channels, 4);
             if (image == null) {
                 throw new RuntimeException("Failed to load texture file: " + file + " - " + STBImage.stbi_failure_reason());
             }
 
-            int textureID = glGenTextures(); // Generate a texture ID
-            glBindTexture(GL_TEXTURE_2D, textureID); // Bind the texture
+            int textureID = glGenTextures();
+            glBindTexture(GL_TEXTURE_2D, textureID);
 
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -46,7 +44,7 @@ public class TextureLoader {
 
             glGenerateMipmap(GL_TEXTURE_2D);
 
-            STBImage.stbi_image_free(image); // Free the image memory
+            STBImage.stbi_image_free(image);
 
             Texture texture = new Texture(textureID);
 

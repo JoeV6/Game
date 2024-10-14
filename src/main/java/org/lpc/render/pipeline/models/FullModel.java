@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.joml.Vector3f;
 
+import java.util.Objects;
+
 @Getter @Setter
 public class FullModel {
     private TexturedModel model;

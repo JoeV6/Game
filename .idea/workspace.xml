@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Updated render functionality&#10;TODO: implement zoom properly">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/textures/Texture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/textures/Texture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/textures/TextureHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/textures/TextureHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/AbstractTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/AbstractTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/FloorTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/FloorTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/WallTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/tiles/WallTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/tile_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/textures/tiles/tile_0.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/tile_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/textures/tiles/tile_1.png" afterDir="false" />
-    </list>
+    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Chunk System" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,12 +39,6 @@
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="application" type="c8890929:TasksNode$1" />
               </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="sandbox" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
             </expand>
             <select />
           </tree_state>
@@ -68,11 +49,17 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -84,7 +71,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/JoeV6/Game.git&quot;,
-    &quot;accountId&quot;: &quot;825c1356-0b81-40b4-a4f9-f7e507eac450&quot;
+    &quot;accountId&quot;: &quot;4aa111ff-409e-4f20-9f97-2361961dca8a&quot;
   }
 }</component>
   <component name="MacroExpansionManager">
@@ -108,6 +95,7 @@
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.Game [:org.lpc.Main.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.sandbox [:org.lpc.Main.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.sandbox [build].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.sandbox [clean].executor&quot;: &quot;Run&quot;,
@@ -118,14 +106,14 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;shaders&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/DesktopStorage/Intellij_Projects/Others/sandbox/src/main/resources/textures&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.customizations&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -137,6 +125,7 @@
       <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\liamd\IdeaProjects\Game\src\main\resources\textures\tiles" />
       <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src\main\resources\textures\tiles" />
       <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src" />
       <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src\main\resources\textures" />
@@ -254,10 +243,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.sandbox [run]" />
-        <item itemvalue="Gradle.sandbox [build]" />
-        <item itemvalue="Gradle.sandbox [clean]" />
-        <item itemvalue="Application.Main" />
         <item itemvalue="Gradle.sandbox [dependencies]" />
+        <item itemvalue="Gradle.sandbox [clean]" />
+        <item itemvalue="Gradle.sandbox [build]" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -310,8 +299,59 @@
       <option name="project" value="LOCAL" />
       <updated>1728215373011</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Commit before shader rework">
+      <option name="closed" value="true" />
+      <created>1728220904018</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1728220904018</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Starting on shaders">
+      <option name="closed" value="true" />
+      <created>1728225158707</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1728225158707</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Rendering cube with shaders">
+      <option name="closed" value="true" />
+      <created>1728307260192</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1728307260192</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Rendering cube with shaders">
+      <option name="closed" value="true" />
+      <created>1728396893518</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1728396893518</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Rendering world properly">
+      <option name="closed" value="true" />
+      <created>1728495752164</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1728495752164</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -319,11 +359,17 @@
     <MESSAGE value="Rendering Fixed&#10;TODO: convert coordinates properly" />
     <MESSAGE value="Removed RenderHandler.java" />
     <MESSAGE value="Updated render functionality&#10;TODO: implement zoom properly" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated render functionality&#10;TODO: implement zoom properly" />
+    <MESSAGE value="Commit before shader rework" />
+    <MESSAGE value="Starting on shaders" />
+    <MESSAGE value="Rendering cube with shaders" />
+    <MESSAGE value="Rendering world properly" />
+    <MESSAGE value="Chunk System" />
+    <option name="LAST_COMMIT_MESSAGE" value="Chunk System" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
       <pinned-members>
+        <PinnedItemInfo parentTag="java.nio.DirectFloatBufferU" memberName="att" />
         <PinnedItemInfo parentTag="org.lpc.render.Renderer" memberName="game" />
         <PinnedItemInfo parentTag="org.lpc.Game" memberName="deltaTime" />
       </pinned-members>
@@ -331,6 +377,10 @@
     <watches-manager>
       <configuration name="GradleRunConfiguration">
         <watch expression="((RenderHandler)((Game)this).renderHandler).renderer" language="JAVA" custom="org.lpc.Game,org.lpc.handler.RenderHandler" />
+        <watch expression="vertexBuffer" />
+        <watch expression="vertexBuffer" />
+        <watch expression="((FullModel)((java.util.ArrayList)((Game)this).renderModels).get(0)).rotZ" custom="org.lpc.Game,org.lpc.render.pipeline.models.FullModel,java.util.ArrayList" />
+        <watch expression="this" />
       </configuration>
     </watches-manager>
   </component>

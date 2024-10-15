@@ -6,6 +6,7 @@ import org.lpc.world.chunk.Chunk;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Getter @Setter
@@ -56,17 +57,19 @@ public class World {
                 int chunkZ = playerChunkZ + z;
 
                 Chunk chunk = getChunk(chunkX, chunkZ);
+
+                if(chunk != null && loadedChunks.contains(chunk)) continue;
+
                 if (chunk == null) {
                     chunk = new Chunk(chunkX, chunkZ);
                     chunks.put(getChunkKey(chunkX, chunkZ), chunk);
                     System.out.println("Created chunk at " + chunkX + ", " + chunkZ);
-                    change = true;
                 }
-                if (!loadedChunks.contains(chunk)) {
-                    loadedChunks.add(chunk);
-                    System.out.println("Loaded chunk at " + chunkX + ", " + chunkZ);
-                    change = true;
-                }
+
+                loadedChunks.add(chunk);
+                System.out.println("Loaded chunk at " + chunkX + ", " + chunkZ);
+                change = true;
+
             }
         }
 
@@ -79,5 +82,15 @@ public class World {
 
     public Chunk getChunk(int chunkX, int chunkZ) {
         return chunks.get(getChunkKey(chunkX, chunkZ));
+    }
+
+    public List<Chunk> getChunksAround(int chunkX, int chunkZ){
+        List<Chunk> chunks = new ArrayList<>();
+        for (int x = -1; x <= 1; x++) {
+            for (int z = -1; z <= 1; z++) {
+                chunks.add(getChunk(chunkX + x, chunkZ + z));
+            }
+        }
+        return chunks;
     }
 }

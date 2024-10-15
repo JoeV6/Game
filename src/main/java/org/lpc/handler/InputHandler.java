@@ -40,10 +40,15 @@ public class InputHandler {
 
         keys.put(GLFW.GLFW_KEY_Q, false);
         keys.put(GLFW.GLFW_KEY_E, false);
+
+        keys.put(GLFW.GLFW_KEY_LEFT_CONTROL, false);
     }
 
     public void processInput() {
         if(keys.get(GLFW.GLFW_KEY_W)) {
+            if(keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)){
+                camera.moveForward(0.2f);
+            }
             camera.moveForward(0.1f);
         }
         if(keys.get(GLFW.GLFW_KEY_S)) {

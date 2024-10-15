@@ -1,8 +1,9 @@
 package org.lpc.world.chunk;
 
 import lombok.Getter;
-import lombok.Setter;
+import org.lpc.utils.PerlinNoise;
 import org.lpc.world.block.AbstractBlock;
+import org.lpc.world.block.blocks.DirtBlock;
 import org.lpc.world.block.blocks.GrassBlock;
 
 @Getter
@@ -21,21 +22,37 @@ public class Chunk {
         init();
     }
 
-    private void init(){
+    private void init() {
+        PerlinNoise perlinNoise = new PerlinNoise();
+
+        // Generate height for the current chunk based on its position
         for (int x = 0; x < CHUNK_SIZE; x++) {
             for (int z = 0; z < CHUNK_SIZE; z++) {
-                for(int y = 0; y < CHUNK_HEIGHT; y++){
-                    blocks[x][z][y] = null;
-                }
                 int nx = chunkX * CHUNK_SIZE + x;
                 int nz = chunkZ * CHUNK_SIZE + z;
-                blocks[x][z][0] = new GrassBlock(nx, 0, nz);
+
+                // Generate height using Perlin noise
+                double height = perlinNoise.noise(nx * 0.1, nz * 0.1) * CHUNK_HEIGHT;
+
+                // Smooth out height by adding variations
+                height += (perlinNoise.noise(nx * 0.1 * 2, nz * 0.1 * 2) * 0.5) * CHUNK_HEIGHT; // Add finer detail
+                height = Math.max(0, Math.min(height, CHUNK_HEIGHT - 1)); // Clamp height to valid range
+
+                for (int y = 0; y < CHUNK_HEIGHT; y++) {
+                    if (y < height) { // Fill blocks below the height
+                        if (y == (int) height - 1) {
+                            blocks[x][z][y] = new GrassBlock(nx, y, nz); // Top layer grass
+                        } else if (y < (int) height - 1 && y > (int) height - 5) {
+                            blocks[x][z][y] = new DirtBlock(nx, y, nz); // Below grass, fill with dirt (null for fps)
+                        } else {
+                            blocks[x][z][y] = null; // No block above the height
+                        }
+                    } else {
+                        blocks[x][z][y] = null; // No block above the ground level
+                    }
+                }
             }
         }
-    }
-
-    public void load(){
-
     }
 
     public AbstractBlock getBlock(int x, int y, int z) {

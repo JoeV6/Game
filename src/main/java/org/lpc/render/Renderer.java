@@ -46,7 +46,7 @@ public class Renderer {
         glEnable(GL11C.GL_DEPTH_TEST);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0f, 0.827f, 1f, 1.0f);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     }
 
     public void render(FullModel fullModel, StaticShader shader) {

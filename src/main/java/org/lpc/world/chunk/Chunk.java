@@ -68,7 +68,6 @@ public class Chunk {
         if (isOutOfBounds(x, y, z)) return;
 
         blocks[x][z][y] = block;
-        Game.getInstance().getUpdateHandler().loadChunk(chunkX, chunkZ);
     }
 
     private boolean isOutOfBounds(int x, int y, int z) {

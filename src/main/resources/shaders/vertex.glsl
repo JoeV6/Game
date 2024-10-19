@@ -1,19 +1,22 @@
 #version 330 core
 
-in vec3 position;
-in vec2 texCoord;
+layout(location = 0) in vec3 position;         // Vertex position
+layout(location = 1) in vec2 texCoord;         // Texture coordinate
+layout(location = 2) in vec3 instanceOffset;   // Instance offset from VBO
 
-out vec3 colour;
-out vec2 fragTexCoord;
-
-uniform mat4 transformationMatrix;
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 
+out vec2 fragTexCoord;         // Output to fragment shader
+
 void main() {
-    gl_Position = projectionMatrix * viewMatrix * transformationMatrix * vec4(position, 1.0);
-    colour = position;
+    mat4 modelMatrix = mat4(1.0);
+    modelMatrix[3].xyz = instanceOffset; // Set translation from instance offset
+
+    gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);
     fragTexCoord = texCoord;
 }
+
+
 
 

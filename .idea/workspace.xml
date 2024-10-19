@@ -4,19 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="PlayerEntity added, unfinished">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/AirBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_14_2024_4_09_PM__Changes_.xml" beforeDir="false" />
+    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Air, starting on instancing">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/Renderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/CubeModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/util/VAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/util/VBO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/UpdateHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/UpdateHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/ModelLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/ModelLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/premade/CubeModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/premade/CubeModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/ModelLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/entities/Entity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/FullModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/RawModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/TexturedModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/premade/CubeModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/shaders/StaticShader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/shaders/StaticShader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/AbstractBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/AbstractBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/chunk/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/chunk/Chunk.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/entities/PlayerEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/entities/PlayerEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,15 +73,15 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="AnnotationType" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="shaders" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -86,6 +96,16 @@
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/JoeV6/Game.git&quot;,
     &quot;accountId&quot;: &quot;825c1356-0b81-40b4-a4f9-f7e507eac450&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;JoeV6&quot;,
+    &quot;repository&quot;: &quot;Game&quot;
   }
 }</component>
   <component name="MacroExpansionManager">
@@ -120,7 +140,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;shaders&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;instanced&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/DesktopStorage/Intellij_Projects/Others/sandbox/src/main/resources/textures&quot;,
@@ -378,7 +398,23 @@
       <option name="project" value="LOCAL" />
       <updated>1728999922884</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Air, starting on instancing">
+      <option name="closed" value="true" />
+      <created>1729348904132</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1729348904132</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Air, starting on instancing">
+      <option name="closed" value="true" />
+      <created>1729348957421</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1729348957421</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -386,7 +422,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="false" />
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -404,7 +446,8 @@
     <MESSAGE value="Chunk System" />
     <MESSAGE value="Rendering world properly" />
     <MESSAGE value="Worldgeneration using Perlin noise, insanely laggy, need to improve rendering + chunk generation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Worldgeneration using Perlin noise, insanely laggy, need to improve rendering + chunk generation" />
+    <MESSAGE value="Air, starting on instancing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Air, starting on instancing" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
@@ -421,6 +464,8 @@
         <watch expression="vertexBuffer" />
         <watch expression="((FullModel)((java.util.ArrayList)((Game)this).renderModels).get(0)).rotZ" custom="org.lpc.Game,org.lpc.render.pipeline.models.FullModel,java.util.ArrayList" />
         <watch expression="this" />
+        <watch expression="z" language="JAVA" />
+        <watch expression="z" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>

@@ -42,7 +42,7 @@ public class Game {
     public static final int DEFAULT_WIDTH = 1080;
     public static final int DEFAULT_HEIGHT = 720;
     public static final float UPDATES_PER_SECOND = 5.0f;
-    public static final float DEFAULT_MOVEMENT_SPEED = 0.15f;
+    public static final float DEFAULT_MOVEMENT_SPEED = 0.10f;
     public static final int RENDER_DISTANCE = 2;
 
     private boolean debug = false;

@@ -41,28 +41,28 @@ public class Game {
 
     public static final int DEFAULT_WIDTH = 1080;
     public static final int DEFAULT_HEIGHT = 720;
-    public static final float UPDATES_PER_SECOND = 5.0f;
     public static final float DEFAULT_MOVEMENT_SPEED = 0.10f;
-    public static final int RENDER_DISTANCE = 2;
+    public static final float UPDATES_PER_SECOND = 20.0f;
+    public static final int RENDER_DISTANCE = 4;
 
     private boolean debug = false;
     private long window;
-    @Setter boolean fullscreen;
 
     private InputHandler inputHandler;
     private UpdateHandler updateHandler;
-
-    private World world;
-    private PlayerEntity player;
 
     private StaticShader shader;
     private Camera camera;
     private Renderer renderer;
 
-    @Setter List<CubeModel> renderModels = new CopyOnWriteArrayList<>();
-    @Setter List<CubeModel> nextModels = new CopyOnWriteArrayList<>();
+    private World world;
+    private PlayerEntity player;
+
+    @Setter private List<CubeModel> renderModels = new CopyOnWriteArrayList<>();
+    @Setter private List<CubeModel> nextModels = new CopyOnWriteArrayList<>();
 
     @Setter private boolean modelNeedsChange = false;
+    @Setter private boolean fullscreen;
 
     public void run() {
         System.out.println("LWJGL " + Version.getVersion());

@@ -2,7 +2,7 @@ package org.lpc.utils;
 import java.util.Random;
 
 public class PerlinNoise {
-    private int[] p;
+    private final int[] p;
     private static final int PERMUTATION_SIZE = 256;
 
     public PerlinNoise() {

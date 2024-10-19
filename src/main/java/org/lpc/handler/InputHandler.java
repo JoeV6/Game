@@ -37,32 +37,34 @@ public class InputHandler {
     }
 
     public void processInput() {
-        if(keys.get(GLFW.GLFW_KEY_W)) {
-            player.moveForward(DEFAULT_MOVEMENT_SPEED);
-            if(keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)){
-                player.moveForward(DEFAULT_MOVEMENT_SPEED * 5);
+        synchronized (player) {
+            if (keys.get(GLFW.GLFW_KEY_W)) {
+                player.moveForward(DEFAULT_MOVEMENT_SPEED);
+                if (keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)) {
+                    player.moveForward(DEFAULT_MOVEMENT_SPEED * 5);
+                }
             }
-        }
-        if(keys.get(GLFW.GLFW_KEY_S)) {
-            player.moveForward(-DEFAULT_MOVEMENT_SPEED);
-        }
-        if(keys.get(GLFW.GLFW_KEY_D)) {
-            player.moveLeft(-DEFAULT_MOVEMENT_SPEED);
-        }
-        if(keys.get(GLFW.GLFW_KEY_A)) {
-            player.moveLeft(DEFAULT_MOVEMENT_SPEED);
-        }
+            if (keys.get(GLFW.GLFW_KEY_S)) {
+                player.moveForward(-DEFAULT_MOVEMENT_SPEED);
+            }
+            if (keys.get(GLFW.GLFW_KEY_D)) {
+                player.moveLeft(-DEFAULT_MOVEMENT_SPEED);
+            }
+            if (keys.get(GLFW.GLFW_KEY_A)) {
+                player.moveLeft(DEFAULT_MOVEMENT_SPEED);
+            }
 
-        if(keys.get(GLFW.GLFW_KEY_SPACE)){
-            player.move(0, DEFAULT_MOVEMENT_SPEED, 0);
-            if(keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)){
+            if (keys.get(GLFW.GLFW_KEY_SPACE)) {
                 player.move(0, DEFAULT_MOVEMENT_SPEED, 0);
+                if (keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)) {
+                    player.move(0, DEFAULT_MOVEMENT_SPEED, 0);
+                }
             }
-        }
-        if(keys.get(GLFW.GLFW_KEY_LEFT_SHIFT)){
-            player.move(0, -DEFAULT_MOVEMENT_SPEED, 0);
-            if(keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)){
+            if (keys.get(GLFW.GLFW_KEY_LEFT_SHIFT)) {
                 player.move(0, -DEFAULT_MOVEMENT_SPEED, 0);
+                if (keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)) {
+                    player.move(0, -DEFAULT_MOVEMENT_SPEED, 0);
+                }
             }
         }
     }
@@ -90,11 +92,10 @@ public class InputHandler {
             World world = game.getWorld();
             PlayerEntity player = game.getPlayer();
 
-            AbstractBlock b = player.getFirstBlockInFront(10, 0.4f);
+            AbstractBlock b = player.getFirstBlockInFront(10, 0.1f);
             if(b == null) return;
 
             world.removeBlock(b);
-            game.getUpdateHandler().loadChunk(world.getBlockChunk(b).getChunkX(), world.getBlockChunk(b).getChunkZ());
         }
         if(button == GLFW.GLFW_MOUSE_BUTTON_RIGHT && action == GLFW.GLFW_PRESS) {
             System.out.println("Mouse input: " + x + ", " + y);
@@ -125,6 +126,9 @@ public class InputHandler {
         }
         if (key == GLFW.GLFW_KEY_F11 && action == GLFW.GLFW_PRESS) {
             toggleFullscreen();
+        }
+        if (key == GLFW.GLFW_KEY_T && action == GLFW.GLFW_PRESS) {
+            game.changeDebug();
         }
 
         if(keys.containsKey(key) && (action == GLFW.GLFW_PRESS || action == GLFW.GLFW_RELEASE)) {

@@ -2,6 +2,7 @@ package org.lpc.world;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.lpc.Game;
 import org.lpc.world.block.AbstractBlock;
 import org.lpc.world.chunk.Chunk;
 
@@ -11,8 +12,8 @@ import java.util.Map;
 
 @Getter @Setter
 public class World {
-    Map<String, Chunk> chunks;
-    ArrayList<Chunk> loadedChunks;
+    final Map<String, Chunk> chunks;
+    final ArrayList<Chunk> loadedChunks;
 
     public World() {
         chunks = new HashMap<>();
@@ -31,8 +32,7 @@ public class World {
         return farChunks || loadChunksAround;
     }
 
-    public boolean unloadFarChunks(int playerX, int playerZ, int renderDistance) {
-        // Convert player world coordinates to chunk coordinates
+    private boolean unloadFarChunks(int playerX, int playerZ, int renderDistance) {
         int playerChunkX = Math.floorDiv(playerX, Chunk.CHUNK_SIZE);
         int playerChunkZ = Math.floorDiv(playerZ, Chunk.CHUNK_SIZE);
 
@@ -43,37 +43,36 @@ public class World {
         });
     }
 
-    public boolean loadChunksAround(int playerX, int playerZ, int renderDistance) {
-        // Convert player world coordinates to chunk coordinates
-        int playerChunkX = Math.floorDiv(playerX, Chunk.CHUNK_SIZE);
-        int playerChunkZ = Math.floorDiv(playerZ, Chunk.CHUNK_SIZE);
+    private boolean loadChunksAround(int playerX, int playerZ, int renderDistance) {
+        synchronized (loadedChunks) {
+            int playerChunkX = Math.floorDiv(playerX, Chunk.CHUNK_SIZE);
+            int playerChunkZ = Math.floorDiv(playerZ, Chunk.CHUNK_SIZE);
 
-        boolean change = false;
+            boolean change = false;
 
-        // Load chunks around the player
-        for (int x = -renderDistance; x <= renderDistance; x++) {
-            for (int z = -renderDistance; z <= renderDistance; z++) {
-                int chunkX = playerChunkX + x;
-                int chunkZ = playerChunkZ + z;
+            // Load chunks around the player
+            for (int x = -renderDistance; x <= renderDistance; x++) {
+                for (int z = -renderDistance; z <= renderDistance; z++) {
+                    int chunkX = playerChunkX + x;
+                    int chunkZ = playerChunkZ + z;
 
-                Chunk chunk = getChunk(chunkX, chunkZ);
+                    Chunk chunk = getChunk(chunkX, chunkZ);
 
-                if(chunk != null && loadedChunks.contains(chunk)) continue;
+                    if (chunk != null && loadedChunks.contains(chunk)) continue;
 
-                if (chunk == null) {
-                    chunk = new Chunk(chunkX, chunkZ);
-                    chunks.put(getChunkKey(chunkX, chunkZ), chunk);
-                    System.out.println("Created chunk at " + chunkX + ", " + chunkZ);
+                    if (chunk == null) {
+                        chunk = new Chunk(chunkX, chunkZ);
+                        chunks.put(getChunkKey(chunkX, chunkZ), chunk);
+                        System.out.println("Created chunk at " + chunkX + ", " + chunkZ);
+                    }
+
+                    loadedChunks.add(chunk);
+                    System.out.println("Loaded chunk at " + chunkX + ", " + chunkZ);
+                    change = true;
                 }
-
-                loadedChunks.add(chunk);
-                System.out.println("Loaded chunk at " + chunkX + ", " + chunkZ);
-                change = true;
-
             }
+            return change;
         }
-
-        return  change;
     }
 
     private String getChunkKey(int x, int z) {

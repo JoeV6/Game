@@ -19,11 +19,6 @@ public class PlayerEntity extends Entity {
     }
 
     public void update(){
-        if(getFirstBlockInFront(10, 0.4f) != null){
-            System.out.println("Block in front");
-            //game.getWorld().removeBlock(getFirstBlockInFront(10, 0.4f));
-        }
-
         this.move(vx, vy, vz);
     }
 
@@ -32,12 +27,11 @@ public class PlayerEntity extends Entity {
     }
 
     private boolean checkCollision(){
-
-
         return false;
     }
 
     public AbstractBlock getFirstBlockInFront(float maxDistance, float stepSize) {
+        /*
         Vector3f position = camera.getPosition();
         float yaw = camera.getYaw();
         float pitch = camera.getPitch();
@@ -68,7 +62,7 @@ public class PlayerEntity extends Entity {
                 return block;
             }
         }
-
+        */
         return null;
     }
 
@@ -76,6 +70,11 @@ public class PlayerEntity extends Entity {
     // Movement methods
 
     public void move(float dx, float dy, float dz){
+        if(dx >= 50 || dy >= 50 || dz >= 50 ){
+            System.out.println("PlayerEntity.move: dx=" + dx + ", dy=" + dy + ", dz=" + dz);
+            return;
+        }
+
         x += dx;
         y += dy;
         z += dz;
@@ -88,30 +87,26 @@ public class PlayerEntity extends Entity {
         this.y = y;
         this.z = z;
 
-        camera.getPosition().x = x;
-        camera.getPosition().y = y;
-        camera.getPosition().z = z;
+        camera.setPosition(new Vector3f(x, y, z));
     }
 
     public void moveForward(float amount){
-        x += (float) Math.sin(Math.toRadians(camera.getYaw())) * amount;
-        y += 0;
-        z += (float) -Math.cos(Math.toRadians(camera.getYaw())) * amount;
+        float pitchRad = (float) Math.toRadians(camera.getPitch());
+        float yawRad = (float) Math.toRadians(camera.getYaw());
 
+        float dirX = (float) Math.sin(yawRad) * (float) Math.cos(pitchRad);
+        float dirY = (float) -Math.sin(pitchRad);
+        float dirZ = (float) -Math.cos(yawRad) * (float) Math.cos(pitchRad);
 
-        camera.moveForward(amount);
+        move(dirX * amount, dirY * amount, dirZ * amount);
     }
 
     public void moveLeft(float amount){
-        x += (float) Math.sin(Math.toRadians(camera.getYaw() - 90)) * amount;
-        y += 0;
-        z += (float) -Math.cos(Math.toRadians(camera.getYaw() - 90)) * amount;
+        float dirX = (float) Math.sin(Math.toRadians(camera.getYaw() - 90));
+        float dirY = 0;
+        float dirZ = (float) -Math.cos(Math.toRadians(camera.getYaw() - 90));
 
-        camera.moveLeft(amount);
-    }
-
-    public void rotate(float dyaw, float dpitch, float droll){
-        camera.rotate(dyaw, dpitch, droll);
+        move(dirX * amount, dirY, dirZ * amount);
     }
 
     public Vector3f getPosition(){

@@ -2,6 +2,7 @@ package org.lpc.world;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.lpc.world.block.AbstractBlock;
 import org.lpc.world.chunk.Chunk;
 
 import java.util.ArrayList;
@@ -84,13 +85,31 @@ public class World {
         return chunks.get(getChunkKey(chunkX, chunkZ));
     }
 
-    public List<Chunk> getChunksAround(int chunkX, int chunkZ){
-        List<Chunk> chunks = new ArrayList<>();
-        for (int x = -1; x <= 1; x++) {
-            for (int z = -1; z <= 1; z++) {
-                chunks.add(getChunk(chunkX + x, chunkZ + z));
-            }
-        }
-        return chunks;
+    public AbstractBlock getBlockAt(float x, float y, float z) {
+        int chunkX = Math.floorDiv((int) x, Chunk.CHUNK_SIZE);
+        int chunkZ = Math.floorDiv((int) z, Chunk.CHUNK_SIZE);
+
+        Chunk chunk = getChunk(chunkX, chunkZ);
+
+        if(chunk == null) return null;
+
+        int blockX = Math.floorMod((int) x, Chunk.CHUNK_SIZE);
+        int blockY = Math.floorMod((int) y, Chunk.CHUNK_HEIGHT);
+        int blockZ = Math.floorMod((int) z, Chunk.CHUNK_SIZE);
+
+        return chunk.getBlock(blockX, blockY, blockZ);
     }
+
+    public void removeBlock(AbstractBlock block){
+        Chunk c = getBlockChunk(block);
+
+        if(c != null){
+            c.removeBlockWorld(block.getX(), block.getY(), block.getZ());
+        }
+    }
+
+    public Chunk getBlockChunk(AbstractBlock block){
+        return getChunk(Math.floorDiv(block.getX(), Chunk.CHUNK_SIZE), Math.floorDiv(block.getZ(), Chunk.CHUNK_SIZE));
+    }
+
 }

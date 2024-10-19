@@ -9,7 +9,9 @@ import org.lpc.world.block.blocks.GrassBlock;
 @Getter
 public class Chunk {
     public static final int CHUNK_SIZE = 16;
-    public static final int CHUNK_HEIGHT = 10;
+    public static final int CHUNK_HEIGHT = 64;
+
+    private static final PerlinNoise perlinNoise = new PerlinNoise();
 
     private final AbstractBlock[][][] blocks;
     private final int chunkX, chunkZ;
@@ -19,36 +21,31 @@ public class Chunk {
         this.chunkZ = chunkZ;
 
         blocks = new AbstractBlock[CHUNK_SIZE][CHUNK_SIZE][CHUNK_HEIGHT];
-        init();
+        generateChunk();
     }
 
-    private void init() {
-        PerlinNoise perlinNoise = new PerlinNoise();
-
-        // Generate height for the current chunk based on its position
+    private void generateChunk() {
         for (int x = 0; x < CHUNK_SIZE; x++) {
             for (int z = 0; z < CHUNK_SIZE; z++) {
-                int nx = chunkX * CHUNK_SIZE + x;
-                int nz = chunkZ * CHUNK_SIZE + z;
+                int worldX = chunkX * CHUNK_SIZE + x;
+                int worldZ = chunkZ * CHUNK_SIZE + z;
 
-                // Generate height using Perlin noise
-                double height = perlinNoise.noise(nx * 0.1, nz * 0.1) * CHUNK_HEIGHT;
 
-                // Smooth out height by adding variations
-                height += (perlinNoise.noise(nx * 0.1 * 2, nz * 0.1 * 2) * 0.5) * CHUNK_HEIGHT; // Add finer detail
-                height = Math.max(0, Math.min(height, CHUNK_HEIGHT - 1)); // Clamp height to valid range
+                double height = perlinNoise.noise(worldX * 0.1, worldZ * 0.1) * CHUNK_HEIGHT / 4;
+
+                height = Math.max(1, Math.min(height, CHUNK_HEIGHT - 1));
 
                 for (int y = 0; y < CHUNK_HEIGHT; y++) {
-                    if (y < height) { // Fill blocks below the height
+                    if (y < height) {
                         if (y == (int) height - 1) {
-                            blocks[x][z][y] = new GrassBlock(nx, y, nz); // Top layer grass
-                        } else if (y < (int) height - 1 && y > (int) height - 5) {
-                            blocks[x][z][y] = new DirtBlock(nx, y, nz); // Below grass, fill with dirt (null for fps)
+                            blocks[x][z][y] = new GrassBlock(worldX, y, worldZ); // Grass on top layer
+                        } else if (y < (int) height - 1 && y > (int) height - 10) {
+                            blocks[x][z][y] = new DirtBlock(worldX, y, worldZ); // Dirt layer under grass
                         } else {
-                            blocks[x][z][y] = null; // No block above the height
+                            blocks[x][z][y] = null; // Empty block
                         }
                     } else {
-                        blocks[x][z][y] = null; // No block above the ground level
+                        blocks[x][z][y] = null; // Empty block above ground level
                     }
                 }
             }
@@ -56,10 +53,39 @@ public class Chunk {
     }
 
     public AbstractBlock getBlock(int x, int y, int z) {
-        return blocks[x][y][z];
+        if (isOutOfBounds(x, y, z)) {
+            return null;
+        }
+        return blocks[x][z][y];
     }
 
     public void setBlock(int x, int y, int z, AbstractBlock block) {
-        blocks[x][y][z] = block;
+        if (!isOutOfBounds(x, y, z)) {
+            blocks[x][z][y] = block;
+        }
+    }
+
+    public void removeBlock(int x, int y, int z) {
+        setBlock(x, y, z, null);
+    }
+
+    private boolean isOutOfBounds(int x, int y, int z) {
+        return x < 0 || x >= CHUNK_SIZE || y < 0 || y >= CHUNK_HEIGHT || z < 0 || z >= CHUNK_SIZE;
+    }
+
+    public AbstractBlock getBlockWorld(int worldX, int worldY, int worldZ) {
+        int localX = worldX % CHUNK_SIZE;
+        int localZ = worldZ % CHUNK_SIZE;
+        return getBlock(localX, worldY, localZ);
+    }
+
+    public void setBlockWorld(int worldX, int worldY, int worldZ, AbstractBlock block) {
+        int localX = worldX % CHUNK_SIZE;
+        int localZ = worldZ % CHUNK_SIZE;
+        setBlock(localX, worldY, localZ, block);
+    }
+
+    public void removeBlockWorld(int worldX, int worldY, int worldZ) {
+        setBlockWorld(worldX, worldY, worldZ, null);
     }
 }

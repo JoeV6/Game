@@ -1,5 +1,6 @@
 package org.lpc.handler;
 
+import lombok.Setter;
 import org.joml.Vector3f;
 import org.lpc.Game;
 import org.lpc.render.Camera;
@@ -7,6 +8,7 @@ import org.lpc.render.pipeline.models.FullModel;
 import org.lpc.world.World;
 import org.lpc.world.block.AbstractBlock;
 import org.lpc.world.chunk.Chunk;
+import org.lpc.world.entity.entities.PlayerEntity;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -16,25 +18,31 @@ import java.util.concurrent.Executors;
 public class UpdateHandler {
     private final Game game;
     private final World world;
-    private final Camera camera;
+    private final PlayerEntity player;
     private final ExecutorService executor;
     private volatile boolean modelsReady = false;
+    @Setter boolean deleted = false;
 
     public UpdateHandler() {
         game = Game.getInstance();
         world = game.getWorld();
-        camera = game.getCamera();
+        player = game.getPlayer();
 
-        // Create a single-threaded executor to handle the background tasks
         executor = Executors.newSingleThreadExecutor();
     }
 
     public void update() {
-        Vector3f position = camera.getPosition();
+        player.update();
+        updateChunks();
+    }
 
-        if (world.updateChunks((int) position.x, (int) position.z, Game.RENDER_DISTANCE)) {
+    private void updateChunks(){
+        Vector3f position = player.getPosition();
+
+        if (world.updateChunks((int) position.x, (int) position.z, Game.RENDER_DISTANCE) || deleted) {
             // Offload model updates to the background thread
             executor.submit(this::updateRenderModels);
+            deleted = false;
         }
 
         if (modelsReady) {
@@ -76,6 +84,11 @@ public class UpdateHandler {
                 }
             }
         }
+    }
+
+
+    public void stopThreads(){
+        executor.shutdown();
     }
 }
 

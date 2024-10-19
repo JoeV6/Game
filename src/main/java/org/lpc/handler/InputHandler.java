@@ -4,68 +4,66 @@ import lombok.Setter;
 import org.lpc.Game;
 import org.lpc.render.Camera;
 import org.lpc.world.World;
+import org.lpc.world.block.AbstractBlock;
+import org.lpc.world.entity.entities.PlayerEntity;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;
 
 import java.util.HashMap;
 
-import static org.lpc.Game.DEFAULT_HEIGHT;
-import static org.lpc.Game.DEFAULT_WIDTH;
+import static org.lpc.Game.*;
 
 public class InputHandler {
     private final Game game;
     private final long window;
     private final Camera camera;
+    private final PlayerEntity player;
 
-    private float scrollVelocity = 0.2f;
-
-    private HashMap<Integer, Boolean> keys = new HashMap<>();
+    private final HashMap<Integer, Boolean> keys = new HashMap<>();
 
     @Setter
     private float mouseX, mouseY;
 
     public InputHandler() {
-        System.out.println(Game.getInstance());
         this.game = Game.getInstance();
         this.window = game.getWindow();
         this.camera = game.getCamera();
+        this.player = game.getPlayer();
 
-        keys.put(GLFW.GLFW_KEY_W, false);
-        keys.put(GLFW.GLFW_KEY_A, false);
-        keys.put(GLFW.GLFW_KEY_S, false);
-        keys.put(GLFW.GLFW_KEY_D, false);
-
-        keys.put(GLFW.GLFW_KEY_SPACE, false);
-        keys.put(GLFW.GLFW_KEY_LEFT_SHIFT, false);
-
-        keys.put(GLFW.GLFW_KEY_Q, false);
-        keys.put(GLFW.GLFW_KEY_E, false);
-
-        keys.put(GLFW.GLFW_KEY_LEFT_CONTROL, false);
+        //init all keys
+        for(int i = 0; i < 400; i++){
+            keys.put(i, false);
+        }
     }
 
     public void processInput() {
         if(keys.get(GLFW.GLFW_KEY_W)) {
+            player.moveForward(DEFAULT_MOVEMENT_SPEED);
             if(keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)){
-                camera.moveForward(0.2f);
+                player.moveForward(DEFAULT_MOVEMENT_SPEED * 5);
             }
-            camera.moveForward(0.1f);
         }
         if(keys.get(GLFW.GLFW_KEY_S)) {
-            camera.moveForward(-0.1f);
+            player.moveForward(-DEFAULT_MOVEMENT_SPEED);
         }
         if(keys.get(GLFW.GLFW_KEY_D)) {
-            camera.moveLeft(-0.1f);
+            player.moveLeft(-DEFAULT_MOVEMENT_SPEED);
         }
         if(keys.get(GLFW.GLFW_KEY_A)) {
-            camera.moveLeft(0.1f);
+            player.moveLeft(DEFAULT_MOVEMENT_SPEED);
         }
 
         if(keys.get(GLFW.GLFW_KEY_SPACE)){
-            camera.move(0, 0.1f, 0);
+            player.move(0, DEFAULT_MOVEMENT_SPEED, 0);
+            if(keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)){
+                player.move(0, DEFAULT_MOVEMENT_SPEED, 0);
+            }
         }
         if(keys.get(GLFW.GLFW_KEY_LEFT_SHIFT)){
-            camera.move(0, -0.1f, 0);
+            player.move(0, -DEFAULT_MOVEMENT_SPEED, 0);
+            if(keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)){
+                player.move(0, -DEFAULT_MOVEMENT_SPEED, 0);
+            }
         }
     }
 
@@ -90,6 +88,9 @@ public class InputHandler {
         if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT && action == GLFW.GLFW_PRESS) {
             System.out.println("Mouse input: " + x + ", " + y);
             World world = game.getWorld();
+            PlayerEntity player = game.getPlayer();
+            
+            game.getUpdateHandler().setDeleted(true);
         }
         if(button == GLFW.GLFW_MOUSE_BUTTON_RIGHT && action == GLFW.GLFW_PRESS) {
             System.out.println("Mouse input: " + x + ", " + y);

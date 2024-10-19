@@ -4,10 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Worldgeneration using Perlin noise, insanely laggy, need to improve rendering + chunk generation">
+    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="PlayerEntity added, unfinished">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/entities/PlayerEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/premade/CubeModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/premade/CubeModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/GrassBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/GrassBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/UpdateHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/UpdateHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/chunk/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/chunk/Chunk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/blocks/block_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/textures/blocks/block_1.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +64,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="AnnotationType" />
       </list>
     </option>
   </component>
@@ -129,6 +139,7 @@
       <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\liamd\IdeaProjects\Game\src\main\resources\textures\blocks" />
       <recent name="C:\Users\liamd\IdeaProjects\Game\src\main\resources\textures\tiles" />
       <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src\main\resources\textures\tiles" />
       <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src" />
@@ -359,7 +370,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728998741021</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Worldgeneration using Perlin noise, insanely laggy, need to improve rendering + chunk generation">
+      <option name="closed" value="true" />
+      <created>1728999922884</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1728999922884</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -388,6 +407,15 @@
     <option name="LAST_COMMIT_MESSAGE" value="Worldgeneration using Perlin noise, insanely laggy, need to improve rendering + chunk generation" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/lpc/world/World.java</url>
+          <line>111</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="java.nio.DirectFloatBufferU" memberName="att" />

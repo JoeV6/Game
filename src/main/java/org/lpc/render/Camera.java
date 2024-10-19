@@ -5,6 +5,8 @@ import lombok.Setter;
 import org.joml.Vector3f;
 import org.lpc.world.World;
 import org.lpc.world.block.AbstractBlock;
+import org.lpc.world.chunk.Chunk;
+import org.lpc.world.entity.entities.PlayerEntity;
 
 @Getter @Setter
 public class Camera {
@@ -14,7 +16,7 @@ public class Camera {
     private float roll;
 
     public Camera() {
-        this.position = new Vector3f(0, 0, 0);
+        this.position = new Vector3f(0,0,0);
         this.pitch = 0;
         this.yaw = 0;
         this.roll = 0;
@@ -37,6 +39,4 @@ public class Camera {
         pitch += dpitch;
         roll += droll;
     }
-
-
 }

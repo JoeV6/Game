@@ -10,6 +10,8 @@ import org.lpc.render.pipeline.ModelLoader;
 import org.lpc.render.pipeline.models.FullModel;
 import org.lpc.render.pipeline.shaders.StaticShader;
 import org.lpc.world.World;
+import org.lpc.world.chunk.Chunk;
+import org.lpc.world.entity.entities.PlayerEntity;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
@@ -19,8 +21,8 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.IntBuffer;
-import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
@@ -36,7 +38,8 @@ public class Game {
 
     public static final int DEFAULT_WIDTH = 1080;
     public static final int DEFAULT_HEIGHT = 720;
-    public static final double UPDATES_PER_SECOND = 5.0;
+    public static final float UPDATES_PER_SECOND = 20.0f;
+    public static final float DEFAULT_MOVEMENT_SPEED = 0.15f;
     public static final int RENDER_DISTANCE = 1;
 
     private long window;
@@ -47,6 +50,7 @@ public class Game {
     private Renderer renderer;
 
     private World world;
+    private PlayerEntity player;
 
     private StaticShader shader;
     private Camera camera;
@@ -136,10 +140,11 @@ public class Game {
         frameCount[0]++;
 
         if (System.currentTimeMillis() - fpsTimer[0] >= 1000) {
-            String windowTitle = "Game - FPS: " + frameCount[0];
+
+            String windowTitle = "Game - FPS: " + frameCount[0] +
+                    "\t Player - x: " + player.getPosition().x + " y: " + player.getPosition().y + " z: " + player.getPosition().z;
+
             glfwSetWindowTitle(window, windowTitle);
-
-
             frameCount[0] = 0;
             fpsTimer[0] += 1000;
         }
@@ -149,17 +154,23 @@ public class Game {
 
     private void exitGracefully() {
         shader.cleanUp();
+        modelLoader.cleanUp();
 
         glfwFreeCallbacks(window);
         glfwDestroyWindow(window);
         glfwTerminate();
         Objects.requireNonNull(glfwSetErrorCallback(null)).free();
+
+        updateHandler.stopThreads();
     }
 
     private void initClasses() {
         modelLoader = new ModelLoader();
         shader = new StaticShader();
+
         camera = new Camera();
+        player = new PlayerEntity(0, (float) Chunk.CHUNK_HEIGHT / 4, 0, camera);
+
         renderer = new Renderer(shader, camera);
 
         world = new World();
@@ -234,10 +245,6 @@ public class Game {
         return instance;
     }
 
-    /**
-     * Get the current screen size
-     * @return int[] containing the width [0] and height [1] of the screen
-     */
     public int[] getCurrentWindowSize() {
         try (MemoryStack stack = stackPush()) {
             IntBuffer pWidth = stack.mallocInt(1);

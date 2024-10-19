@@ -48,11 +48,12 @@ This project uses **OpenGL** through **LWJGL (Lightweight Java Game Library)** t
 ### Rendering Pipeline (Needs Improvement)  
 - **Efficient Chunk Rendering**:
   - [ ] **Backface Culling**: Only visible blocks are rendered.
-  - [ ] **Batched Rendering**: Chunks are rendered together for efficiency.
+  - [x] **Instanced Rendering**: 1 draw call for all blocks.
   - [ ] **GPU Optimization**: More calculations are moved to the GPU for faster rendering.
 
 - **Camera Movement**: 
   - [x] The player can explore the world using basic **WASD** controls for movement, along with mouse input for looking around.
+  - [ ] Player can interact with the map
 
 ---
 

@@ -10,8 +10,8 @@ import org.lpc.render.pipeline.ModelLoader;
 import org.lpc.render.pipeline.models.FullModel;
 import org.lpc.render.pipeline.shaders.StaticShader;
 import org.lpc.world.World;
-import org.lpc.world.block.AbstractBlock;
 import org.lpc.world.chunk.Chunk;
+import org.lpc.world.entity.entities.PlayerEntity;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
@@ -21,8 +21,9 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.IntBuffer;
-import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -37,7 +38,9 @@ public class Game {
 
     public static final int DEFAULT_WIDTH = 1080;
     public static final int DEFAULT_HEIGHT = 720;
-    public static final double UPDATES_PER_SECOND = 20.0;
+    public static final float UPDATES_PER_SECOND = 20.0f;
+    public static final float DEFAULT_MOVEMENT_SPEED = 0.15f;
+    public static final int RENDER_DISTANCE = 1;
 
     private long window;
     @Setter boolean fullscreen;
@@ -47,12 +50,16 @@ public class Game {
     private Renderer renderer;
 
     private World world;
+    private PlayerEntity player;
 
     private StaticShader shader;
     private Camera camera;
     private ModelLoader modelLoader;
 
-    private final ArrayList<FullModel> renderModels = new ArrayList<>();
+    @Setter private CopyOnWriteArrayList<FullModel> renderModels = new CopyOnWriteArrayList<>();
+    @Setter private CopyOnWriteArrayList<FullModel> nextModels = new CopyOnWriteArrayList<>();
+
+    @Setter private boolean modelNeedsChange = false;
 
     public void run() {
         System.out.println("LWJGL " + Version.getVersion());
@@ -95,6 +102,9 @@ public class Game {
         double previousTime = System.nanoTime();
         double lag = 0.0;
 
+        int[] frameCount = {0}; // Track the number of frames using an array for immutability in lambda
+        long[] fpsTimer = {System.currentTimeMillis()};
+
         while (!GLFW.glfwWindowShouldClose(window)) {
             double currentTime = System.nanoTime();
             double elapsedTime = currentTime - previousTime;
@@ -106,7 +116,7 @@ public class Game {
 
             GLFW.glfwPollEvents();
 
-            // Update game logic with fixed time-step
+            // Update game logic with a fixed time-step
             double nanosecondsPerUpdate = 1_000_000_000.0 / UPDATES_PER_SECOND;
 
             while (lag >= nanosecondsPerUpdate) {
@@ -120,24 +130,47 @@ public class Game {
             }
             shader.stop();
 
-            // Swap buffers and poll for events (input)
             GLFW.glfwSwapBuffers(window);
+
+            updateWindowTitleWithFPS(frameCount, fpsTimer);
         }
     }
 
+    private void updateWindowTitleWithFPS(int[] frameCount, long[] fpsTimer) {
+        frameCount[0]++;
+
+        if (System.currentTimeMillis() - fpsTimer[0] >= 1000) {
+
+            String windowTitle = "Game - FPS: " + frameCount[0] +
+                    "\t Player - x: " + player.getPosition().x + " y: " + player.getPosition().y + " z: " + player.getPosition().z;
+
+            glfwSetWindowTitle(window, windowTitle);
+            frameCount[0] = 0;
+            fpsTimer[0] += 1000;
+        }
+    }
+
+
+
     private void exitGracefully() {
         shader.cleanUp();
+        modelLoader.cleanUp();
 
         glfwFreeCallbacks(window);
         glfwDestroyWindow(window);
         glfwTerminate();
         Objects.requireNonNull(glfwSetErrorCallback(null)).free();
+
+        updateHandler.stopThreads();
     }
 
     private void initClasses() {
         modelLoader = new ModelLoader();
         shader = new StaticShader();
+
         camera = new Camera();
+        player = new PlayerEntity(0, (float) Chunk.CHUNK_HEIGHT / 4, 0, camera);
+
         renderer = new Renderer(shader, camera);
 
         world = new World();
@@ -212,10 +245,6 @@ public class Game {
         return instance;
     }
 
-    /**
-     * Get the current screen size
-     * @return int[] containing the width [0] and height [1] of the screen
-     */
     public int[] getCurrentWindowSize() {
         try (MemoryStack stack = stackPush()) {
             IntBuffer pWidth = stack.mallocInt(1);

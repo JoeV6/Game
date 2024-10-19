@@ -2,6 +2,7 @@ package org.lpc.world;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.lpc.world.block.AbstractBlock;
 import org.lpc.world.chunk.Chunk;
 
 import java.util.ArrayList;
@@ -56,17 +57,19 @@ public class World {
                 int chunkZ = playerChunkZ + z;
 
                 Chunk chunk = getChunk(chunkX, chunkZ);
+
+                if(chunk != null && loadedChunks.contains(chunk)) continue;
+
                 if (chunk == null) {
                     chunk = new Chunk(chunkX, chunkZ);
                     chunks.put(getChunkKey(chunkX, chunkZ), chunk);
                     System.out.println("Created chunk at " + chunkX + ", " + chunkZ);
-                    change = true;
                 }
-                if (!loadedChunks.contains(chunk)) {
-                    loadedChunks.add(chunk);
-                    System.out.println("Loaded chunk at " + chunkX + ", " + chunkZ);
-                    change = true;
-                }
+
+                loadedChunks.add(chunk);
+                System.out.println("Loaded chunk at " + chunkX + ", " + chunkZ);
+                change = true;
+
             }
         }
 
@@ -80,4 +83,39 @@ public class World {
     public Chunk getChunk(int chunkX, int chunkZ) {
         return chunks.get(getChunkKey(chunkX, chunkZ));
     }
+
+    public AbstractBlock getBlockWorld(float x, float y, float z) {
+        int chunkX = Math.floorDiv((int) x, Chunk.CHUNK_SIZE);
+        int chunkZ = Math.floorDiv((int) z, Chunk.CHUNK_SIZE);
+
+        Chunk chunk = getChunk(chunkX, chunkZ);
+
+        if(chunk == null) return null;
+
+        int blockX = Math.floorMod((int) x, Chunk.CHUNK_SIZE);
+        int blockY = Math.floorMod((int) y, Chunk.CHUNK_HEIGHT);
+        int blockZ = Math.floorMod((int) z, Chunk.CHUNK_SIZE);
+
+        return chunk.getBlock(blockX, blockY, blockZ);
+    }
+
+    public void removeBlock(AbstractBlock block){
+        Chunk c = getBlockChunk(block);
+
+        if(c == null) return;
+            
+        int x = Math.floorMod(block.getX(), Chunk.CHUNK_SIZE);
+        int y = block.getY();
+        int z = Math.floorMod(block.getZ(), Chunk.CHUNK_SIZE);
+
+        c.setBlock(x, y, z, null);
+    }
+
+    public Chunk getBlockChunk(AbstractBlock block){
+        return getChunk(
+                Math.floorDiv(block.getX(), Chunk.CHUNK_SIZE),
+                Math.floorDiv(block.getZ(), Chunk.CHUNK_SIZE)
+        );
+    }
+
 }

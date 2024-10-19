@@ -87,10 +87,15 @@ public class CubeModel {
             23,21,22
     };
 
+    static RawModel m1;
+
     public CubeModel(int x, int y, int z, float scale, Texture texture) {
         ModelLoader modelLoader = new ModelLoader();
-        RawModel m1 = modelLoader.loadToVAO(vertices, indices, textureCoords);
+
+        if(m1 == null)
+            m1 = modelLoader.loadToVAO(vertices, indices, textureCoords);
+
         TexturedModel m2 = new TexturedModel(m1, texture);
-        model = new FullModel(m2, new Vector3f(x, y, z), 0, 0, 0, 1);
+        model = new FullModel(m2, new Vector3f(x, y, z), 0, 0, 0, scale);
     }
 }

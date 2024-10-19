@@ -31,6 +31,9 @@ public class ModelLoader {
 
     public int loadTexture(String fileName){
         Texture texture = TextureLoader.getTexture("src/main/resources/textures/" + fileName + ".png");
+        if(texture == null) {
+            return -1;
+        }
         textures.add(texture.getTextureID());
         return texture.getTextureID();
     }

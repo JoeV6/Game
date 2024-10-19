@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Chunk System" />
+    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="PlayerEntity added, unfinished">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/AirBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_14_2024_4_09_PM__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/UpdateHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/UpdateHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/ModelLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/ModelLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/premade/CubeModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/premade/CubeModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/chunk/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/chunk/Chunk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/entities/PlayerEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/entities/PlayerEntity.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,6 +63,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="AnnotationType" />
         <option value="Class" />
       </list>
     </option>
@@ -71,7 +85,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/JoeV6/Game.git&quot;,
-    &quot;accountId&quot;: &quot;4aa111ff-409e-4f20-9f97-2361961dca8a&quot;
+    &quot;accountId&quot;: &quot;825c1356-0b81-40b4-a4f9-f7e507eac450&quot;
   }
 }</component>
   <component name="MacroExpansionManager">
@@ -125,6 +139,7 @@
       <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\liamd\IdeaProjects\Game\src\main\resources\textures\blocks" />
       <recent name="C:\Users\liamd\IdeaProjects\Game\src\main\resources\textures\tiles" />
       <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src\main\resources\textures\tiles" />
       <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src" />
@@ -339,7 +354,31 @@
       <option name="project" value="LOCAL" />
       <updated>1728495752164</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Rendering world properly">
+      <option name="closed" value="true" />
+      <created>1728914992610</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1728914992610</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Worldgeneration using Perlin noise, insanely laggy, need to improve rendering + chunk generation">
+      <option name="closed" value="true" />
+      <created>1728998741021</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1728998741021</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Worldgeneration using Perlin noise, insanely laggy, need to improve rendering + chunk generation">
+      <option name="closed" value="true" />
+      <created>1728999922884</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1728999922884</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -362,9 +401,10 @@
     <MESSAGE value="Commit before shader rework" />
     <MESSAGE value="Starting on shaders" />
     <MESSAGE value="Rendering cube with shaders" />
-    <MESSAGE value="Rendering world properly" />
     <MESSAGE value="Chunk System" />
-    <option name="LAST_COMMIT_MESSAGE" value="Chunk System" />
+    <MESSAGE value="Rendering world properly" />
+    <MESSAGE value="Worldgeneration using Perlin noise, insanely laggy, need to improve rendering + chunk generation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Worldgeneration using Perlin noise, insanely laggy, need to improve rendering + chunk generation" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

@@ -46,6 +46,7 @@ public class Renderer {
         glEnable(GL11C.GL_DEPTH_TEST);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0f, 0.827f, 1f, 1.0f);
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     }
 
     public void render(FullModel fullModel, StaticShader shader) {
@@ -63,7 +64,10 @@ public class Renderer {
         shader.loadTransformMatrix(transformMatrix);
 
         GL13C.glActiveTexture(GL13C.GL_TEXTURE0);
-        GL11C.glBindTexture(GL11C.GL_TEXTURE_2D, fullModel.getModel().getTexture().getTextureID());
+
+        if(fullModel.getModel().getTexture().getTextureID() != -1)
+            GL13C.glBindTexture(GL11C.GL_TEXTURE_2D, fullModel.getModel().getTexture().getTextureID());
+
         GL11C.glDrawElements(GL_TRIANGLES, rawModel.getVertexCount(), GL_UNSIGNED_INT, 0);
         GL20C.glDisableVertexAttribArray(0);
         GL20C.glDisableVertexAttribArray(1);

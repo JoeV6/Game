@@ -5,10 +5,9 @@ import lombok.Setter;
 import org.lpc.handler.InputHandler;
 import org.lpc.handler.UpdateHandler;
 import org.lpc.render.Camera;
-import org.lpc.render.Renderer;
-import org.lpc.render.pipeline.ModelLoader;
-import org.lpc.render.pipeline.models.FullModel;
 import org.lpc.render.pipeline.shaders.StaticShader;
+import org.lpc.render.pipeline.Renderer;
+import org.lpc.render.pipeline.models.CubeModel;
 import org.lpc.world.World;
 import org.lpc.world.chunk.Chunk;
 import org.lpc.world.entity.entities.PlayerEntity;
@@ -21,12 +20,16 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.GL_FILL;
+import static org.lwjgl.opengl.GL11.GL_FRONT_AND_BACK;
+import static org.lwjgl.opengl.GL11.glPolygonMode;
 import static org.lwjgl.opengl.GL11C.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
@@ -38,26 +41,26 @@ public class Game {
 
     public static final int DEFAULT_WIDTH = 1080;
     public static final int DEFAULT_HEIGHT = 720;
-    public static final float UPDATES_PER_SECOND = 20.0f;
+    public static final float UPDATES_PER_SECOND = 5.0f;
     public static final float DEFAULT_MOVEMENT_SPEED = 0.15f;
-    public static final int RENDER_DISTANCE = 1;
+    public static final int RENDER_DISTANCE = 2;
 
+    private boolean debug = false;
     private long window;
     @Setter boolean fullscreen;
 
     private InputHandler inputHandler;
     private UpdateHandler updateHandler;
-    private Renderer renderer;
 
     private World world;
     private PlayerEntity player;
 
     private StaticShader shader;
     private Camera camera;
-    private ModelLoader modelLoader;
+    private Renderer renderer;
 
-    @Setter private CopyOnWriteArrayList<FullModel> renderModels = new CopyOnWriteArrayList<>();
-    @Setter private CopyOnWriteArrayList<FullModel> nextModels = new CopyOnWriteArrayList<>();
+    @Setter List<CubeModel> renderModels = new CopyOnWriteArrayList<>();
+    @Setter List<CubeModel> nextModels = new CopyOnWriteArrayList<>();
 
     @Setter private boolean modelNeedsChange = false;
 
@@ -111,7 +114,8 @@ public class Game {
             previousTime = currentTime;
             lag += elapsedTime;
 
-            renderer.prepare();
+            renderer.prepareRender();
+
             inputHandler.processInput();
 
             GLFW.glfwPollEvents();
@@ -125,9 +129,9 @@ public class Game {
             }
 
             shader.start();
-            for (FullModel fullModel : renderModels) {
-                renderer.render(fullModel, shader);
-            }
+
+            renderer.render(renderModels);
+
             shader.stop();
 
             GLFW.glfwSwapBuffers(window);
@@ -150,31 +154,12 @@ public class Game {
         }
     }
 
-
-
-    private void exitGracefully() {
-        shader.cleanUp();
-        modelLoader.cleanUp();
-
-        glfwFreeCallbacks(window);
-        glfwDestroyWindow(window);
-        glfwTerminate();
-        Objects.requireNonNull(glfwSetErrorCallback(null)).free();
-
-        updateHandler.stopThreads();
-    }
-
     private void initClasses() {
-        modelLoader = new ModelLoader();
         shader = new StaticShader();
-
         camera = new Camera();
         player = new PlayerEntity(0, (float) Chunk.CHUNK_HEIGHT / 4, 0, camera);
-
         renderer = new Renderer(shader, camera);
-
         world = new World();
-
         inputHandler = new InputHandler();
         updateHandler = new UpdateHandler();
     }
@@ -196,7 +181,7 @@ public class Game {
         glfwSetFramebufferSizeCallback(window, (window, width, height) -> {
             glViewport(0, 0, width, height);
         });
-
+        // Center the cursor and hide it
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         glfwSetCursorPosCallback(window, new GLFWCursorPosCallback() {
             private double lastX = 0, lastY = 0;
@@ -221,18 +206,6 @@ public class Game {
         });
     }
 
-    private void centerWindow(long window) {
-        int[] windowSize = getCurrentWindowSize();
-        GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-        if (vidMode != null) {
-            glfwSetWindowPos(
-                    window,
-                    (vidMode.width() - windowSize[0]) / 2,
-                    (vidMode.height() - windowSize[1]) / 2
-            );
-        }
-    }
-
     private Game() {
         window = 0;
         fullscreen = false;
@@ -245,6 +218,19 @@ public class Game {
         return instance;
     }
 
+    private void exitGracefully() {
+        glfwFreeCallbacks(window);
+        glfwDestroyWindow(window);
+        glfwTerminate();
+        Objects.requireNonNull(glfwSetErrorCallback(null)).free();
+
+        shader.cleanUp();
+        renderer.cleanup();
+        updateHandler.cleanUp();
+    }
+
+    // Utility methods
+
     public int[] getCurrentWindowSize() {
         try (MemoryStack stack = stackPush()) {
             IntBuffer pWidth = stack.mallocInt(1);
@@ -253,6 +239,28 @@ public class Game {
             glfwGetWindowSize(window, pWidth, pHeight);
 
             return new int[]{pWidth.get(0), pHeight.get(0)};
+        }
+    }
+
+    private void centerWindow(long window) {
+        int[] windowSize = getCurrentWindowSize();
+        GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+        if (vidMode != null) {
+            glfwSetWindowPos(
+                    window,
+                    (vidMode.width() - windowSize[0]) / 2,
+                    (vidMode.height() - windowSize[1]) / 2
+            );
+        }
+    }
+
+    public void changeDebug(){
+        if (debug){
+            debug = false;
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        } else {
+            debug = true;
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         }
     }
 }

@@ -1,9 +1,8 @@
 package org.lpc.handler;
 
-import lombok.Setter;
 import org.joml.Vector3f;
 import org.lpc.Game;
-import org.lpc.render.pipeline.models.FullModel;
+import org.lpc.render.pipeline.models.CubeModel;
 import org.lpc.world.World;
 import org.lpc.world.block.AbstractBlock;
 import org.lpc.world.chunk.Chunk;
@@ -13,6 +12,10 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import static java.awt.SystemColor.window;
 
 public class UpdateHandler {
     private final Game game;
@@ -44,7 +47,7 @@ public class UpdateHandler {
 
         if (modelsReady) {
             synchronized (game.getRenderModels()) {
-                CopyOnWriteArrayList<FullModel> temp = game.getRenderModels();
+                CopyOnWriteArrayList<CubeModel> temp = (CopyOnWriteArrayList<CubeModel>) game.getRenderModels();
                 game.setRenderModels(game.getNextModels());
                 game.setNextModels(temp);
             }
@@ -53,7 +56,7 @@ public class UpdateHandler {
     }
 
     private void updateRenderModels() {
-        List<FullModel> nextModels = game.getNextModels();
+        List<CubeModel> nextModels = game.getNextModels();
         nextModels.clear();
 
         for (Chunk chunk : world.getLoadedChunks()) {
@@ -63,7 +66,7 @@ public class UpdateHandler {
         modelsReady = true;
     }
 
-    private void loadChunkModels(Chunk chunk, List<FullModel> nextModels) {
+    private void loadChunkModels(Chunk chunk, List<CubeModel> nextModels) {
         AbstractBlock[][][] blocks = chunk.getBlocks();
 
         for (AbstractBlock[][] chunkLayer : blocks) {
@@ -74,7 +77,7 @@ public class UpdateHandler {
 
                 for (AbstractBlock block : chunkRow) {
                     if (block != null) {
-                        FullModel newModel = block.getCubeModel().getModel();
+                        CubeModel newModel = block.getCubeModel();
                         nextModels.add(newModel);
                     }
                 }
@@ -84,7 +87,7 @@ public class UpdateHandler {
 
     public void loadChunk(int chunkX, int chunkZ){
         Chunk chunk = world.getChunk(chunkX, chunkZ);
-        List<FullModel> nextModels = game.getNextModels();
+        List<CubeModel> nextModels = game.getNextModels();
         nextModels.clear();
         loadChunkModels(chunk, nextModels);
 
@@ -92,8 +95,7 @@ public class UpdateHandler {
     }
 
 
-    public void stopThreads(){
+    public void cleanUp(){
         executor.shutdown();
     }
 }
-

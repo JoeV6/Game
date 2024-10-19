@@ -3,7 +3,6 @@ package org.lpc.handler;
 import lombok.Setter;
 import org.joml.Vector3f;
 import org.lpc.Game;
-import org.lpc.render.Camera;
 import org.lpc.render.pipeline.models.FullModel;
 import org.lpc.world.World;
 import org.lpc.world.block.AbstractBlock;
@@ -21,7 +20,6 @@ public class UpdateHandler {
     private final PlayerEntity player;
     private final ExecutorService executor;
     private volatile boolean modelsReady = false;
-    @Setter boolean deleted = false;
 
     public UpdateHandler() {
         game = Game.getInstance();
@@ -39,14 +37,12 @@ public class UpdateHandler {
     private void updateChunks(){
         Vector3f position = player.getPosition();
 
-        if (world.updateChunks((int) position.x, (int) position.z, Game.RENDER_DISTANCE) || deleted) {
+        if (world.updateChunks((int) position.x, (int) position.z, Game.RENDER_DISTANCE)) {
             // Offload model updates to the background thread
             executor.submit(this::updateRenderModels);
-            deleted = false;
         }
 
         if (modelsReady) {
-            // Swap the models safely
             synchronized (game.getRenderModels()) {
                 CopyOnWriteArrayList<FullModel> temp = game.getRenderModels();
                 game.setRenderModels(game.getNextModels());
@@ -84,6 +80,15 @@ public class UpdateHandler {
                 }
             }
         }
+    }
+
+    public void loadChunk(int chunkX, int chunkZ){
+        Chunk chunk = world.getChunk(chunkX, chunkZ);
+        List<FullModel> nextModels = game.getNextModels();
+        nextModels.clear();
+        loadChunkModels(chunk, nextModels);
+
+        modelsReady = true;
     }
 
 

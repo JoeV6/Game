@@ -89,8 +89,12 @@ public class InputHandler {
             System.out.println("Mouse input: " + x + ", " + y);
             World world = game.getWorld();
             PlayerEntity player = game.getPlayer();
-            
-            game.getUpdateHandler().setDeleted(true);
+
+            AbstractBlock b = player.getFirstBlockInFront(10, 0.4f);
+            if(b == null) return;
+
+            world.removeBlock(b);
+            game.getUpdateHandler().loadChunk(world.getBlockChunk(b).getChunkX(), world.getBlockChunk(b).getChunkZ());
         }
         if(button == GLFW.GLFW_MOUSE_BUTTON_RIGHT && action == GLFW.GLFW_PRESS) {
             System.out.println("Mouse input: " + x + ", " + y);

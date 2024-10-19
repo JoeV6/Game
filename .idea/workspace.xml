@@ -5,18 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="PlayerEntity added, unfinished">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/entities/PlayerEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/AirBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_14_2024_4_09_PM__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/UpdateHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/UpdateHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/ModelLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/ModelLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/premade/CubeModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/premade/CubeModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/chunk/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/chunk/Chunk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/blocks/block_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/textures/blocks/block_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/entities/PlayerEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/entities/PlayerEntity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +85,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/JoeV6/Game.git&quot;,
-    &quot;accountId&quot;: &quot;4aa111ff-409e-4f20-9f97-2361961dca8a&quot;
+    &quot;accountId&quot;: &quot;825c1356-0b81-40b4-a4f9-f7e507eac450&quot;
   }
 }</component>
   <component name="MacroExpansionManager">
@@ -407,15 +407,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Worldgeneration using Perlin noise, insanely laggy, need to improve rendering + chunk generation" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/lpc/world/World.java</url>
-          <line>111</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="java.nio.DirectFloatBufferU" memberName="att" />

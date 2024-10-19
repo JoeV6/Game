@@ -1,7 +1,6 @@
 package org.lpc.world.entity.entities;
 
 import org.joml.Vector3f;
-import org.lpc.Game;
 import org.lpc.render.Camera;
 import org.lpc.world.block.AbstractBlock;
 import org.lpc.world.entity.Entity;
@@ -20,7 +19,10 @@ public class PlayerEntity extends Entity {
     }
 
     public void update(){
-        System.out.println(getBlockLookingAt());
+        if(getFirstBlockInFront(10, 0.4f) != null){
+            System.out.println("Block in front");
+            //game.getWorld().removeBlock(getFirstBlockInFront(10, 0.4f));
+        }
 
         this.move(vx, vy, vz);
     }
@@ -35,22 +37,32 @@ public class PlayerEntity extends Entity {
         return false;
     }
 
-    public AbstractBlock getBlockLookingAt() {
-        int maxDistance = 5; // Maximum distance to check
-        float stepSize = 0.5f; // Step size for ray marching (smaller = more accurate)
+    public AbstractBlock getFirstBlockInFront(float maxDistance, float stepSize) {
+        Vector3f position = camera.getPosition();
+        float yaw = camera.getYaw();
+        float pitch = camera.getPitch();
 
-        Vector3f cameraPos = new Vector3f(camera.getPosition());
+        float yawRad = (float) Math.toRadians(yaw);
+        float pitchRad = (float) Math.toRadians(pitch);
 
-        Vector3f direction = getDirectionFromCamera(camera.getYaw(), camera.getPitch());
+        float dirX = (float) Math.sin(yawRad) * (float) Math.cos(pitchRad);
+        float dirY = (float) -Math.sin(pitchRad);
+        float dirZ = (float) -Math.cos(yawRad) * (float) Math.cos(pitchRad);
 
-        for (float t = 0; t < maxDistance; t += stepSize) {
-            Vector3f currentPos = new Vector3f(cameraPos).add(direction.x * t, -direction.y * t, direction.z * t);
+        float currentX = position.x;
+        float currentY = position.y;
+        float currentZ = position.z;
 
-            int blockX = (int) Math.floor(currentPos.x);
-            int blockY = (int) Math.floor(currentPos.y);
-            int blockZ = (int) Math.floor(currentPos.z);
+        for (float distance = 0; distance < maxDistance; distance += stepSize) {
+            float checkX = currentX + dirX * distance;
+            float checkY = currentY + dirY * distance;
+            float checkZ = currentZ + dirZ * distance;
 
-            AbstractBlock block = game.getWorld().getBlockAt(blockX, blockY, blockZ);
+            int blockX = (int) Math.floor(checkX);
+            int blockY = (int) Math.floor(checkY);
+            int blockZ = (int) Math.floor(checkZ);
+
+            AbstractBlock block = game.getWorld().getBlockWorld(blockX, blockY, blockZ);
 
             if (block != null) {
                 return block;
@@ -58,17 +70,6 @@ public class PlayerEntity extends Entity {
         }
 
         return null;
-    }
-
-    private Vector3f getDirectionFromCamera(float yaw, float pitch) {
-        float pitchRadians = (float) Math.toRadians(pitch);
-        float yawRadians = (float) Math.toRadians(yaw);
-
-        float x = (float) (Math.cos(pitchRadians) * Math.sin(yawRadians));
-        float y = (float) Math.sin(pitchRadians);
-        float z = (float) (Math.cos(pitchRadians) * Math.cos(yawRadians));
-
-        return new Vector3f(x, y, z).normalize();
     }
 
 

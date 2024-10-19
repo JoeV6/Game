@@ -7,7 +7,6 @@ import org.lpc.world.chunk.Chunk;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Getter @Setter
@@ -85,7 +84,7 @@ public class World {
         return chunks.get(getChunkKey(chunkX, chunkZ));
     }
 
-    public AbstractBlock getBlockAt(float x, float y, float z) {
+    public AbstractBlock getBlockWorld(float x, float y, float z) {
         int chunkX = Math.floorDiv((int) x, Chunk.CHUNK_SIZE);
         int chunkZ = Math.floorDiv((int) z, Chunk.CHUNK_SIZE);
 
@@ -103,13 +102,20 @@ public class World {
     public void removeBlock(AbstractBlock block){
         Chunk c = getBlockChunk(block);
 
-        if(c != null){
-            c.removeBlockWorld(block.getX(), block.getY(), block.getZ());
-        }
+        if(c == null) return;
+            
+        int x = Math.floorMod(block.getX(), Chunk.CHUNK_SIZE);
+        int y = block.getY();
+        int z = Math.floorMod(block.getZ(), Chunk.CHUNK_SIZE);
+
+        c.setBlock(x, y, z, null);
     }
 
     public Chunk getBlockChunk(AbstractBlock block){
-        return getChunk(Math.floorDiv(block.getX(), Chunk.CHUNK_SIZE), Math.floorDiv(block.getZ(), Chunk.CHUNK_SIZE));
+        return getChunk(
+                Math.floorDiv(block.getX(), Chunk.CHUNK_SIZE),
+                Math.floorDiv(block.getZ(), Chunk.CHUNK_SIZE)
+        );
     }
 
 }

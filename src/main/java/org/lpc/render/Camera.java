@@ -27,7 +27,19 @@ public class Camera {
     }
 
     public void moveForward(float amount){
-        position.add((float) Math.sin(Math.toRadians(yaw)) * amount, 0, (float) -Math.cos(Math.toRadians(yaw)) * amount);
+        //position.add((float) Math.sin(Math.toRadians(yaw)) * amount, 0, (float) -Math.cos(Math.toRadians(yaw)) * amount);
+        float pitchRad = (float) Math.toRadians(pitch);
+        float yawRad = (float) Math.toRadians(yaw);
+
+        float dirX = (float) Math.sin(yawRad) * (float) Math.cos(pitchRad);
+        float dirY = (float) -Math.sin(pitchRad);
+        float dirZ = (float) -Math.cos(yawRad) * (float) Math.cos(pitchRad);
+
+        position.add(
+                dirX * amount,
+                dirY * amount,
+                dirZ * amount
+        );
     }
 
     public void moveLeft(float amount){

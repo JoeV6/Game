@@ -1,6 +1,7 @@
 package org.lpc.world.chunk;
 
 import lombok.Getter;
+import org.lpc.Game;
 import org.lpc.utils.PerlinNoise;
 import org.lpc.world.block.AbstractBlock;
 import org.lpc.world.block.blocks.DirtBlock;
@@ -30,13 +31,17 @@ public class Chunk {
                 int worldX = chunkX * CHUNK_SIZE + x;
                 int worldZ = chunkZ * CHUNK_SIZE + z;
 
-
                 double height = perlinNoise.noise(worldX * 0.1, worldZ * 0.1) * CHUNK_HEIGHT / 4;
 
                 height = Math.max(1, Math.min(height, CHUNK_HEIGHT - 1));
 
                 for (int y = 0; y < CHUNK_HEIGHT; y++) {
+
                     if (y < height) {
+                        if(blocks[x][z][y] != null){
+                            continue;
+                        }
+
                         if (y == (int) height - 1) {
                             blocks[x][z][y] = new GrassBlock(worldX, y, worldZ); // Grass on top layer
                         } else if (y < (int) height - 1 && y > (int) height - 10) {
@@ -60,32 +65,13 @@ public class Chunk {
     }
 
     public void setBlock(int x, int y, int z, AbstractBlock block) {
-        if (!isOutOfBounds(x, y, z)) {
-            blocks[x][z][y] = block;
-        }
-    }
+        if (isOutOfBounds(x, y, z)) return;
 
-    public void removeBlock(int x, int y, int z) {
-        setBlock(x, y, z, null);
+        blocks[x][z][y] = block;
+        Game.getInstance().getUpdateHandler().loadChunk(chunkX, chunkZ);
     }
 
     private boolean isOutOfBounds(int x, int y, int z) {
         return x < 0 || x >= CHUNK_SIZE || y < 0 || y >= CHUNK_HEIGHT || z < 0 || z >= CHUNK_SIZE;
-    }
-
-    public AbstractBlock getBlockWorld(int worldX, int worldY, int worldZ) {
-        int localX = worldX % CHUNK_SIZE;
-        int localZ = worldZ % CHUNK_SIZE;
-        return getBlock(localX, worldY, localZ);
-    }
-
-    public void setBlockWorld(int worldX, int worldY, int worldZ, AbstractBlock block) {
-        int localX = worldX % CHUNK_SIZE;
-        int localZ = worldZ % CHUNK_SIZE;
-        setBlock(localX, worldY, localZ, block);
-    }
-
-    public void removeBlockWorld(int worldX, int worldY, int worldZ) {
-        setBlockWorld(worldX, worldY, worldZ, null);
     }
 }

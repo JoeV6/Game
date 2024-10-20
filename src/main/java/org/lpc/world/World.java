@@ -45,8 +45,13 @@ public class World {
     }
 
     public boolean updateChunks(int playerX, int playerZ, int renderDistance) {
-        boolean farChunks = unloadFarChunks(playerX, playerZ, renderDistance);
-        boolean loadChunksAround = loadChunksAround(playerX, playerZ, renderDistance);
+        boolean farChunks;
+        boolean loadChunksAround;
+
+        synchronized (chunkCache) {
+            farChunks = unloadFarChunks(playerX, playerZ, renderDistance);
+            loadChunksAround = loadChunksAround(playerX, playerZ, renderDistance);
+        }
 
         return farChunks || loadChunksAround;
     }
@@ -63,48 +68,46 @@ public class World {
     }
 
     private boolean loadChunksAround(int playerX, int playerZ, int renderDistance) {
-        synchronized (loadedChunks) {
-            int playerChunkX = Math.floorDiv(playerX, Chunk.CHUNK_SIZE);
-            int playerChunkZ = Math.floorDiv(playerZ, Chunk.CHUNK_SIZE);
+        int playerChunkX = Math.floorDiv(playerX, Chunk.CHUNK_SIZE);
+        int playerChunkZ = Math.floorDiv(playerZ, Chunk.CHUNK_SIZE);
 
-            boolean change = false;
+        boolean change = false;
 
-            for (int x = -renderDistance; x <= renderDistance; x++) {
-                for (int z = -renderDistance; z <= renderDistance; z++) {
-                    int chunkX = playerChunkX + x;
-                    int chunkZ = playerChunkZ + z;
+        for (int x = -renderDistance; x <= renderDistance; x++) {
+            for (int z = -renderDistance; z <= renderDistance; z++) {
+                int chunkX = playerChunkX + x;
+                int chunkZ = playerChunkZ + z;
 
-                    Chunk chunk = getChunk(chunkX, chunkZ);
+                Chunk chunk = getChunk(chunkX, chunkZ);
 
-                    if (chunk != null && loadedChunks.contains(chunk)) continue;
+                if (chunk != null && loadedChunks.contains(chunk)) continue;
 
-                    if (chunk == null) {
-                        chunk = new Chunk(chunkX, chunkZ);
-                        chunkCache.put(getChunkKey(chunkX, chunkZ), chunk);
-                        //System.out.println("Created chunk at " + chunkX + ", " + chunkZ);
-                    }
-
-                    loadedChunks.add(chunk);
-                    //System.out.println("Loaded chunk at " + chunkX + ", " + chunkZ);
-                    change = true;
+                if (chunk == null) {
+                    chunk = new Chunk(chunkX, chunkZ);
+                    chunkCache.put(getChunkKey(chunkX, chunkZ), chunk);
                 }
+
+                loadedChunks.add(chunk);
+                change = true;
             }
-            return change;
         }
+        return change;
     }
 
     public Chunk getChunk(int chunkX, int chunkZ) {
-        String chunkKey = getChunkKey(chunkX, chunkZ);
+        synchronized (chunkCache) {
+            String chunkKey = getChunkKey(chunkX, chunkZ);
 
-        if (chunkCache.containsKey(chunkKey)) {
-            return chunkCache.get(chunkKey);
-        }
+            if (chunkCache.containsKey(chunkKey)) {
+                return chunkCache.get(chunkKey);
+            }
 
-        Chunk chunk = loadChunkFromDisk(chunkKey);
-        if (chunk != null) {
-            addChunk(chunkKey, chunk);
+            Chunk chunk = loadChunkFromDisk(chunkKey);
+            if (chunk != null) {
+                addChunk(chunkKey, chunk);
+            }
+            return chunk;
         }
-        return chunk;
     }
 
     private String getChunkKey(int x, int z) {
@@ -112,7 +115,9 @@ public class World {
     }
 
     public void addChunk(String chunkKey, Chunk chunk) {
-        chunkCache.put(chunkKey, chunk);
+        synchronized (chunkCache) {
+            chunkCache.put(chunkKey, chunk);
+        }
     }
 
     public AbstractBlock getBlockWorld(float x, float y, float z) {
@@ -150,25 +155,35 @@ public class World {
     }
 
     private void saveChunkToDisk(Chunk chunk, String chunkKey) {
-        String fileName = "chunks/" + Arrays.toString(chunkKey.getBytes()) + ".dat.gz";
+        String[] split = chunkKey.split(":");
+        int x = Integer.parseInt(split[0]);
+        int z = Integer.parseInt(split[1]);
+
+        String fileName = "chunks/[" + x + ", " + z + "].dat.gz";
 
         try (FileOutputStream fileOut = new FileOutputStream(fileName);
              GZIPOutputStream gzipOut = new GZIPOutputStream(fileOut);
              ObjectOutputStream out = new ObjectOutputStream(gzipOut)) {
 
             out.writeObject(chunk);
+            System.out.println("Saved chunk to disk: " + chunkKey);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private Chunk loadChunkFromDisk(String chunkKey) {
-        String fileName = "chunks/" + Arrays.toString(chunkKey.getBytes()) + ".dat.gz";
+        String[] split = chunkKey.split(":");
+        int x = Integer.parseInt(split[0]);
+        int z = Integer.parseInt(split[1]);
+
+        String fileName = "chunks/[" + x + ", " + z + "].dat.gz";
 
         try (FileInputStream fileIn = new FileInputStream(fileName);
              GZIPInputStream gzipIn = new GZIPInputStream(fileIn);
              ObjectInputStream in = new ObjectInputStream(gzipIn)) {
 
+            //System.out.println("Loaded chunk from disk: " + chunkKey);
             return (Chunk) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
             //Do nothing, the chunk is just not in the cache

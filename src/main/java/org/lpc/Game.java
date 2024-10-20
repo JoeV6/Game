@@ -45,7 +45,6 @@ public class Game {
     public static final float DEFAULT_MOVEMENT_SPEED = 0.10f;
     public static final float UPDATES_PER_SECOND = 20.0f;
     public static final int RENDER_DISTANCE = 2;
-    public static Color SKY = new Color(0, 0.59f, 0.229f, 1.0f);
 
     private boolean debug = false;
     private long window;
@@ -117,7 +116,6 @@ public class Game {
             lag += elapsedTime;
 
             renderer.prepareRender();
-
             inputHandler.processInput();
 
             GLFW.glfwPollEvents();
@@ -130,13 +128,8 @@ public class Game {
                 lag -= nanosecondsPerUpdate;
             }
 
-            shader.start();
 
             renderer.render(renderModels);
-
-            shader.stop();
-
-            GLFW.glfwSwapBuffers(window);
 
             updateWindowTitleWithFPS(frameCount, fpsTimer);
         }
@@ -151,7 +144,7 @@ public class Game {
                     "   Player - x: " + player.getPosition().x + " y: " + player.getPosition().y + " z: " + player.getPosition().z +
                     "      Total Chunks - " + world.getChunkCache().size() +
                     "      Render Models - " + renderModels.size() +
-                    "      Trigs - " + (renderer.getVboInstanceData().getCount() / 3);
+                    "      Trigs - " + (renderer.getVboInstanceData().getCount());
 
             glfwSetWindowTitle(window, windowTitle);
             frameCount[0] = 0;

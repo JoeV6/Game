@@ -4,10 +4,13 @@ import lombok.Getter;
 import org.lpc.Game;
 import org.lpc.utils.PerlinNoise;
 import org.lpc.world.block.AbstractBlock;
+import org.lpc.world.block.blocks.AirBlock;
+import org.lpc.world.block.blocks.CobbleStoneBlock;
 import org.lpc.world.block.blocks.DirtBlock;
 import org.lpc.world.block.blocks.GrassBlock;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -45,16 +48,15 @@ public class Chunk implements Serializable {
                         if(blocks[x][z][y] != null){
                             continue;
                         }
-
                         if (y == (int) height - 1) {
-                            blocks[x][z][y] = new GrassBlock(worldX, y, worldZ); // Grass on top layer
+                            blocks[x][z][y] = new GrassBlock(worldX, y, worldZ);
                         } else if (y < (int) height - 1 && y > (int) height - 10) {
-                            blocks[x][z][y] = new DirtBlock(worldX, y, worldZ); // Dirt layer under grass
+                            blocks[x][z][y] = new DirtBlock(worldX, y, worldZ);
                         } else {
-                            blocks[x][z][y] = null; // Empty block
+                            blocks[x][z][y] = new AirBlock(worldX, y, worldZ);
                         }
                     } else {
-                        blocks[x][z][y] = null; // Empty block above ground level
+                        blocks[x][z][y] = new AirBlock(worldX, y, worldZ); // Empty block above ground level
                     }
                 }
             }

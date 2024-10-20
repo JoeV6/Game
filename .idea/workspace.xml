@@ -4,11 +4,122 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Textures re-added through TextureAtlas.java and new shaders">
+    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Fixed multithreading issues, need to fix textureAtlas">
+      <change afterPath="$PROJECT_DIR$/chunks/[-1, -1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-1, -2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-1, -3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-1, -4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-1, -5].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-1, -6].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-1, -7].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-1, 0].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-1, 1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-1, 2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-1, 3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-1, 4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-2, -1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-2, -2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-2, -3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-2, -4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-2, -5].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-2, -6].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-2, -7].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-2, -8].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-2, -9].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-2, 0].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-2, 1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-2, 2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-2, 3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-2, 4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-3, -1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-3, -2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-3, -3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-3, -4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-3, 0].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-3, 1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-3, 2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-3, 3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-3, 4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-4, -1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-4, -2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-4, -3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-4, -4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-4, 0].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-4, 1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-4, 2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-4, 3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[-4, 4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[0, -1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[0, -2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[0, -3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[0, -4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[0, -5].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[0, -6].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[0, -7].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[0, 0].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[0, 1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[0, 2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[0, 3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[0, 4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[1, -1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[1, -2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[1, -3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[1, -4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[1, -5].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[1, -6].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[1, -7].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[1, -8].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[1, 0].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[1, 1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[1, 2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[1, 3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[1, 4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[2, -1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[2, -2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[2, -3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[2, -4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[2, -5].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[2, -6].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[2, -7].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[2, -8].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[2, -9].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[2, 0].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[2, 1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[2, 2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[2, 3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[2, 4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[3, -1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[3, -2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[3, -3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[3, -4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[3, -7].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[3, -8].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[3, -9].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[3, 0].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[3, 1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[3, 2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[3, 3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[3, 4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[4, -1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[4, -2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[4, -3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[4, -4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[4, 0].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[4, 1].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[4, 2].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[4, 3].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[4, 4].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chunks/[5, -13].dat.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/CobbleStoneBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/UpdateHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/UpdateHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/Renderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/CubeModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/CubeModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/shaders/StaticShader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/shaders/StaticShader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/TextureLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/TextureLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/utils/TextureAtlas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/utils/TextureAtlas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/AbstractBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/AbstractBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/chunk/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/chunk/Chunk.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +167,7 @@
       <list>
         <option value="Interface" />
         <option value="AnnotationType" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -107,46 +219,47 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Application.Main.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Gradle.Game [:org.lpc.Main.main()].executor": "Run",
-    "Gradle.sandbox [:org.lpc.Main.main()].executor": "Run",
-    "Gradle.sandbox [build].executor": "Run",
-    "Gradle.sandbox [clean].executor": "Run",
-    "Gradle.sandbox [run].executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "instanced",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/DesktopStorage/Intellij_Projects/Others/sandbox/src/main/resources/textures",
-    "project.structure.last.edited": "Problems",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.Game [:org.lpc.Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.sandbox [:org.lpc.Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.sandbox [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.sandbox [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.sandbox [run].executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;instanced&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/DesktopStorage/Intellij_Projects/Others/sandbox/src/main/resources/textures/blocks&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="org.lpc.render.textures" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src\main\resources\textures\blocks" />
       <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src\main\resources\textures" />
       <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src\main\resources\textures\blocks" />
       <recent name="C:\Users\liamd\IdeaProjects\Game\src\main\resources\textures\blocks" />
       <recent name="C:\Users\liamd\IdeaProjects\Game\src\main\resources\textures\tiles" />
       <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src\main\resources\textures\tiles" />
       <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src" />
-      <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src\main\resources\textures" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
@@ -445,7 +558,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729420014989</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Textures re-added through TextureAtlas.java and new shaders">
+      <option name="closed" value="true" />
+      <created>1729420727139</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1729420727139</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -481,7 +602,8 @@
     <MESSAGE value="Renderer recoded, now rendering instanced" />
     <MESSAGE value="Now caching only 100 chunks and saving the rest to disk" />
     <MESSAGE value="Textures re-added through TextureAtlas.java and new shaders" />
-    <option name="LAST_COMMIT_MESSAGE" value="Textures re-added through TextureAtlas.java and new shaders" />
+    <MESSAGE value="Fixed multithreading issues, need to fix textureAtlas" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed multithreading issues, need to fix textureAtlas" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

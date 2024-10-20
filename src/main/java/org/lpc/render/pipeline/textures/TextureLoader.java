@@ -5,15 +5,19 @@ import org.lwjgl.stb.STBImage;
 import org.lwjgl.system.MemoryStack;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
+import static org.lwjgl.opengl.GL12.glTexSubImage3D;
 import static org.lwjgl.opengl.GL12C.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL12C.glTexImage3D;
 import static org.lwjgl.opengl.GL30C.GL_TEXTURE_2D_ARRAY;
@@ -21,6 +25,8 @@ import static org.lwjgl.opengl.GL30C.glGenerateMipmap;
 import static org.lwjgl.system.MemoryStack.stackPush;
 
 public class TextureLoader {
+    public static final int ATLAS_SIZE = 64;
+
     public static Texture getTexture(String file) {
         BufferedImage image = null;
         try {

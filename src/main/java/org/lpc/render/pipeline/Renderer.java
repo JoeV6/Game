@@ -16,6 +16,7 @@ import org.lwjgl.opengl.GL13C;
 
 import java.util.List;
 
+import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL15.GL_DYNAMIC_DRAW;
@@ -107,8 +108,9 @@ public class Renderer {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0.6f, 0.8f, 1, 1);
         glDepthFunc(GL_LESS);      // Specify the depth comparison function (GL_LESS is common)
+
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         glCullFace(GL_BACK);
-        //glEnable(GL_CULL_FACE);    // Enable culling of faces
     }
 
     public void render(List<CubeModel> cubes) {
@@ -128,6 +130,8 @@ public class Renderer {
         vao.unbind();
 
         shader.stop();
+
+        glfwSwapBuffers(Game.getInstance().getWindow());
 
         renderCrosshair();
     }
@@ -185,7 +189,7 @@ public class Renderer {
 
         lineVBO = new VBO();
         lineVBO.uploadData(lineVertices, GL_STATIC_DRAW);
-        lineVAO.linkAttrib(lineVBO, 0, 2, GL_FLOAT, 0, 0);
+        lineVAO.linkAttrib(lineVBO, 0, 2, GL_FLOAT, 0, 0); // 2D positions
 
         lineVAO.unbind();
     }
@@ -193,8 +197,8 @@ public class Renderer {
     private void renderCrosshair() {
         lineVAO.bind();
 
-        glLineWidth(2.0f);
-        glDrawArrays(GL_LINES, 0, 4);
+        glLineWidth(2.0f); // Set line width
+        glDrawArrays(GL_LINES, 0, 4); // Draw the two lines (4 vertices)
 
         lineVAO.unbind();
     }

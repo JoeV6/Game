@@ -22,38 +22,32 @@
 
 This project uses **OpenGL** through **LWJGL (Lightweight Java Game Library)** to render the 3D voxel terrain. The blocks are drawn as textured cubes, and the terrain is dynamically updated chunk by chunk.
 
-### Rendering Details:
-- **OpenGL and LWJGL**: 
-  - The game uses **OpenGL** for rendering the 3D world, and **LWJGL** is the framework that integrates OpenGL with Java.
-  
+### Rendering Details:  
 - **Voxel Rendering**: 
-  - Each block (such as grass and dirt) is rendered as a cube in the 3D space.
-  - The terrain is a collection of these blocks, and the graphics engine renders them efficiently in chunks.
+  - [x] Each block (such as grass and dirt) is rendered as a cube in the 3D space.
+  - [x] The terrain is a collection of these blocks, and the graphics engine renders them efficiently in chunks.
   
 - **Texturing**: 
-  - Simple textures are applied to different block types.
-  - The **grass block** has a grass texture on the top and a dirt texture on the sides and bottom.
+  - [ ] Simple textures are applied to different block types.
+  - [ ] **grass block** has a grass texture on the top and a dirt texture on the sides and bottom.
   
 - **Camera and Controls**: 
-  - A **first-person camera** is used to navigate the world.
-  - You can move around the terrain to explore the procedurally generated landscape using **WASD** keys for movement and the mouse for looking around.
+  - [x] The player can explore the world using basic **WASD** controls for movement, along with mouse input for looking around.
+  - [ ] Player can interact with the map
 
 ---
 
 ## How It Works
 
 ### Terrain Generation:
-- The terrain is generated for each chunk using **Perlin noise**, which defines the heightmap of the terrain.
+- [x] The terrain is generated for each chunk using **Perlin noise**, which defines the heightmap of the terrain.
+- [x]Terrain is stored in chunk, only 100 chunk are ever cached at the same time, the other chunks are stored to disk.
 
 ### Rendering Pipeline (Needs Improvement)  
 - **Efficient Chunk Rendering**:
   - [ ] **Backface Culling**: Only visible blocks are rendered.
   - [x] **Instanced Rendering**: 1 draw call for all blocks.
   - [ ] **GPU Optimization**: More calculations are moved to the GPU for faster rendering.
-
-- **Camera Movement**: 
-  - [x] The player can explore the world using basic **WASD** controls for movement, along with mouse input for looking around.
-  - [ ] Player can interact with the map
 
 ---
 

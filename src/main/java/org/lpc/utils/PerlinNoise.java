@@ -1,8 +1,9 @@
 package org.lpc.utils;
+import java.io.Serializable;
 import java.util.Random;
 
 public class PerlinNoise {
-    private int[] p;
+    private final int[] p;
     private static final int PERMUTATION_SIZE = 256;
 
     public PerlinNoise() {

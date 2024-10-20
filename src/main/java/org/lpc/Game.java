@@ -19,8 +19,8 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
+import java.awt.*;
 import java.nio.IntBuffer;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -41,28 +41,29 @@ public class Game {
 
     public static final int DEFAULT_WIDTH = 1080;
     public static final int DEFAULT_HEIGHT = 720;
-    public static final float UPDATES_PER_SECOND = 5.0f;
     public static final float DEFAULT_MOVEMENT_SPEED = 0.10f;
+    public static final float UPDATES_PER_SECOND = 20.0f;
     public static final int RENDER_DISTANCE = 2;
+    public static Color SKY = new Color(0, 0.59f, 0.229f, 1.0f);
 
     private boolean debug = false;
     private long window;
-    @Setter boolean fullscreen;
 
     private InputHandler inputHandler;
     private UpdateHandler updateHandler;
-
-    private World world;
-    private PlayerEntity player;
 
     private StaticShader shader;
     private Camera camera;
     private Renderer renderer;
 
-    @Setter List<CubeModel> renderModels = new CopyOnWriteArrayList<>();
-    @Setter List<CubeModel> nextModels = new CopyOnWriteArrayList<>();
+    private World world;
+    private PlayerEntity player;
+
+    @Setter private List<CubeModel> renderModels = new CopyOnWriteArrayList<>();
+    @Setter private List<CubeModel> nextModels = new CopyOnWriteArrayList<>();
 
     @Setter private boolean modelNeedsChange = false;
+    @Setter private boolean fullscreen;
 
     public void run() {
         System.out.println("LWJGL " + Version.getVersion());
@@ -146,7 +147,10 @@ public class Game {
         if (System.currentTimeMillis() - fpsTimer[0] >= 1000) {
 
             String windowTitle = "Game - FPS: " + frameCount[0] +
-                    "\t Player - x: " + player.getPosition().x + " y: " + player.getPosition().y + " z: " + player.getPosition().z;
+                    "   Player - x: " + player.getPosition().x + " y: " + player.getPosition().y + " z: " + player.getPosition().z +
+                    "      Total Chunks - " + world.getChunkCache().size() +
+                    "      Render Models - " + renderModels.size() +
+                    "      Trigs - " + (renderer.getVboInstanceData().getCount() / 3);
 
             glfwSetWindowTitle(window, windowTitle);
             frameCount[0] = 0;
@@ -219,6 +223,8 @@ public class Game {
     }
 
     private void exitGracefully() {
+        updateHandler.cleanUp();
+
         glfwFreeCallbacks(window);
         glfwDestroyWindow(window);
         glfwTerminate();
@@ -226,7 +232,6 @@ public class Game {
 
         shader.cleanUp();
         renderer.cleanup();
-        updateHandler.cleanUp();
     }
 
     // Utility methods

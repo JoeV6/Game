@@ -7,8 +7,12 @@ import org.lpc.world.block.AbstractBlock;
 import org.lpc.world.block.blocks.DirtBlock;
 import org.lpc.world.block.blocks.GrassBlock;
 
+import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @Getter
-public class Chunk {
+public class Chunk implements Serializable {
     public static final int CHUNK_SIZE = 16;
     public static final int CHUNK_HEIGHT = 64;
 

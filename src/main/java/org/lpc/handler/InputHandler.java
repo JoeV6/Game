@@ -37,34 +37,33 @@ public class InputHandler {
     }
 
     public void processInput() {
-        synchronized (player) {
-            if (keys.get(GLFW.GLFW_KEY_W)) {
-                player.moveForward(DEFAULT_MOVEMENT_SPEED);
-                if (keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)) {
-                    player.moveForward(DEFAULT_MOVEMENT_SPEED * 5);
-                }
-            }
-            if (keys.get(GLFW.GLFW_KEY_S)) {
-                player.moveForward(-DEFAULT_MOVEMENT_SPEED);
-            }
-            if (keys.get(GLFW.GLFW_KEY_D)) {
-                player.moveLeft(-DEFAULT_MOVEMENT_SPEED);
-            }
-            if (keys.get(GLFW.GLFW_KEY_A)) {
-                player.moveLeft(DEFAULT_MOVEMENT_SPEED);
-            }
 
-            if (keys.get(GLFW.GLFW_KEY_SPACE)) {
-                player.move(0, DEFAULT_MOVEMENT_SPEED, 0);
-                if (keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)) {
-                    player.move(0, DEFAULT_MOVEMENT_SPEED, 0);
-                }
+        if (keys.get(GLFW.GLFW_KEY_W)) {
+            player.moveForward(DEFAULT_MOVEMENT_SPEED);
+            if (keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)) {
+                player.moveForward(DEFAULT_MOVEMENT_SPEED * 5);
             }
-            if (keys.get(GLFW.GLFW_KEY_LEFT_SHIFT)) {
-                player.move(0, -DEFAULT_MOVEMENT_SPEED, 0);
-                if (keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)) {
-                    player.move(0, -DEFAULT_MOVEMENT_SPEED, 0);
-                }
+        }
+        if (keys.get(GLFW.GLFW_KEY_S)) {
+            player.moveForward(-DEFAULT_MOVEMENT_SPEED);
+        }
+        if (keys.get(GLFW.GLFW_KEY_D)) {
+            player.moveLeft(-DEFAULT_MOVEMENT_SPEED);
+        }
+        if (keys.get(GLFW.GLFW_KEY_A)) {
+            player.moveLeft(DEFAULT_MOVEMENT_SPEED);
+        }
+
+        if (keys.get(GLFW.GLFW_KEY_SPACE)) {
+            player.move(0, DEFAULT_MOVEMENT_SPEED, 0);
+            if (keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)) {
+                player.move(0, DEFAULT_MOVEMENT_SPEED * 2, 0);
+            }
+        }
+        if (keys.get(GLFW.GLFW_KEY_LEFT_SHIFT)) {
+            player.move(0, -DEFAULT_MOVEMENT_SPEED, 0);
+            if (keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)) {
+                player.move(0, -DEFAULT_MOVEMENT_SPEED * 2, 0);
             }
         }
     }

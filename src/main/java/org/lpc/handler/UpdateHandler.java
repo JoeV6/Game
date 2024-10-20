@@ -29,7 +29,8 @@ public class UpdateHandler {
         world = game.getWorld();
         player = game.getPlayer();
 
-        executor = Executors.newSingleThreadExecutor();
+        int nThreads = Runtime.getRuntime().availableProcessors();
+        executor = Executors.newFixedThreadPool((int) (nThreads / 1.5));
     }
 
     public void update() {
@@ -93,7 +94,6 @@ public class UpdateHandler {
 
         modelsReady = true;
     }
-
 
     public void cleanUp(){
         executor.shutdown();

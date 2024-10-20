@@ -4,8 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.joml.Vector3f;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 @Getter @Setter
-public class CubeModel {
+public class CubeModel implements Serializable {
     public static final float[] vertices = { -0.5f,0.5f,-0.5f, -0.5f,-0.5f,-0.5f, 0.5f,-0.5f,-0.5f, 0.5f,0.5f,-0.5f, -0.5f,0.5f,0.5f, -0.5f,-0.5f,0.5f, 0.5f,-0.5f,0.5f, 0.5f,0.5f,0.5f, 0.5f,0.5f,-0.5f, 0.5f,-0.5f,-0.5f, 0.5f,-0.5f,0.5f, 0.5f,0.5f,0.5f, -0.5f,0.5f,-0.5f, -0.5f,-0.5f,-0.5f, -0.5f,-0.5f,0.5f, -0.5f,0.5f,0.5f, -0.5f,0.5f,0.5f, -0.5f,0.5f,-0.5f, 0.5f,0.5f,-0.5f, 0.5f,0.5f,0.5f, -0.5f,-0.5f,0.5f, -0.5f,-0.5f,-0.5f, 0.5f,-0.5f,-0.5f, 0.5f,-0.5f,0.5f };
     public static final float[] textureCoords = { 0,0, 0,1, 1,1, 1,0, 0,0, 0,1, 1,1, 1,0, 0,0, 0,1, 1,1, 1,0, 0,0, 0,1, 1,1, 1,0, 0,0, 0,1, 1,1, 1,0, 0,0, 0,1, 1,1, 1,0};
     public static final int[] indices = {0,1,3, 3,1,2, 4,5,7, 7,5,6, 8,9,11, 11,9,10, 12,13,15, 15,13,14, 16,17,19, 19,17,18, 20,21,23, 23,21,22};
@@ -20,5 +25,24 @@ public class CubeModel {
         this.rotationY = 0;
         this.rotationZ = 0;
         this.scale = 1;
+    }
+
+
+    // Custom serialization
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        // Serialize Vector3f manually
+        out.writeFloat(position.x);
+        out.writeFloat(position.y);
+        out.writeFloat(position.z);
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        // Deserialize Vector3f manually
+        float x = in.readFloat();
+        float y = in.readFloat();
+        float z = in.readFloat();
+        position = new Vector3f(x, y, z);
     }
 }

@@ -6,18 +6,34 @@ import org.lpc.Game;
 import org.lpc.world.block.AbstractBlock;
 import org.lpc.world.chunk.Chunk;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 @Getter @Setter
 public class World {
-    final Map<String, Chunk> chunks;
+    private static final int MAX_CACHE_SIZE = 100;
+
+    //final Map<String, Chunk> chunks;
     final ArrayList<Chunk> loadedChunks;
 
+    Map<String, Chunk> chunkCache = new LinkedHashMap<String, Chunk>(MAX_CACHE_SIZE, 0.75f, true) {
+        protected boolean removeEldestEntry(Map.Entry eldest) {
+            if (size() > MAX_CACHE_SIZE) {
+                saveChunkToDisk((Chunk) eldest.getValue(), (String) eldest.getKey());
+                return true;
+            }
+            return false;
+        }
+    };
+
     public World() {
-        chunks = new HashMap<>();
         loadedChunks = new ArrayList<>();
+
+        deleteDiskCache();
+        createDiskCache();
+
         init();
     }
 
@@ -50,7 +66,6 @@ public class World {
 
             boolean change = false;
 
-            // Load chunks around the player
             for (int x = -renderDistance; x <= renderDistance; x++) {
                 for (int z = -renderDistance; z <= renderDistance; z++) {
                     int chunkX = playerChunkX + x;
@@ -62,12 +77,12 @@ public class World {
 
                     if (chunk == null) {
                         chunk = new Chunk(chunkX, chunkZ);
-                        chunks.put(getChunkKey(chunkX, chunkZ), chunk);
-                        System.out.println("Created chunk at " + chunkX + ", " + chunkZ);
+                        chunkCache.put(getChunkKey(chunkX, chunkZ), chunk);
+                        //System.out.println("Created chunk at " + chunkX + ", " + chunkZ);
                     }
 
                     loadedChunks.add(chunk);
-                    System.out.println("Loaded chunk at " + chunkX + ", " + chunkZ);
+                    //System.out.println("Loaded chunk at " + chunkX + ", " + chunkZ);
                     change = true;
                 }
             }
@@ -75,12 +90,26 @@ public class World {
         }
     }
 
+    public Chunk getChunk(int chunkX, int chunkZ) {
+        String chunkKey = getChunkKey(chunkX, chunkZ);
+
+        if (chunkCache.containsKey(chunkKey)) {
+            return chunkCache.get(chunkKey);
+        }
+
+        Chunk chunk = loadChunkFromDisk(chunkKey);
+        if (chunk != null) {
+            addChunk(chunkKey, chunk);
+        }
+        return chunk;
+    }
+
     private String getChunkKey(int x, int z) {
         return x + ":" + z;
     }
 
-    public Chunk getChunk(int chunkX, int chunkZ) {
-        return chunks.get(getChunkKey(chunkX, chunkZ));
+    public void addChunk(String chunkKey, Chunk chunk) {
+        chunkCache.put(chunkKey, chunk);
     }
 
     public AbstractBlock getBlockWorld(float x, float y, float z) {
@@ -117,4 +146,55 @@ public class World {
         );
     }
 
+    private void saveChunkToDisk(Chunk chunk, String chunkKey) {
+        String fileName = "chunks/" + Arrays.toString(chunkKey.getBytes()) + ".dat.gz";
+
+        try (FileOutputStream fileOut = new FileOutputStream(fileName);
+             GZIPOutputStream gzipOut = new GZIPOutputStream(fileOut);
+             ObjectOutputStream out = new ObjectOutputStream(gzipOut)) {
+
+            out.writeObject(chunk);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Chunk loadChunkFromDisk(String chunkKey) {
+        String fileName = "chunks/" + Arrays.toString(chunkKey.getBytes()) + ".dat.gz";
+
+        try (FileInputStream fileIn = new FileInputStream(fileName);
+             GZIPInputStream gzipIn = new GZIPInputStream(fileIn);
+             ObjectInputStream in = new ObjectInputStream(gzipIn)) {
+
+            return (Chunk) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            //Do nothing, the chunk is just not in the cache
+        }
+        return null;
+    }
+
+    public void deleteDiskCache(){
+        System.out.println("\u001B[31m" + "!!! Deleting disk cache !!!" + "\u001B[0m");
+
+        File directory = new File("chunks/");
+        if (!directory.exists()) {
+            return;
+        }
+
+        for(File file : Objects.requireNonNull(directory.listFiles())){
+            if (!file.delete())
+                throw new RuntimeException("Failed to delete file: " + file.getName());
+        }
+    }
+
+    private void createDiskCache() {
+        File directory = new File("chunks/");
+        if (!directory.exists()) {
+            if (directory.mkdirs()) {
+                System.out.println("Created chunks/ directory.");
+            } else {
+                throw new RuntimeException("Failed to create chunks/ directory.");
+            }
+        }
+    }
 }

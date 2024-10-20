@@ -1,4 +1,5 @@
 package org.lpc.utils;
+import java.io.Serializable;
 import java.util.Random;
 
 public class PerlinNoise {

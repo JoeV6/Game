@@ -41,7 +41,7 @@ This project uses **OpenGL** through **LWJGL (Lightweight Java Game Library)** t
 
 ### Terrain Generation:
 - [x] The terrain is generated for each chunk using **Perlin noise**, which defines the heightmap of the terrain.
-- [x]Terrain is stored in chunk, only 100 chunk are ever cached at the same time, the other chunks are stored to disk.
+- [x] Terrain is stored in chunk, only 100 chunk are ever cached at the same time, the other chunks are stored to disk.
 
 ### Rendering Pipeline (Needs Improvement)  
 - **Efficient Chunk Rendering**:

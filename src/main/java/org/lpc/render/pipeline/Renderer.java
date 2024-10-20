@@ -107,9 +107,8 @@ public class Renderer {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0.6f, 0.8f, 1, 1);
         glDepthFunc(GL_LESS);      // Specify the depth comparison function (GL_LESS is common)
-
-        //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         glCullFace(GL_BACK);
+        //glEnable(GL_CULL_FACE);    // Enable culling of faces
     }
 
     public void render(List<CubeModel> cubes) {
@@ -123,9 +122,6 @@ public class Renderer {
         GL13C.glBindTexture(GL_TEXTURE_2D_ARRAY, texture.getTextureID());
 
         shader.loadTextureArray(0);
-
-
-
 
         vao.bind();
         glDrawElementsInstanced(GL_TRIANGLES, vboIndices.getCount(), GL_UNSIGNED_INT, 0, cubes.size());
@@ -189,7 +185,7 @@ public class Renderer {
 
         lineVBO = new VBO();
         lineVBO.uploadData(lineVertices, GL_STATIC_DRAW);
-        lineVAO.linkAttrib(lineVBO, 0, 2, GL_FLOAT, 0, 0); // 2D positions
+        lineVAO.linkAttrib(lineVBO, 0, 2, GL_FLOAT, 0, 0);
 
         lineVAO.unbind();
     }
@@ -197,8 +193,8 @@ public class Renderer {
     private void renderCrosshair() {
         lineVAO.bind();
 
-        glLineWidth(2.0f); // Set line width
-        glDrawArrays(GL_LINES, 0, 4); // Draw the two lines (4 vertices)
+        glLineWidth(2.0f);
+        glDrawArrays(GL_LINES, 0, 4);
 
         lineVAO.unbind();
     }

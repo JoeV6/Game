@@ -11,7 +11,7 @@ public class StaticShader extends ShaderProgram {
 
     private int location_projectionMatrix;
     private int location_viewMatrix;
-    private int location_textureArray; // Add this line for the texture array
+    private int location_textureArray;
 
     public StaticShader() {
         super(VERTEX, FRAGMENT);

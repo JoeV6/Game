@@ -37,7 +37,10 @@ public class InputHandler {
     }
 
     public void processInput() {
+        playerMovement();
+    }
 
+    private void playerMovement() {
         if (keys.get(GLFW.GLFW_KEY_W)) {
             player.moveForward(DEFAULT_MOVEMENT_SPEED);
             if (keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)) {
@@ -64,6 +67,26 @@ public class InputHandler {
             player.move(0, -DEFAULT_MOVEMENT_SPEED, 0);
             if (keys.get(GLFW.GLFW_KEY_LEFT_CONTROL)) {
                 player.move(0, -DEFAULT_MOVEMENT_SPEED * 2, 0);
+            }
+        }
+    }
+
+    public void keyInput(int key, int scancode, int action, int mods) {
+        if (key == GLFW.GLFW_KEY_ESCAPE && action == GLFW.GLFW_PRESS) {
+            GLFW.glfwSetWindowShouldClose(window, true);
+        }
+        if (key == GLFW.GLFW_KEY_F11 && action == GLFW.GLFW_PRESS) {
+            toggleFullscreen();
+        }
+        if (key == GLFW.GLFW_KEY_T && action == GLFW.GLFW_PRESS) {
+            game.changeDebug();
+        }
+
+        if(keys.containsKey(key) && (action == GLFW.GLFW_PRESS || action == GLFW.GLFW_RELEASE)) {
+            if(action == 1){
+                keys.put(key, true);
+            } else {
+                keys.put(key, false);
             }
         }
     }
@@ -117,25 +140,5 @@ public class InputHandler {
 
     public void scrollInput(double xoffset, double yoffset) {
         System.out.println("Scroll input: " + xoffset + ", " + yoffset);
-    }
-
-    public void keyInput(int key, int scancode, int action, int mods) {
-        if (key == GLFW.GLFW_KEY_ESCAPE && action == GLFW.GLFW_PRESS) {
-            GLFW.glfwSetWindowShouldClose(window, true);
-        }
-        if (key == GLFW.GLFW_KEY_F11 && action == GLFW.GLFW_PRESS) {
-            toggleFullscreen();
-        }
-        if (key == GLFW.GLFW_KEY_T && action == GLFW.GLFW_PRESS) {
-            game.changeDebug();
-        }
-
-        if(keys.containsKey(key) && (action == GLFW.GLFW_PRESS || action == GLFW.GLFW_RELEASE)) {
-            if(action == 1){
-                keys.put(key, true);
-            } else {
-                keys.put(key, false);
-            }
-        }
     }
 }

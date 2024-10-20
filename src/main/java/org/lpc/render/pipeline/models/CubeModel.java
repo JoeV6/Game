@@ -33,7 +33,7 @@ public class CubeModel implements Serializable {
     // Custom serialization
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
-        // Serialize Vector3f manually
+
         out.writeFloat(position.x);
         out.writeFloat(position.y);
         out.writeFloat(position.z);
@@ -41,7 +41,7 @@ public class CubeModel implements Serializable {
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        // Deserialize Vector3f manually
+
         float x = in.readFloat();
         float y = in.readFloat();
         float z = in.readFloat();

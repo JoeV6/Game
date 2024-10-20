@@ -8,6 +8,7 @@ import org.lpc.render.Camera;
 import org.lpc.render.pipeline.shaders.StaticShader;
 import org.lpc.render.pipeline.Renderer;
 import org.lpc.render.pipeline.models.CubeModel;
+import org.lpc.utils.TextureAtlas;
 import org.lpc.world.World;
 import org.lpc.world.chunk.Chunk;
 import org.lpc.world.entity.entities.PlayerEntity;

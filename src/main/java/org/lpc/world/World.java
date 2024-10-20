@@ -15,21 +15,24 @@ import java.util.zip.GZIPOutputStream;
 public class World {
     private static final int MAX_CACHE_SIZE = 100;
 
-    //final Map<String, Chunk> chunks;
-    final ArrayList<Chunk> loadedChunks;
-
-    Map<String, Chunk> chunkCache = new LinkedHashMap<String, Chunk>(MAX_CACHE_SIZE, 0.75f, true) {
-        protected boolean removeEldestEntry(Map.Entry eldest) {
-            if (size() > MAX_CACHE_SIZE) {
-                saveChunkToDisk((Chunk) eldest.getValue(), (String) eldest.getKey());
-                return true;
-            }
-            return false;
-        }
-    };
+    private final ArrayList<Chunk> loadedChunks;
+    private final Map<String, Chunk> chunkCache;
 
     public World() {
         loadedChunks = new ArrayList<>();
+
+        // LinkedHashMap is used to keep the order chunk access order,
+        // so that the least recently used chunk can be saved to disk
+        chunkCache= new LinkedHashMap<String, Chunk>(MAX_CACHE_SIZE, 0.75f, true) {
+            @Override
+            protected boolean removeEldestEntry(Map.Entry eldest) {
+                if (size() > MAX_CACHE_SIZE) {
+                    saveChunkToDisk((Chunk) eldest.getValue(), (String) eldest.getKey());
+                    return true;
+                }
+                return false;
+            }
+        };
 
         deleteDiskCache();
         createDiskCache();

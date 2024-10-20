@@ -18,13 +18,15 @@ public class CubeModel implements Serializable {
     private Vector3f position;
     private float rotationX, rotationY, rotationZ;
     private float scale;
+    private int textureID;
 
-    public CubeModel(Vector3f position) {
+    public CubeModel(Vector3f position, int textureID) {
         this.position = position;
         this.rotationX = 0;
         this.rotationY = 0;
         this.rotationZ = 0;
         this.scale = 1;
+        this.textureID = textureID;
     }
 
 

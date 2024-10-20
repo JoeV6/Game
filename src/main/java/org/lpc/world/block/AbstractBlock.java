@@ -14,7 +14,6 @@ public abstract class AbstractBlock implements Serializable {
     private int blockID;
 
     private CubeModel cubeModel;
-    private Texture texture;
 
     public AbstractBlock(int x, int y, int z, int blockID) {
         this.x = x;
@@ -22,9 +21,6 @@ public abstract class AbstractBlock implements Serializable {
         this.z = z;
         this.blockID = blockID;
 
-
-        String textureLocation = "blocks/block_" + blockID;
-        this.texture =  new Texture(0);
-        this.cubeModel = new CubeModel(new Vector3f(x, y, z));
+        this.cubeModel = new CubeModel(new Vector3f(x, y, z), blockID);
     }
 }

@@ -11,6 +11,7 @@ import org.lpc.render.pipeline.models.CubeModel;
 import org.lpc.render.pipeline.util.VAO;
 import org.lpc.render.pipeline.util.VBO;
 import org.lpc.utils.Maths;
+import org.lpc.utils.TextureAtlas;
 import org.lwjgl.opengl.GL13C;
 
 import java.util.List;
@@ -19,6 +20,9 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL15.GL_DYNAMIC_DRAW;
 import static org.lwjgl.opengl.GL15.GL_STATIC_DRAW;
+import static org.lwjgl.opengl.GL20.glUniform1i;
+import static org.lwjgl.opengl.GL20C.glGetUniformLocation;
+import static org.lwjgl.opengl.GL30C.GL_TEXTURE_2D_ARRAY;
 import static org.lwjgl.opengl.GL31C.glDrawElementsInstanced;
 
 @Getter
@@ -32,12 +36,19 @@ public class Renderer {
     private VBO vboIndices;
     private VBO vboTexCoords;
     private VBO vboInstanceData;
+    private VBO vboTexIds;
 
     private final Camera camera;
     private final StaticShader shader;
-    private final Texture texture = new Texture(TextureLoader.getTexture("src/main/resources/textures/blocks/block_0.png").getTextureID());
+
+    private final Texture texture;
+    private final TextureAtlas textureAtlas;
 
     public Renderer(StaticShader shader, Camera camera) {
+        textureAtlas = TextureAtlas.getInstance();
+        textureAtlas.createTextureAtlas("src/main/resources/textures/blocks");
+        texture = TextureLoader.getTexture(TextureAtlas.ATLAS_PATH);
+
         this.camera = camera;
         this.shader = shader;
 
@@ -69,19 +80,24 @@ public class Renderer {
         vboVertices.uploadData(CubeModel.vertices, GL_STATIC_DRAW);
         vao.linkAttrib(vboVertices, 0, 3, GL_FLOAT, 0, 0); // Vertex positions
 
-        // VBO for texture coordinates
-        vboTexCoords = new VBO();
-        vboTexCoords.uploadData(CubeModel.textureCoords, GL_STATIC_DRAW);
-        vao.linkAttrib(vboTexCoords, 1, 2, GL_FLOAT, 0, 0); // Texture coordinates
-
         // VBO for indices
         vboIndices = new VBO();
         vboIndices.uploadData(CubeModel.indices, GL_STATIC_DRAW);
 
-        // VBO for instance data
+        // VBO for offset data (instance data)
         vboInstanceData = new VBO();
         vboInstanceData.uploadData(new float[0], GL_DYNAMIC_DRAW);
         vao.linkAttribInstanced(vboInstanceData, 2, 3, GL_FLOAT, 3 * Float.BYTES, 0, 1);
+
+        // VBO for texture coords (Shared for all instances)
+        vboTexCoords = new VBO();
+        vboTexCoords.uploadData(textureAtlas.getAllTextureCoords(), GL_STATIC_DRAW); // Upload once
+        vao.linkAttrib(vboTexCoords, 1, 2, GL_FLOAT, 0, 0); // Each vertex has 2 floats
+
+        // VBO for texture IDs (instance data)
+        vboTexIds = new VBO();
+        vboTexIds.uploadData(new float[0], GL_DYNAMIC_DRAW);
+        vao.linkAttribInstanced(vboTexIds, 3, 1, GL_FLOAT, 0, 0, 1);
 
         vao.unbind();
     }
@@ -98,12 +114,17 @@ public class Renderer {
 
     public void render(List<CubeModel> cubes) {
         vboInstanceData.uploadData(generateInstanceData(cubes), GL_DYNAMIC_DRAW);
+        vboTexIds.uploadData(generateTexcoordData(cubes), GL_DYNAMIC_DRAW);
 
         shader.start();
         shader.loadViewMatrix(camera);
 
         GL13C.glActiveTexture(GL13C.GL_TEXTURE0);
-        GL13C.glBindTexture(GL_TEXTURE_2D, texture.getTextureID());
+        GL13C.glBindTexture(GL_TEXTURE_2D_ARRAY, texture.getTextureID());
+
+        shader.loadTextureArray(0);
+
+
 
 
         vao.bind();
@@ -130,6 +151,19 @@ public class Renderer {
 
         return instanceData;
     }
+
+    private float[] generateTexcoordData(List<CubeModel> cubes) {
+        int instanceCount = cubes.size();
+        float[] texcoordData = new float[instanceCount]; // 1 float for each instance reference to texture
+
+        for (int i = 0; i < instanceCount; i++) {
+            CubeModel cube = cubes.get(i);
+            texcoordData[i] = cube.getTextureID(); // Store the texture ID or index
+        }
+
+        return texcoordData;
+    }
+
 
     public void cleanup() {
         vboVertices.delete();

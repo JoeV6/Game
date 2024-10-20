@@ -4,73 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Renderer recoded, now rendering instanced">
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 49, 58, 48].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 49, 58, 49].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 49, 58, 50].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 49, 58, 51].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 49, 58, 52].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 50, 58, 45, 49].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 50, 58, 45, 50].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 50, 58, 45, 51].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 50, 58, 45, 52].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 50, 58, 48].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 50, 58, 49].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 50, 58, 50].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 50, 58, 51].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 50, 58, 52].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 51, 58, 45, 49].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 51, 58, 45, 50].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 51, 58, 45, 51].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 51, 58, 45, 52].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 51, 58, 48].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 51, 58, 49].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 51, 58, 50].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 51, 58, 51].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 51, 58, 52].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 52, 58, 45, 49].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 52, 58, 45, 50].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 52, 58, 45, 51].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 52, 58, 45, 52].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 52, 58, 48].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 52, 58, 49].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 52, 58, 50].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 52, 58, 51].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[45, 52, 58, 52].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[48, 58, 49].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[48, 58, 50].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[48, 58, 51].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[48, 58, 52].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[49, 58, 49].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[49, 58, 50].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[49, 58, 51].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[49, 58, 52].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[50, 58, 49].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[50, 58, 50].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[50, 58, 51].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[50, 58, 52].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[51, 58, 49].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[51, 58, 50].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[51, 58, 51].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[51, 58, 52].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[52, 58, 45, 49].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[52, 58, 45, 50].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[52, 58, 45, 51].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[52, 58, 48].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[52, 58, 49].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[52, 58, 50].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[52, 58, 51].dat.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chunks/[52, 58, 52].dat.gz" afterDir="false" />
+    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Now caching only 100 chunks and saving the rest to disk">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/utils/TextureAtlas.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/textures/texture_atlas.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/Renderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/CubeModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/models/CubeModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/Texture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/Texture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/utils/PerlinNoise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/utils/PerlinNoise.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/shaders/ShaderProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/shaders/ShaderProgram.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/shaders/StaticShader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/shaders/StaticShader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/TextureLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/TextureLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/AbstractBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/AbstractBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/chunk/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/chunk/Chunk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/fragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -491,7 +438,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729372138014</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Now caching only 100 chunks and saving the rest to disk">
+      <option name="closed" value="true" />
+      <created>1729412639440</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1729412639441</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -525,7 +480,8 @@
     <MESSAGE value="Worldgeneration using Perlin noise, insanely laggy, need to improve rendering + chunk generation" />
     <MESSAGE value="Air, starting on instancing" />
     <MESSAGE value="Renderer recoded, now rendering instanced" />
-    <option name="LAST_COMMIT_MESSAGE" value="Renderer recoded, now rendering instanced" />
+    <MESSAGE value="Now caching only 100 chunks and saving the rest to disk" />
+    <option name="LAST_COMMIT_MESSAGE" value="Now caching only 100 chunks and saving the rest to disk" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

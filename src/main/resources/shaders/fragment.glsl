@@ -1,12 +1,12 @@
 #version 330 core
 
 in vec2 fragTexCoord;
+in float fragTextureID; // Received texture ID
+out vec4 color;
 
-out vec4 fragColor;
-
-uniform sampler2D tex;
+uniform sampler2DArray textureArray;
 
 void main() {
-    fragColor = texture(tex, fragTexCoord);
+    color = texture(textureArray, vec3(fragTexCoord, fragTextureID)); // Sample the texture based on ID
 }
 

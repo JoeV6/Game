@@ -118,22 +118,20 @@ public class Renderer {
         vboTexIds.uploadData(generateTexcoordData(cubes), GL_DYNAMIC_DRAW);
 
         shader.start();
-        shader.loadViewMatrix(camera);
+            shader.loadViewMatrix(camera);
+            shader.loadTextureArray(0);
 
-        GL13C.glActiveTexture(GL13C.GL_TEXTURE0);
-        GL13C.glBindTexture(GL_TEXTURE_2D_ARRAY, texture.getTextureID());
+            GL13C.glActiveTexture(GL13C.GL_TEXTURE0);
+            GL13C.glBindTexture(GL_TEXTURE_2D_ARRAY, texture.getTextureID());
 
-        shader.loadTextureArray(0);
-
-        vao.bind();
-        glDrawElementsInstanced(GL_TRIANGLES, vboIndices.getCount(), GL_UNSIGNED_INT, 0, cubes.size());
-        vao.unbind();
-
+            vao.bind();
+                glDrawElementsInstanced(GL_TRIANGLES, vboIndices.getCount(), GL_UNSIGNED_INT, 0, cubes.size());
+            vao.unbind();
         shader.stop();
 
-        glfwSwapBuffers(Game.getInstance().getWindow());
-
         renderCrosshair();
+
+        glfwSwapBuffers(Game.getInstance().getWindow());
     }
 
     private float[] generateInstanceData(List<CubeModel> cubes) {
@@ -164,13 +162,14 @@ public class Renderer {
         return texcoordData;
     }
 
-
     public void cleanup() {
         vboVertices.delete();
         vboTexCoords.delete();
         vboIndices.delete();
         vboInstanceData.delete();
         vao.delete();
+        lineVAO.delete();
+        lineVBO.delete();
     }
 
     private VAO lineVAO;

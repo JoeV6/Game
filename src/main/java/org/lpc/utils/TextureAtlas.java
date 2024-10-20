@@ -1,20 +1,15 @@
 package org.lpc.utils;
 
 import lombok.Getter;
+import org.lpc.render.pipeline.models.CubeModel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.*;
 import java.util.List;
-
-import static org.lwjgl.opengl.GL11C.*;
-import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
-import static org.lwjgl.opengl.GL12.glTexImage3D;
-import static org.lwjgl.opengl.GL30C.GL_TEXTURE_2D_ARRAY;
 
 @Getter
 public class TextureAtlas {
@@ -92,103 +87,8 @@ public class TextureAtlas {
         }
     }
 
-    public int loadTextureAtlas(String filePath) {
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(new File(filePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Convert BufferedImage to ByteBuffer
-        int width = image.getWidth();
-        int height = image.getHeight();
-        int layers = height / 64; // Assuming each texture is 64x64 pixels
-        ByteBuffer buffer = ByteBuffer.allocateDirect(width * height * 4);
-
-        for (int i = 0; i < layers; i++) {
-            for (int y = 0; y < 64; y++) {
-                for (int x = 0; x < width; x++) {
-                    int pixel = image.getRGB(x, i * 64 + y);
-                    buffer.put((byte) ((pixel >> 16) & 0xFF)); // Red
-                    buffer.put((byte) ((pixel >> 8) & 0xFF));  // Green
-                    buffer.put((byte) (pixel & 0xFF));           // Blue
-                    buffer.put((byte) ((pixel >> 24) & 0xFF)); // Alpha
-                }
-            }
-        }
-
-        buffer.flip(); // Prepare the buffer for reading
-
-        int textureArrayId = glGenTextures();
-        glBindTexture(GL_TEXTURE_2D_ARRAY, textureArrayId);
-
-        // Allocate storage for the texture array
-        glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGBA, width, 64, layers, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-
-        // Set texture parameters
-        glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-        glBindTexture(GL_TEXTURE_2D_ARRAY, 0); // Unbind the texture
-
-        return textureArrayId;
-    }
-
-
-    public float[] getTextureCoords(int id) {
-        if (id < 0 || id >= textureRectangles.size()) {
-            throw new IndexOutOfBoundsException("Invalid texture ID.");
-        }
-
-        Rectangle rect = textureRectangles.get(id);
-        float u1 = rect.x / (float) atlasImage.getWidth();
-        float v1 = rect.y / (float) atlasImage.getHeight();
-        float u2 = (rect.x + rect.width) / (float) atlasImage.getWidth();
-        float v2 = (rect.y + rect.height) / (float) atlasImage.getHeight();
-
-        return new float[] {
-                // Front face  4 vertices
-                u1, v1,
-                u1, v2,
-                u2, v2,
-                u2, v1,
-
-                // Back face  4 vertices
-                u1, v1,
-                u1, v2,
-                u2, v2,
-                u2, v1,
-
-                // Top face  4 vertices
-                u1, v1,
-                u1, v2,
-                u2, v2,
-                u2, v1,
-
-                // Bottom face  4 vertices
-                u1, v1,
-                u1, v2,
-                u2, v2,
-                u2, v1
-
-        };
-    }
-
     public float[] getAllTextureCoords() {
-        List<float[]> allCoords = new ArrayList<>();
-        for (int i = 0; i < textureRectangles.size(); i++) {
-            allCoords.add(getTextureCoords(i));
-        }
-
-        float[] result = new float[allCoords.size() * 32];
-        for(int i = 0; i < allCoords.size(); i++) {
-            System.arraycopy(allCoords.get(i), 0, result, i * 32, 32);
-        }
-
-        return result;
+        return CubeModel.textureCoords;
     }
 
     public static TextureAtlas getInstance() {

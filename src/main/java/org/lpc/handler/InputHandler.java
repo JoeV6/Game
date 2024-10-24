@@ -14,8 +14,8 @@ import java.util.HashMap;
 import static org.lpc.Game.*;
 
 public class InputHandler {
-    private final Game game;
     private final long window;
+    private final Game game;
     private final Camera camera;
     private final PlayerEntity player;
 

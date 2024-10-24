@@ -36,6 +36,7 @@ public class TextureLoader {
         }
 
         // Convert BufferedImage to ByteBuffer
+        assert image != null;
         int width = image.getWidth();
         int height = image.getHeight();
         int layers = height / 64; // Assuming each texture is 64x64 pixels

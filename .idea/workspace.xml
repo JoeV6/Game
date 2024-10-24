@@ -5,10 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Fixed multithreading issues, need to fix textureAtlas">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/utils/SystemUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/textures/blocks/block_2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/UpdateHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/UpdateHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/shaders/StaticShader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/shaders/StaticShader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/TextureLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/TextureLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/utils/Maths.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/utils/Matrices.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/utils/TextureAtlas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/utils/TextureAtlas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/AbstractBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/AbstractBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/chunk/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/chunk/Chunk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/fragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/texture_atlas.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/textures/texture_atlas.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +92,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/JoeV6/Game.git&quot;,
-    &quot;accountId&quot;: &quot;825c1356-0b81-40b4-a4f9-f7e507eac450&quot;
+    &quot;accountId&quot;: &quot;4aa111ff-409e-4f20-9f97-2361961dca8a&quot;
   },
   &quot;recentNewPullRequestHead&quot;: {
     &quot;server&quot;: {
@@ -108,32 +122,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Gradle.Game [:org.lpc.Main.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.sandbox [:org.lpc.Main.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.sandbox [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.sandbox [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.sandbox [run].executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;instanced&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/DesktopStorage/Intellij_Projects/Others/sandbox/src/main/resources/textures/blocks&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.Main.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Gradle.Game [:org.lpc.Main.main()].executor": "Run",
+    "Gradle.sandbox [:org.lpc.Main.main()].executor": "Run",
+    "Gradle.sandbox [build].executor": "Run",
+    "Gradle.sandbox [clean].executor": "Run",
+    "Gradle.sandbox [run].executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "instanced",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/DesktopStorage/Intellij_Projects/Others/sandbox/src/main/resources/textures/blocks",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="org.lpc.render.textures" />
@@ -144,8 +158,8 @@
       <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src\main\resources\textures\blocks" />
       <recent name="C:\Users\liamd\IdeaProjects\Game\src\main\resources\textures\blocks" />
+      <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src\main\resources\textures\blocks" />
       <recent name="C:\Users\liamd\IdeaProjects\Game\src\main\resources\textures\tiles" />
       <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src\main\resources\textures\tiles" />
       <recent name="D:\DesktopStorage\Intellij_Projects\Others\sandbox\src" />

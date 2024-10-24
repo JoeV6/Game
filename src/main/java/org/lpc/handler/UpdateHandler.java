@@ -31,7 +31,7 @@ public class UpdateHandler {
         player = game.getPlayer();
 
         int nThreads = Runtime.getRuntime().availableProcessors();
-        int useThreads = (int) (nThreads / 1.2);
+        int useThreads = Math.min((int) (nThreads / 1.2), 5);
         System.out.println("Using " + useThreads + " threads for model updates");
         executor = Executors.newFixedThreadPool(useThreads);
     }

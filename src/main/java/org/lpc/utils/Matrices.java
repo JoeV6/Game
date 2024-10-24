@@ -4,7 +4,7 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lpc.render.Camera;
 
-public class Maths {
+public class Matrices {
     public static Matrix4f createTransformationMatrix(
             Vector3f translation, float rx, float ry, float rz, float scale) {
 

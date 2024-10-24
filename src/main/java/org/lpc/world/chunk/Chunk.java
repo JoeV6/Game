@@ -38,22 +38,27 @@ public class Chunk implements Serializable {
                 int worldX = chunkX * CHUNK_SIZE + x;
                 int worldZ = chunkZ * CHUNK_SIZE + z;
 
+                //plains
+                //double height = perlinNoise.noise(worldX * 0.1, worldZ * 0.1) * CHUNK_HEIGHT / 20;
+                //mountains
+                //double height = perlinNoise.noise(worldX * 0.1, worldZ * 0.1) * CHUNK_HEIGHT / 2;
+                //hills
                 double height = perlinNoise.noise(worldX * 0.1, worldZ * 0.1) * CHUNK_HEIGHT / 4;
+
 
                 height = Math.max(1, Math.min(height, CHUNK_HEIGHT - 1));
 
                 for (int y = 0; y < CHUNK_HEIGHT; y++) {
-
                     if (y < height) {
                         if(blocks[x][z][y] != null){
                             continue;
                         }
-                        if (y == (int) height - 1) {
+                        if (y == (int) height) {
                             blocks[x][z][y] = new GrassBlock(worldX, y, worldZ);
-                        } else if (y < (int) height - 1 && y > (int) height - 10) {
+                        } else if (y < (int) height && y > (int) height - 10) {
                             blocks[x][z][y] = new DirtBlock(worldX, y, worldZ);
                         } else {
-                            blocks[x][z][y] = new AirBlock(worldX, y, worldZ);
+                            blocks[x][z][y] = new CobbleStoneBlock(worldX, y, worldZ); // Stone below ground level
                         }
                     } else {
                         blocks[x][z][y] = new AirBlock(worldX, y, worldZ); // Empty block above ground level
@@ -62,6 +67,8 @@ public class Chunk implements Serializable {
             }
         }
     }
+
+
 
     public AbstractBlock getBlock(int x, int y, int z) {
         if (isOutOfBounds(x, y, z)) {

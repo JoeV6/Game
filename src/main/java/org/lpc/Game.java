@@ -8,7 +8,6 @@ import org.lpc.render.Camera;
 import org.lpc.render.pipeline.shaders.StaticShader;
 import org.lpc.render.pipeline.Renderer;
 import org.lpc.render.pipeline.models.CubeModel;
-import org.lpc.utils.TextureAtlas;
 import org.lpc.world.World;
 import org.lpc.world.chunk.Chunk;
 import org.lpc.world.entity.entities.PlayerEntity;
@@ -20,7 +19,6 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
-import java.awt.*;
 import java.nio.IntBuffer;
 import java.util.List;
 import java.util.Objects;
@@ -46,24 +44,26 @@ public class Game {
     public static final float UPDATES_PER_SECOND = 20.0f;
     public static final int RENDER_DISTANCE = 2;
 
+    @Setter private boolean fullscreen;
     private boolean debug = false;
     private long window;
 
     private InputHandler inputHandler;
     private UpdateHandler updateHandler;
-
     private StaticShader shader;
     private Camera camera;
     private Renderer renderer;
-
     private World world;
     private PlayerEntity player;
 
     @Setter private List<CubeModel> renderModels = new CopyOnWriteArrayList<>();
     @Setter private List<CubeModel> nextModels = new CopyOnWriteArrayList<>();
-
     @Setter private boolean modelNeedsChange = false;
-    @Setter private boolean fullscreen;
+
+    private Game() {
+        window = 0;
+        fullscreen = false;
+    }
 
     public void run() {
         System.out.println("LWJGL " + Version.getVersion());
@@ -88,78 +88,10 @@ public class Game {
         if ( window == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
 
-
         glfwMakeContextCurrent(window);
         glfwSwapInterval(1);
         centerWindow(window);
         setCallBacks();
-    }
-
-    private void initGameLoop() {
-        GL.createCapabilities();
-
-        initClasses();
-
-        glfwShowWindow(window);
-        glfwFocusWindow(window);
-
-        double previousTime = System.nanoTime();
-        double lag = 0.0;
-
-        int[] frameCount = {0}; // Track the number of frames using an array for immutability in lambda
-        long[] fpsTimer = {System.currentTimeMillis()};
-
-        while (!GLFW.glfwWindowShouldClose(window)) {
-            double currentTime = System.nanoTime();
-            double elapsedTime = currentTime - previousTime;
-            previousTime = currentTime;
-            lag += elapsedTime;
-
-            renderer.prepareRender();
-            inputHandler.processInput();
-
-            GLFW.glfwPollEvents();
-
-            // Update game logic with a fixed time-step
-            double nanosecondsPerUpdate = 1_000_000_000.0 / UPDATES_PER_SECOND;
-
-            while (lag >= nanosecondsPerUpdate) {
-                updateHandler.update();
-                lag -= nanosecondsPerUpdate;
-            }
-
-
-            renderer.render(renderModels);
-
-            updateWindowTitleWithFPS(frameCount, fpsTimer);
-        }
-    }
-
-    private void updateWindowTitleWithFPS(int[] frameCount, long[] fpsTimer) {
-        frameCount[0]++;
-
-        if (System.currentTimeMillis() - fpsTimer[0] >= 1000) {
-
-            String windowTitle = "Game - FPS: " + frameCount[0] +
-                    "   Player - x: " + player.getPosition().x + " y: " + player.getPosition().y + " z: " + player.getPosition().z +
-                    "      Total Chunks - " + world.getChunkCache().size() +
-                    "      Render Models - " + renderModels.size() +
-                    "      Trigs - " + (renderer.getVboInstanceData().getCount());
-
-            glfwSetWindowTitle(window, windowTitle);
-            frameCount[0] = 0;
-            fpsTimer[0] += 1000;
-        }
-    }
-
-    private void initClasses() {
-        shader = new StaticShader();
-        camera = new Camera();
-        player = new PlayerEntity(0, (float) Chunk.CHUNK_HEIGHT / 4, 0, camera);
-        renderer = new Renderer(shader, camera);
-        world = new World();
-        inputHandler = new InputHandler();
-        updateHandler = new UpdateHandler();
     }
 
     private void setCallBacks(){
@@ -204,9 +136,80 @@ public class Game {
         });
     }
 
-    private Game() {
-        window = 0;
-        fullscreen = false;
+    private void initGameLoop() {
+        GL.createCapabilities();
+
+        initClasses();
+
+        glfwShowWindow(window);
+        glfwFocusWindow(window);
+
+        double previousTime = System.nanoTime();
+        double lag = 0.0;
+
+        int[] frameCount = {0}; // Track the number of frames using an array for immutability in lambda
+        long[] fpsTimer = {System.currentTimeMillis()};
+
+        while (!GLFW.glfwWindowShouldClose(window)) {
+            double currentTime = System.nanoTime();
+            double elapsedTime = currentTime - previousTime;
+            previousTime = currentTime;
+            lag += elapsedTime;
+
+            renderer.prepareRender();
+            inputHandler.processInput();
+
+            GLFW.glfwPollEvents();
+
+            // Update game logic with a fixed time-step
+            double nanosecondsPerUpdate = 1_000_000_000.0 / UPDATES_PER_SECOND;
+
+            while (lag >= nanosecondsPerUpdate) {
+                updateHandler.update();
+                lag -= nanosecondsPerUpdate;
+            }
+
+            renderer.render(renderModels);
+
+            updateWindowTitleWithFPS(frameCount, fpsTimer);
+        }
+    }
+
+    private void updateWindowTitleWithFPS(int[] frameCount, long[] fpsTimer) {
+        frameCount[0]++;
+
+        if (System.currentTimeMillis() - fpsTimer[0] >= 1000) {
+
+            String windowTitle = "Game - FPS: " + frameCount[0] +
+                    "   Player - x: " + player.getPosition().x + " y: " + player.getPosition().y + " z: " + player.getPosition().z +
+                    "      Total Chunks - " + world.getChunkCache().size() +
+                    "      Render Models - " + renderModels.size() +
+                    "      Trigs - " + (renderer.getVboInstanceData().getCount());
+
+            glfwSetWindowTitle(window, windowTitle);
+            frameCount[0] = 0;
+            fpsTimer[0] += 1000;
+        }
+    }
+
+    // Requires capabilities to be created
+    private void initClasses() {
+        shader = new StaticShader();
+        camera = new Camera();
+        player = new PlayerEntity(0, (float) Chunk.CHUNK_HEIGHT / 4, 0, camera);
+        renderer = new Renderer(shader, camera);
+        world = new World();
+        inputHandler = new InputHandler();
+        updateHandler = new UpdateHandler();
+    }
+
+    private void exitGracefully() {
+        updateHandler.cleanUp();
+        shader.cleanUp();
+        renderer.cleanup();
+        this.cleanUp();
+
+        world.deleteChunksFromDisk();
     }
 
     public static Game getInstance() {
@@ -214,18 +217,6 @@ public class Game {
             instance = new Game();
         }
         return instance;
-    }
-
-    private void exitGracefully() {
-        updateHandler.cleanUp();
-
-        glfwFreeCallbacks(window);
-        glfwDestroyWindow(window);
-        glfwTerminate();
-        Objects.requireNonNull(glfwSetErrorCallback(null)).free();
-
-        shader.cleanUp();
-        renderer.cleanup();
     }
 
     // Utility methods
@@ -239,6 +230,13 @@ public class Game {
 
             return new int[]{pWidth.get(0), pHeight.get(0)};
         }
+    }
+
+    private void cleanUp() {
+        glfwFreeCallbacks(window);
+        glfwDestroyWindow(window);
+        glfwTerminate();
+        Objects.requireNonNull(glfwSetErrorCallback(null)).free();
     }
 
     private void centerWindow(long window) {

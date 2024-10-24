@@ -11,30 +11,17 @@ import java.util.*;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
+import static org.lpc.utils.SystemUtils.retryTask;
+
 @Getter @Setter
 public class World {
-    private static final int MAX_CACHE_SIZE = 100;
-
     private final ArrayList<Chunk> loadedChunks;
     private final Map<String, Chunk> chunkCache;
 
     public World() {
         loadedChunks = new ArrayList<>();
+        chunkCache= new ChunkCache<>(); // Extends linked hash map to limit the cache size
 
-        // LinkedHashMap is used to keep the order chunk access order,
-        // so that the least recently used chunk can be saved to disk
-        chunkCache= new LinkedHashMap<String, Chunk>(MAX_CACHE_SIZE, 0.75f, true) {
-            @Override
-            protected boolean removeEldestEntry(Map.Entry eldest) {
-                if (size() > MAX_CACHE_SIZE) {
-                    saveChunkToDisk((Chunk) eldest.getValue(), (String) eldest.getKey());
-                    return true;
-                }
-                return false;
-            }
-        };
-
-        deleteDiskCache();
         createDiskCache();
 
         init();
@@ -48,6 +35,7 @@ public class World {
         boolean farChunks;
         boolean loadChunksAround;
 
+        // Synchronize on the chunk cache to avoid multiple threads accessing it at the same time
         synchronized (chunkCache) {
             farChunks = unloadFarChunks(playerX, playerZ, renderDistance);
             loadChunksAround = loadChunksAround(playerX, playerZ, renderDistance);
@@ -120,7 +108,7 @@ public class World {
         }
     }
 
-    public AbstractBlock getBlockWorld(float x, float y, float z) {
+    public AbstractBlock getBlockAt(float x, float y, float z) {
         int chunkX = Math.floorDiv((int) x, Chunk.CHUNK_SIZE);
         int chunkZ = Math.floorDiv((int) z, Chunk.CHUNK_SIZE);
 
@@ -154,7 +142,7 @@ public class World {
         );
     }
 
-    private void saveChunkToDisk(Chunk chunk, String chunkKey) {
+    public void saveChunkToDisk(Chunk chunk, String chunkKey) {
         String[] split = chunkKey.split(":");
         int x = Integer.parseInt(split[0]);
         int z = Integer.parseInt(split[1]);
@@ -191,19 +179,30 @@ public class World {
         return null;
     }
 
-    public void deleteDiskCache(){
+    public void deleteChunksFromDisk() {
         System.out.println("\u001B[31m" + "!!! Deleting disk cache !!!" + "\u001B[0m");
 
         File directory = new File("chunks/");
         if (!directory.exists()) {
+            System.out.println("Nothing to delete.");
             return;
         }
 
-        for(File file : Objects.requireNonNull(directory.listFiles())){
-            if (!file.delete())
-                throw new RuntimeException("Failed to delete file: " + file.getName());
+        for (File file : Objects.requireNonNull(directory.listFiles())) {
+            boolean success = retryTask(3, 2000, () -> {
+                if (!file.delete()) {
+                    throw new RuntimeException("File deletion failed");
+                }
+            });
+
+            if (!success) {
+                throw new RuntimeException("Failed to delete file after multiple attempts: " + file.getName());
+            } else {
+                System.out.println("Successfully deleted file: " + file.getName());
+            }
         }
     }
+
 
     private void createDiskCache() {
         File directory = new File("chunks/");
@@ -213,6 +212,23 @@ public class World {
             } else {
                 throw new RuntimeException("Failed to create chunks/ directory.");
             }
+        }
+    }
+
+    static class ChunkCache<K, V> extends LinkedHashMap<K,V> {
+        private static final int MAX_CACHE_SIZE = 100;
+
+        public ChunkCache() {
+            super(MAX_CACHE_SIZE, 0.75f, true);
+        }
+
+        @Override
+        protected boolean removeEldestEntry(Map.Entry eldest) {
+            if (size() > MAX_CACHE_SIZE) {
+                Game.getInstance().getWorld().saveChunkToDisk((Chunk) eldest.getValue(), (String) eldest.getKey());
+                return true;
+            }
+            return false;
         }
     }
 }

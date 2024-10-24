@@ -2,7 +2,7 @@ package org.lpc.render.pipeline.shaders;
 
 import org.joml.Matrix4f;
 import org.lpc.render.Camera;
-import org.lpc.utils.Maths;
+import org.lpc.utils.Matrices;
 
 public class StaticShader extends ShaderProgram {
 
@@ -35,7 +35,7 @@ public class StaticShader extends ShaderProgram {
     }
 
     public void loadViewMatrix(Camera camera) {
-        Matrix4f viewMatrix = Maths.createViewMatrix(camera);
+        Matrix4f viewMatrix = Matrices.createViewMatrix(camera);
         super.loadMatrix(location_viewMatrix, viewMatrix);
     }
 

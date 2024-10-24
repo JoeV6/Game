@@ -13,6 +13,8 @@ import java.util.List;
 
 @Getter
 public class TextureAtlas {
+    public static final int TEXTURE_SIZE = 64;
+
     public static String ATLAS_PATH = "src/main/resources/textures/texture_atlas.png";
     private static TextureAtlas instance;
 
@@ -38,15 +40,15 @@ public class TextureAtlas {
             try {
                 BufferedImage originalImage = ImageIO.read(file);
                 // Resize to 64x64
-                BufferedImage resizedImage = resizeImage(originalImage, 64, 64);
+                BufferedImage resizedImage = resizeImage(originalImage, TEXTURE_SIZE, TEXTURE_SIZE);
                 images.add(resizedImage);
             } catch (IOException e) {
                 System.out.println("Failed to load image: " + file.getName());
             }
         }
 
-        int atlasWidth = 64;
-        int atlasHeight = (images.size() * 64);
+        int atlasWidth = TEXTURE_SIZE;
+        int atlasHeight = (images.size() * TEXTURE_SIZE);
 
         atlasImage = new BufferedImage(atlasWidth, atlasHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = atlasImage.createGraphics();
@@ -55,10 +57,10 @@ public class TextureAtlas {
         int currentY = 0;
         for (BufferedImage image : images) {
             g.drawImage(image, 0, currentY, null);
-            Rectangle rect = new Rectangle(0, currentY, 64, 64);
+            Rectangle rect = new Rectangle(0, currentY, TEXTURE_SIZE, TEXTURE_SIZE);
             textureRectangles.add(rect);
             textureCoordinates.put(image.toString(), rect);
-            currentY += 64; // Move down by 64 pixels
+            currentY += TEXTURE_SIZE; // Move down by 64 pixels
         }
 
         g.dispose();

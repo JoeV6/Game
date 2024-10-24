@@ -8,8 +8,8 @@ layout(location = 3) in int textureID;         // Instance input for texture ID
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 
-out vec2 fragTexCoord;         // Output to fragment shader
-out float fragTextureID;       // Pass texture ID to the fragment shader
+out vec2 fragTexCoord;
+out float fragTextureID;
 
 void main() {
     mat4 modelMatrix = mat4(1.0);

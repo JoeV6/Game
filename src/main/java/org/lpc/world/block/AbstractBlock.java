@@ -5,9 +5,7 @@ import lombok.Setter;
 import org.joml.Vector3f;
 import org.lpc.Game;
 import org.lpc.render.pipeline.models.CubeModel;
-import org.lpc.render.pipeline.textures.Texture;
 import org.lpc.world.World;
-import org.lpc.world.chunk.Chunk;
 
 import java.io.Serializable;
 
@@ -33,12 +31,12 @@ public abstract class AbstractBlock implements Serializable {
 
         AbstractBlock[] blocks = new AbstractBlock[6];
 
-        blocks[0] = world.getBlockWorld(x, y, z + 1);
-        blocks[1] = world.getBlockWorld(x, y, z - 1);
-        blocks[2] = world.getBlockWorld(x, y + 1, z);
-        blocks[3] = world.getBlockWorld(x, y - 1, z);
-        blocks[4] = world.getBlockWorld(x + 1, y, z);
-        blocks[5] = world.getBlockWorld(x - 1, y, z);
+        blocks[0] = world.getBlockAt(x, y, z + 1);
+        blocks[1] = world.getBlockAt(x, y, z - 1);
+        blocks[2] = world.getBlockAt(x, y + 1, z);
+        blocks[3] = world.getBlockAt(x, y - 1, z);
+        blocks[4] = world.getBlockAt(x + 1, y, z);
+        blocks[5] = world.getBlockAt(x - 1, y, z);
 
         return blocks;
     }

@@ -1,7 +1,6 @@
 package org.lpc.world.chunk;
 
 import lombok.Getter;
-import org.lpc.Game;
 import org.lpc.utils.PerlinNoise;
 import org.lpc.world.block.AbstractBlock;
 import org.lpc.world.block.blocks.AirBlock;
@@ -10,9 +9,6 @@ import org.lpc.world.block.blocks.DirtBlock;
 import org.lpc.world.block.blocks.GrassBlock;
 
 import java.io.Serializable;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 @Getter
 public class Chunk implements Serializable {
@@ -46,7 +42,7 @@ public class Chunk implements Serializable {
                 double height = perlinNoise.noise(worldX * 0.1, worldZ * 0.1) * CHUNK_HEIGHT / 4;
 
 
-                height = Math.max(1, Math.min(height, CHUNK_HEIGHT - 1));
+                height = Math.max(1, Math.min(height + 10, CHUNK_HEIGHT - 1));
 
                 for (int y = 0; y < CHUNK_HEIGHT; y++) {
                     if (y < height) {
@@ -55,7 +51,7 @@ public class Chunk implements Serializable {
                         }
                         if (y == (int) height) {
                             blocks[x][z][y] = new GrassBlock(worldX, y, worldZ);
-                        } else if (y < (int) height && y > (int) height - 10) {
+                        } else if (y < (int) height && y > (int) height - 6) {
                             blocks[x][z][y] = new DirtBlock(worldX, y, worldZ);
                         } else {
                             blocks[x][z][y] = new CobbleStoneBlock(worldX, y, worldZ); // Stone below ground level

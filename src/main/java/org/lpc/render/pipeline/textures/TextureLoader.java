@@ -71,7 +71,7 @@ public class TextureLoader {
         glBindTexture(GL_TEXTURE_2D_ARRAY, 0); // Unbind the texture
 
         // Output each layer of the texture array to separate PNGs
-        outputTextureLayersToPNG(buffer, width, layers);
+        //outputTextureLayersToPNG(buffer, width, layers);
 
         return new Texture(textureArrayId);
     }

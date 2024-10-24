@@ -14,6 +14,8 @@ import java.util.HashMap;
 import static org.lpc.Game.*;
 
 public class InputHandler {
+    private static final boolean DEBUG = true;
+
     private final long window;
     private final Game game;
     private final Camera camera;
@@ -78,9 +80,15 @@ public class InputHandler {
         if (key == GLFW.GLFW_KEY_F11 && action == GLFW.GLFW_PRESS) {
             toggleFullscreen();
         }
-        if (key == GLFW.GLFW_KEY_T && action == GLFW.GLFW_PRESS) {
-            game.changeDebug();
+
+
+        if (key == GLFW.GLFW_KEY_1 && action == GLFW.GLFW_PRESS && DEBUG) {
+            game.getUpdateHandler().changeRenderAll();
         }
+        if (key == GLFW.GLFW_KEY_2 && action == GLFW.GLFW_PRESS && DEBUG) {
+            game.changeRenderType();
+        }
+
 
         if(keys.containsKey(key) && (action == GLFW.GLFW_PRESS || action == GLFW.GLFW_RELEASE)) {
             if(action == 1){

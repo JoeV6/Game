@@ -45,7 +45,7 @@ public class Game {
     public static final int RENDER_DISTANCE = 2;
 
     @Setter private boolean fullscreen;
-    private boolean debug = false;
+    private boolean renderTrigLines = false;
     private long window;
 
     private InputHandler inputHandler;
@@ -251,12 +251,12 @@ public class Game {
         }
     }
 
-    public void changeDebug(){
-        if (debug){
-            debug = false;
+    public void changeRenderType(){
+        if (renderTrigLines){
+            renderTrigLines = false;
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         } else {
-            debug = true;
+            renderTrigLines = true;
             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         }
     }

@@ -8,17 +8,14 @@ import org.lpc.world.block.AbstractBlock;
 import org.lpc.world.chunk.Chunk;
 import org.lpc.world.entity.entities.PlayerEntity;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-import static java.awt.SystemColor.window;
 
 public class UpdateHandler {
+    public boolean render_all = false;
+
     private final Game game;
     private final World world;
     private final PlayerEntity player;
@@ -89,7 +86,7 @@ public class UpdateHandler {
                     AbstractBlock[] neighbours = block.getNeighbouringBlocks();
 
                     for (AbstractBlock neighbour : neighbours) {
-                        if (neighbour == null || neighbour.getBlockID() == -1) {
+                        if (neighbour == null || neighbour.getBlockID() == -1 || render_all) {
                             nextModels.add(block.getCubeModel());
                             break;
                         }
@@ -97,6 +94,11 @@ public class UpdateHandler {
                 }
             }
         }
+    }
+
+    public void changeRenderAll(){
+        render_all = !render_all;
+        System.out.println(render_all ? "Rendering all blocks" : "Rendering only visible blocks");
     }
 
     public void cleanUp(){

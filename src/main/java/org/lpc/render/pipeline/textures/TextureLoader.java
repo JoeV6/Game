@@ -39,16 +39,16 @@ public class TextureLoader {
         assert image != null;
         int width = image.getWidth();
         int height = image.getHeight();
-        int layers = height / 64; // Assuming each texture is 64x64 pixels
+        int layers = height / 64; // Assuming each texture is 64x64 pixels (texture size is square)
         ByteBuffer buffer = ByteBuffer.allocateDirect(width * height * 4);
 
         for (int i = 0; i < layers; i++) {
             for (int y = 0; y < 64; y++) {
                 for (int x = 0; x < width; x++) {
-                    int pixel = image.getRGB(x, i * 64 + y);
+                    int pixel = image.getRGB(x, i * 64 + y); // Extract each layer
                     buffer.put((byte) ((pixel >> 16) & 0xFF)); // Red
                     buffer.put((byte) ((pixel >> 8) & 0xFF));  // Green
-                    buffer.put((byte) (pixel & 0xFF));           // Blue
+                    buffer.put((byte) (pixel & 0xFF));         // Blue
                     buffer.put((byte) ((pixel >> 24) & 0xFF)); // Alpha
                 }
             }
@@ -70,6 +70,40 @@ public class TextureLoader {
 
         glBindTexture(GL_TEXTURE_2D_ARRAY, 0); // Unbind the texture
 
+        // Output each layer of the texture array to separate PNGs
+        outputTextureLayersToPNG(buffer, width, layers);
+
         return new Texture(textureArrayId);
     }
+
+    private static void outputTextureLayersToPNG(ByteBuffer buffer, int width, int layers) {
+        for (int layer = 0; layer < layers; layer++) {
+            BufferedImage outputImage = new BufferedImage(width, 64, BufferedImage.TYPE_INT_ARGB);
+
+            // Reset buffer position for reading the current layer
+            buffer.position(layer * width * 64 * 4); // Move to the start of the current layer
+
+            // Read pixel data from buffer for this layer
+            for (int y = 0; y < 64; y++) {
+                for (int x = 0; x < width; x++) {
+                    int r = buffer.get() & 0xFF; // Red
+                    int g = buffer.get() & 0xFF; // Green
+                    int b = buffer.get() & 0xFF; // Blue
+                    int a = buffer.get() & 0xFF; // Alpha
+                    int pixel = (a << 24) | (r << 16) | (g << 8) | b;
+                    outputImage.setRGB(x, y, pixel);
+                }
+            }
+
+            // Save the current layer as a PNG
+            File outputfile = new File("output_texture_layer_" + layer + ".png");
+            try {
+                ImageIO.write(outputImage, "png", outputfile);
+                System.out.println("Texture layer " + layer + " saved as 'output_texture_layer_" + layer + ".png'");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
+

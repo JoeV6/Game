@@ -149,9 +149,9 @@ public class Renderer {
         return instanceData;
     }
 
-    private float[] generateTexcoordData(List<CubeModel> cubes) {
+    private int[] generateTexcoordData(List<CubeModel> cubes) {
         int instanceCount = cubes.size();
-        float[] texcoordData = new float[instanceCount]; // 1 float for each instance reference to texture
+        int[] texcoordData = new int[instanceCount]; // 1 float for each instance reference to texture
 
         for (int i = 0; i < instanceCount; i++) {
             CubeModel cube = cubes.get(i);

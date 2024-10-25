@@ -28,8 +28,7 @@ This project uses **OpenGL** through **LWJGL (Lightweight Java Game Library)** t
   - [x] The terrain is a collection of these blocks, and the graphics engine renders them efficiently in chunks.
   
 - **Texturing**: 
-  - [ ] Simple textures are applied to different block types.
-  - [ ] **grass block** has a grass texture on the top and a dirt texture on the sides and bottom.
+  - [x] Simple textures are applied to different block types.
   
 - **Camera and Controls**: 
   - [x] The player can explore the world using basic **WASD** controls for movement, along with mouse input for looking around.

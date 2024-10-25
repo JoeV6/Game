@@ -83,7 +83,7 @@ public class InputHandler {
 
 
         if (key == GLFW.GLFW_KEY_1 && action == GLFW.GLFW_PRESS && DEBUG) {
-            game.getUpdateHandler().changeRenderAll();
+            game.getUpdateHandler().toggleRenderAll();
         }
         if (key == GLFW.GLFW_KEY_2 && action == GLFW.GLFW_PRESS && DEBUG) {
             game.changeRenderType();

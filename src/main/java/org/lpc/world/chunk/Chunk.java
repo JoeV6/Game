@@ -3,10 +3,7 @@ package org.lpc.world.chunk;
 import lombok.Getter;
 import org.lpc.utils.PerlinNoise;
 import org.lpc.world.block.AbstractBlock;
-import org.lpc.world.block.blocks.AirBlock;
-import org.lpc.world.block.blocks.CobbleStoneBlock;
-import org.lpc.world.block.blocks.DirtBlock;
-import org.lpc.world.block.blocks.GrassBlock;
+import org.lpc.world.block.blocks.*;
 
 import java.io.Serializable;
 
@@ -50,7 +47,12 @@ public class Chunk implements Serializable {
                             continue;
                         }
                         if (y == (int) height) {
-                            blocks[x][z][y] = new GrassBlock(worldX, y, worldZ);
+                            if(y > 15){
+                                blocks[x][z][y] = new GrassBlock(worldX, y, worldZ);
+                            }
+                            else{
+                                blocks[x][z][y] = new SandBlock(worldX, y, worldZ);
+                            }
                         } else if (y < (int) height && y > (int) height - 6) {
                             blocks[x][z][y] = new DirtBlock(worldX, y, worldZ);
                         } else {

@@ -3,6 +3,7 @@ package org.lpc.world;
 import lombok.Getter;
 import lombok.Setter;
 import org.lpc.Game;
+import org.lpc.utils.SystemUtils;
 import org.lpc.world.block.AbstractBlock;
 import org.lpc.world.chunk.Chunk;
 
@@ -154,7 +155,7 @@ public class World {
              ObjectOutputStream out = new ObjectOutputStream(gzipOut)) {
 
             out.writeObject(chunk);
-            System.out.println("Saved chunk to disk: " + chunkKey);
+            //System.out.println("Saved chunk to disk: " + chunkKey);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -180,13 +181,17 @@ public class World {
     }
 
     public void deleteChunksFromDisk() {
-        System.out.println("\u001B[31m" + "!!! Deleting disk cache !!!" + "\u001B[0m");
+        System.out.print(SystemUtils.RED_TEXT);
+
+        System.out.println("\n!!! Deleting disk cache !!!");
 
         File directory = new File("chunks/");
         if (!directory.exists()) {
             System.out.println("Nothing to delete.");
             return;
         }
+
+        List<String> deletedFiles = new ArrayList<>();
 
         for (File file : Objects.requireNonNull(directory.listFiles())) {
             boolean success = retryTask(3, 2000, () -> {
@@ -198,9 +203,18 @@ public class World {
             if (!success) {
                 throw new RuntimeException("Failed to delete file after multiple attempts: " + file.getName());
             } else {
-                System.out.println("Successfully deleted file: " + file.getName());
+                deletedFiles.add(file.getName());
             }
         }
+
+        if(deletedFiles.isEmpty()){
+            System.out.println("Nothing to delete.");
+        } else {
+            System.out.println("Deleted " + deletedFiles.size() + " files:");
+            System.out.println(deletedFiles);
+        }
+
+        System.out.println(SystemUtils.NORMAL_TEXT);
     }
 
 

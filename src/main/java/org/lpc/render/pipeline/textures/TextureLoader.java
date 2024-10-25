@@ -68,7 +68,7 @@ public class TextureLoader {
         glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-        glBindTexture(GL_TEXTURE_2D_ARRAY, 0); // Unbind the texture
+        glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 
         // Output each layer of the texture array to separate PNGs
         //outputTextureLayersToPNG(buffer, width, layers);

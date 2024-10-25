@@ -2,6 +2,9 @@ package org.lpc.utils;
 
 
 public class SystemUtils {
+    public static String RED_TEXT = "\u001B[31m";
+    public static String NORMAL_TEXT = "\u001B[0m";
+
     public static boolean retryTask(int maxRetries, int baseDelayMillis, Runnable task) {
         int retries = 0;
         boolean success = false;

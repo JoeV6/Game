@@ -39,6 +39,10 @@ public abstract class ShaderProgram {
         GL20C.glUniform1f(location, value);
     }
 
+    protected void loadInt(int location, int value) {
+        GL20C.glUniform1i(location, value);
+    }
+
     protected void loadVector(int location, Vector3f vec) {
         GL20C.glUniform3f(location, vec.x, vec.y, vec.z);
     }
@@ -50,6 +54,7 @@ public abstract class ShaderProgram {
         }
         GL20C.glUniform1f(location, toLoad);
     }
+
 
     protected void loadMatrix(int location, Matrix4f mat){
         matrixToBuffer(mat, matrixBuffer);

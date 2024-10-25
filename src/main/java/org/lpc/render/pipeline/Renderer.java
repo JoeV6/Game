@@ -10,15 +10,19 @@ import org.lpc.render.pipeline.textures.TextureLoader;
 import org.lpc.render.pipeline.models.CubeModel;
 import org.lpc.render.pipeline.util.VAO;
 import org.lpc.render.pipeline.util.VBO;
-import org.lpc.utils.Maths;
+import org.lpc.utils.Matrices;
+import org.lpc.utils.TextureAtlas;
 import org.lwjgl.opengl.GL13C;
 
 import java.util.List;
 
+import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL15.GL_DYNAMIC_DRAW;
 import static org.lwjgl.opengl.GL15.GL_STATIC_DRAW;
+import static org.lwjgl.opengl.GL20C.glGetUniformLocation;
+import static org.lwjgl.opengl.GL30C.GL_TEXTURE_2D_ARRAY;
 import static org.lwjgl.opengl.GL31C.glDrawElementsInstanced;
 
 @Getter
@@ -27,17 +31,24 @@ public class Renderer {
     private static final float NEAR_PLANE = 0.1f;
     private static final float FAR_PLANE = 1000;
 
-    private VAO vao;
-    private VBO vboVertices;
-    private VBO vboIndices;
-    private VBO vboTexCoords;
-    private VBO vboInstanceData;
+    private VAO vaoCube;
+        private VBO vboVertices;
+        private VBO vboIndices;
+        private VBO vboGenericTextureCoords;
+        private VBO vboInstanceData;
+        private VBO vboTextureIds;
 
     private final Camera camera;
     private final StaticShader shader;
-    private final Texture texture = new Texture(TextureLoader.getTexture("src/main/resources/textures/blocks/block_0.png").getTextureID());
+
+    private final Texture texture;
+    private final TextureAtlas textureAtlas;
 
     public Renderer(StaticShader shader, Camera camera) {
+        textureAtlas = TextureAtlas.getInstance();
+        textureAtlas.createTextureAtlas("src/main/resources/textures/blocks");
+        texture = TextureLoader.getTexture(TextureAtlas.ATLAS_PATH);
+
         this.camera = camera;
         this.shader = shader;
 
@@ -51,7 +62,7 @@ public class Renderer {
         Game game = Game.getInstance();
         shader.start();
         shader.loadProjectionMatrix(
-                Maths.createProjectionMatrix(
+                Matrices.createProjectionMatrix(
                         game.getCurrentWindowSize()[0],
                         game.getCurrentWindowSize()[1],
                         FOV, NEAR_PLANE, FAR_PLANE
@@ -61,29 +72,34 @@ public class Renderer {
     }
 
     private void prepareVAO() {
-        vao = new VAO();
-        vao.bind();
+        vaoCube = new VAO();
+        vaoCube.bind();
 
         // VBO for vertices
         vboVertices = new VBO();
         vboVertices.uploadData(CubeModel.vertices, GL_STATIC_DRAW);
-        vao.linkAttrib(vboVertices, 0, 3, GL_FLOAT, 0, 0); // Vertex positions
-
-        // VBO for texture coordinates
-        vboTexCoords = new VBO();
-        vboTexCoords.uploadData(CubeModel.textureCoords, GL_STATIC_DRAW);
-        vao.linkAttrib(vboTexCoords, 1, 2, GL_FLOAT, 0, 0); // Texture coordinates
+        vaoCube.linkAttrib(vboVertices, 0, 3, GL_FLOAT, 0, 0);
 
         // VBO for indices
         vboIndices = new VBO();
         vboIndices.uploadData(CubeModel.indices, GL_STATIC_DRAW);
 
-        // VBO for instance data
+        // VBO for offset data (instance data)
         vboInstanceData = new VBO();
         vboInstanceData.uploadData(new float[0], GL_DYNAMIC_DRAW);
-        vao.linkAttribInstanced(vboInstanceData, 2, 3, GL_FLOAT, 3 * Float.BYTES, 0, 1);
+        vaoCube.linkAttribInstanced(vboInstanceData, 2, 3, GL_FLOAT, 3 * Float.BYTES, 0, 1);
 
-        vao.unbind();
+        // VBO for texture coords (Shared for all instances)
+        vboGenericTextureCoords = new VBO();
+        vboGenericTextureCoords.uploadData(textureAtlas.getAllTextureCoords(), GL_STATIC_DRAW);
+        vaoCube.linkAttrib(vboGenericTextureCoords, 1, 2, GL_FLOAT, 0, 0); // Each vertex has 2 floats
+
+        // VBO for texture IDs (instance data)
+        vboTextureIds = new VBO();
+        vboTextureIds.uploadData(new float[0], GL_DYNAMIC_DRAW);
+        vaoCube.linkAttribInstanced(vboTextureIds, 3, 1, GL_FLOAT, 0, 0, 1);
+
+        vaoCube.unbind();
     }
 
     public void prepareRender() {
@@ -98,21 +114,23 @@ public class Renderer {
 
     public void render(List<CubeModel> cubes) {
         vboInstanceData.uploadData(generateInstanceData(cubes), GL_DYNAMIC_DRAW);
+        vboTextureIds.uploadData(generateTexcoordData(cubes), GL_DYNAMIC_DRAW);
 
         shader.start();
-        shader.loadViewMatrix(camera);
+            shader.loadViewMatrix(camera);
+            shader.loadTextureArray(0);
 
-        GL13C.glActiveTexture(GL13C.GL_TEXTURE0);
-        GL13C.glBindTexture(GL_TEXTURE_2D, texture.getTextureID());
+            GL13C.glActiveTexture(GL13C.GL_TEXTURE0);
+            GL13C.glBindTexture(GL_TEXTURE_2D_ARRAY, texture.getTextureID());
 
-
-        vao.bind();
-        glDrawElementsInstanced(GL_TRIANGLES, vboIndices.getCount(), GL_UNSIGNED_INT, 0, cubes.size());
-        vao.unbind();
-
+            vaoCube.bind();
+                glDrawElementsInstanced(GL_TRIANGLES, vboIndices.getCount(), GL_UNSIGNED_INT, 0, cubes.size());
+            vaoCube.unbind();
         shader.stop();
 
         renderCrosshair();
+
+        glfwSwapBuffers(Game.getInstance().getWindow());
     }
 
     private float[] generateInstanceData(List<CubeModel> cubes) {
@@ -131,12 +149,28 @@ public class Renderer {
         return instanceData;
     }
 
+    private int[] generateTexcoordData(List<CubeModel> cubes) {
+        int instanceCount = cubes.size();
+        int[] texcoordData = new int[instanceCount]; // 1 float for each instance reference to texture
+
+        for (int i = 0; i < instanceCount; i++) {
+            CubeModel cube = cubes.get(i);
+            texcoordData[i] = cube.getTextureID(); // Store the texture ID or index
+        }
+
+        return texcoordData;
+    }
+
     public void cleanup() {
         vboVertices.delete();
-        vboTexCoords.delete();
+        vboGenericTextureCoords.delete();
         vboIndices.delete();
         vboInstanceData.delete();
-        vao.delete();
+        vboTextureIds.delete();
+        vaoCube.delete();
+
+        lineVAO.delete();
+        lineVBO.delete();
     }
 
     private VAO lineVAO;

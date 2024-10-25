@@ -1,15 +1,11 @@
 package org.lpc.world.chunk;
 
 import lombok.Getter;
-import org.lpc.Game;
 import org.lpc.utils.PerlinNoise;
 import org.lpc.world.block.AbstractBlock;
-import org.lpc.world.block.blocks.DirtBlock;
-import org.lpc.world.block.blocks.GrassBlock;
+import org.lpc.world.block.blocks.*;
 
 import java.io.Serializable;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 @Getter
 public class Chunk implements Serializable {
@@ -35,31 +31,42 @@ public class Chunk implements Serializable {
                 int worldX = chunkX * CHUNK_SIZE + x;
                 int worldZ = chunkZ * CHUNK_SIZE + z;
 
+                //plains
+                //double height = perlinNoise.noise(worldX * 0.1, worldZ * 0.1) * CHUNK_HEIGHT / 20;
+                //mountains
+                //double height = perlinNoise.noise(worldX * 0.1, worldZ * 0.1) * CHUNK_HEIGHT / 2;
+                //hills
                 double height = perlinNoise.noise(worldX * 0.1, worldZ * 0.1) * CHUNK_HEIGHT / 4;
 
-                height = Math.max(1, Math.min(height, CHUNK_HEIGHT - 1));
+
+                height = Math.max(1, Math.min(height + 10, CHUNK_HEIGHT - 1));
 
                 for (int y = 0; y < CHUNK_HEIGHT; y++) {
-
                     if (y < height) {
                         if(blocks[x][z][y] != null){
                             continue;
                         }
-
-                        if (y == (int) height - 1) {
-                            blocks[x][z][y] = new GrassBlock(worldX, y, worldZ); // Grass on top layer
-                        } else if (y < (int) height - 1 && y > (int) height - 10) {
-                            blocks[x][z][y] = new DirtBlock(worldX, y, worldZ); // Dirt layer under grass
+                        if (y == (int) height) {
+                            if(y > 15){
+                                blocks[x][z][y] = new GrassBlock(worldX, y, worldZ);
+                            }
+                            else{
+                                blocks[x][z][y] = new SandBlock(worldX, y, worldZ);
+                            }
+                        } else if (y < (int) height && y > (int) height - 6) {
+                            blocks[x][z][y] = new DirtBlock(worldX, y, worldZ);
                         } else {
-                            blocks[x][z][y] = null; // Empty block
+                            blocks[x][z][y] = new CobbleStoneBlock(worldX, y, worldZ); // Stone below ground level
                         }
                     } else {
-                        blocks[x][z][y] = null; // Empty block above ground level
+                        blocks[x][z][y] = new AirBlock(worldX, y, worldZ); // Empty block above ground level
                     }
                 }
             }
         }
     }
+
+
 
     public AbstractBlock getBlock(int x, int y, int z) {
         if (isOutOfBounds(x, y, z)) {

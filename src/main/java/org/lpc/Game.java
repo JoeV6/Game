@@ -19,7 +19,6 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
-import java.awt.*;
 import java.nio.IntBuffer;
 import java.util.List;
 import java.util.Objects;
@@ -44,26 +43,27 @@ public class Game {
     public static final float DEFAULT_MOVEMENT_SPEED = 0.10f;
     public static final float UPDATES_PER_SECOND = 20.0f;
     public static final int RENDER_DISTANCE = 2;
-    public static Color SKY = new Color(0, 0.59f, 0.229f, 1.0f);
 
-    private boolean debug = false;
+    @Setter private boolean fullscreen;
+    private boolean renderTrigLines = false;
     private long window;
 
     private InputHandler inputHandler;
     private UpdateHandler updateHandler;
-
     private StaticShader shader;
     private Camera camera;
     private Renderer renderer;
-
     private World world;
     private PlayerEntity player;
 
     @Setter private List<CubeModel> renderModels = new CopyOnWriteArrayList<>();
     @Setter private List<CubeModel> nextModels = new CopyOnWriteArrayList<>();
-
     @Setter private boolean modelNeedsChange = false;
-    @Setter private boolean fullscreen;
+
+    private Game() {
+        window = 0;
+        fullscreen = false;
+    }
 
     public void run() {
         System.out.println("LWJGL " + Version.getVersion());
@@ -88,7 +88,6 @@ public class Game {
         if ( window == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
 
-
         glfwMakeContextCurrent(window);
         glfwSwapInterval(1);
         centerWindow(window);
@@ -97,67 +96,29 @@ public class Game {
 
     private void initGameLoop() {
         GL.createCapabilities();
-
         initClasses();
 
         glfwShowWindow(window);
         glfwFocusWindow(window);
 
-        double previousTime = System.nanoTime();
-        double lag = 0.0;
-
-        int[] frameCount = {0}; // Track the number of frames using an array for immutability in lambda
-        long[] fpsTimer = {System.currentTimeMillis()};
+        Timer gameTimer = new Timer();
 
         while (!GLFW.glfwWindowShouldClose(window)) {
-            double currentTime = System.nanoTime();
-            double elapsedTime = currentTime - previousTime;
-            previousTime = currentTime;
-            lag += elapsedTime;
-
             renderer.prepareRender();
-
             inputHandler.processInput();
-
             GLFW.glfwPollEvents();
 
-            // Update game logic with a fixed time-step
-            double nanosecondsPerUpdate = 1_000_000_000.0 / UPDATES_PER_SECOND;
-
-            while (lag >= nanosecondsPerUpdate) {
+            if (gameTimer.shouldUpdate()) {
                 updateHandler.update();
-                lag -= nanosecondsPerUpdate;
             }
 
-            shader.start();
-
             renderer.render(renderModels);
-
-            shader.stop();
-
-            GLFW.glfwSwapBuffers(window);
-
-            updateWindowTitleWithFPS(frameCount, fpsTimer);
+            gameTimer.incrementFrameCount();
+            updateWindowTitle(gameTimer);
         }
     }
 
-    private void updateWindowTitleWithFPS(int[] frameCount, long[] fpsTimer) {
-        frameCount[0]++;
-
-        if (System.currentTimeMillis() - fpsTimer[0] >= 1000) {
-
-            String windowTitle = "Game - FPS: " + frameCount[0] +
-                    "   Player - x: " + player.getPosition().x + " y: " + player.getPosition().y + " z: " + player.getPosition().z +
-                    "      Total Chunks - " + world.getChunkCache().size() +
-                    "      Render Models - " + renderModels.size() +
-                    "      Trigs - " + (renderer.getVboInstanceData().getCount() / 3);
-
-            glfwSetWindowTitle(window, windowTitle);
-            frameCount[0] = 0;
-            fpsTimer[0] += 1000;
-        }
-    }
-
+    // Requires capabilities to be created
     private void initClasses() {
         shader = new StaticShader();
         camera = new Camera();
@@ -168,51 +129,20 @@ public class Game {
         updateHandler = new UpdateHandler();
     }
 
-    private void setCallBacks(){
-        glfwSetCursorPosCallback(window, (window, xpos, ypos) -> {
-            inputHandler.setMouseX((float) xpos);
-            inputHandler.setMouseY((float) ypos);
-        });
-        glfwSetMouseButtonCallback(window, (window, button, action, mods) -> {
-            inputHandler.mouseInput(button, action);
-        });
-        glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-            inputHandler.keyInput(key, scancode, action, mods);
-        });
-        glfwSetScrollCallback(window, (window, xoffset, yoffset) -> {
-            inputHandler.scrollInput(xoffset, yoffset);
-        });
-        glfwSetFramebufferSizeCallback(window, (window, width, height) -> {
-            glViewport(0, 0, width, height);
-        });
-        // Center the cursor and hide it
-        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-        glfwSetCursorPosCallback(window, new GLFWCursorPosCallback() {
-            private double lastX = 0, lastY = 0;
-            private boolean firstMouse = true; // ignore the initial jump
+    private void exitGracefully() {
+        updateHandler.cleanUp();
+        shader.cleanUp();
+        renderer.cleanup();
+        this.cleanUp();
 
-            @Override
-            public void invoke(long window, double xpos, double ypos) {
-                if (firstMouse) { // Initially set the lastX, lastY to the first cursor position
-                    lastX = xpos;
-                    lastY = ypos;
-                    firstMouse = false;
-                }
-
-                float xOffset = (float) (xpos - lastX);
-                float yOffset = (float) (ypos - lastY);
-
-                lastX = xpos;
-                lastY = ypos;
-
-                inputHandler.mouseMovement(xOffset, yOffset);
-            }
-        });
+        world.deleteChunksFromDisk();
     }
 
-    private Game() {
-        window = 0;
-        fullscreen = false;
+    private void cleanUp() {
+        glfwFreeCallbacks(window);
+        glfwDestroyWindow(window);
+        glfwTerminate();
+        Objects.requireNonNull(glfwSetErrorCallback(null)).free();
     }
 
     public static Game getInstance() {
@@ -222,20 +152,7 @@ public class Game {
         return instance;
     }
 
-    private void exitGracefully() {
-        updateHandler.cleanUp();
-
-        glfwFreeCallbacks(window);
-        glfwDestroyWindow(window);
-        glfwTerminate();
-        Objects.requireNonNull(glfwSetErrorCallback(null)).free();
-
-        shader.cleanUp();
-        renderer.cleanup();
-    }
-
     // Utility methods
-
     public int[] getCurrentWindowSize() {
         try (MemoryStack stack = stackPush()) {
             IntBuffer pWidth = stack.mallocInt(1);
@@ -259,14 +176,69 @@ public class Game {
         }
     }
 
-    public void changeDebug(){
-        if (debug){
-            debug = false;
+    public void changeRenderType(){
+        if (renderTrigLines){
+            renderTrigLines = false;
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         } else {
-            debug = true;
+            renderTrigLines = true;
             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         }
+    }
+
+    private void updateWindowTitle(Timer gameTimer) {
+        int fps = gameTimer.getFPS();
+        if (fps != -1) {
+            String windowTitle = "Game - FPS: " + fps +
+                    "   Player - x: " + player.getPosition().x + " y: " + player.getPosition().y + " z: " + player.getPosition().z +
+                    "      Total Chunks - " + world.getChunkCache().size() +
+                    "      Render Models - " + renderModels.size() +
+                    "      Trigs - " + renderer.getVboInstanceData().getCount();
+
+            glfwSetWindowTitle(window, windowTitle);
+        }
+    }
+
+
+    private void setCallBacks(){
+        glfwSetCursorPosCallback(window, (window, xpos, ypos) -> {
+            inputHandler.setMouseX((float) xpos);
+            inputHandler.setMouseY((float) ypos);
+        });
+        glfwSetMouseButtonCallback(window, (window, button, action, mods) -> {
+            inputHandler.mouseInput(button, action);
+        });
+        glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
+            inputHandler.keyInput(key, scancode, action, mods);
+        });
+        glfwSetScrollCallback(window, (window, xoffset, yoffset) -> {
+            inputHandler.scrollInput(xoffset, yoffset);
+        });
+        glfwSetFramebufferSizeCallback(window, (window, width, height) -> {
+            glViewport(0, 0, width, height);
+        });
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        glfwSetCursorPosCallback(window, new GLFWCursorPosCallback() {
+            private double lastX = 0, lastY = 0;
+            private boolean firstMouse = true; // ignore the initial jump
+
+            @Override
+            public void invoke(long window, double xpos, double ypos) {
+                if (firstMouse) { // Initially set the lastX, lastY to the first cursor position
+                    lastX = xpos;
+                    lastY = ypos;
+                    firstMouse = false;
+                }
+
+                float xOffset = (float) (xpos - lastX);
+                float yOffset = (float) (ypos - lastY);
+
+                lastX = xpos;
+                lastY = ypos;
+
+                inputHandler.mouseMovement(xOffset, yOffset);
+            }
+        });
     }
 }
 

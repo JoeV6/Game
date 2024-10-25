@@ -8,16 +8,15 @@ import org.lpc.world.block.AbstractBlock;
 import org.lpc.world.chunk.Chunk;
 import org.lpc.world.entity.entities.PlayerEntity;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-import static java.awt.SystemColor.window;
 
 public class UpdateHandler {
+    public boolean renderAll = false;
+
     private final Game game;
     private final World world;
     private final PlayerEntity player;
@@ -25,12 +24,12 @@ public class UpdateHandler {
     private volatile boolean modelsReady = false;
 
     public UpdateHandler() {
-        game = Game.getInstance();
-        world = game.getWorld();
-        player = game.getPlayer();
-
-        int nThreads = Runtime.getRuntime().availableProcessors();
-        executor = Executors.newFixedThreadPool((int) (nThreads / 1.5));
+        this.game = Game.getInstance();
+        this.world = game.getWorld();
+        this.player = game.getPlayer();
+        int threadCount = Math.min((int) (Runtime.getRuntime().availableProcessors() / 1.2), 5);
+        System.out.println("Using " + threadCount + " threads for model updates");
+        this.executor = Executors.newFixedThreadPool(threadCount);
     }
 
     public void update() {
@@ -38,21 +37,27 @@ public class UpdateHandler {
         updateChunks();
     }
 
-    private void updateChunks(){
-        Vector3f position = player.getPosition();
+    private void updateChunks() {
+        executor.submit(() -> {
+            Vector3f position = player.getPosition();
+            boolean chunksUpdated = world.updateChunks((int) position.x, (int) position.z, Game.RENDER_DISTANCE);
 
-        if (world.updateChunks((int) position.x, (int) position.z, Game.RENDER_DISTANCE)) {
-            // Offload model updates to the background thread
-            executor.submit(this::updateRenderModels);
-        }
+            if (chunksUpdated) {
+                updateRenderModels();
+            }
+        });
 
         if (modelsReady) {
-            synchronized (game.getRenderModels()) {
-                CopyOnWriteArrayList<CubeModel> temp = (CopyOnWriteArrayList<CubeModel>) game.getRenderModels();
-                game.setRenderModels(game.getNextModels());
-                game.setNextModels(temp);
-            }
+            swapModelLists();
             modelsReady = false;
+        }
+    }
+
+    private void swapModelLists() {
+        synchronized (game) {
+            CopyOnWriteArrayList<CubeModel> temp = (CopyOnWriteArrayList<CubeModel>) game.getRenderModels();
+            game.setRenderModels(game.getNextModels());
+            game.setNextModels(temp);
         }
     }
 
@@ -60,11 +65,11 @@ public class UpdateHandler {
         List<CubeModel> nextModels = game.getNextModels();
         nextModels.clear();
 
-        for (Chunk chunk : world.getLoadedChunks()) {
-            loadChunkModels(chunk, nextModels);
-        }
+        world.getLoadedChunks().forEach(chunk -> loadChunkModels(chunk, nextModels));
 
-        modelsReady = true;
+        synchronized (this) {
+            modelsReady = true;
+        }
     }
 
     private void loadChunkModels(Chunk chunk, List<CubeModel> nextModels) {
@@ -76,26 +81,32 @@ public class UpdateHandler {
             for (AbstractBlock[] chunkRow : chunkLayer) {
                 if (chunkRow == null) continue;
 
-                for (AbstractBlock block : chunkRow) {
-                    if (block != null) {
-                        CubeModel newModel = block.getCubeModel();
-                        nextModels.add(newModel);
-                    }
-                }
+                addVisibleBlockModels(chunkRow, nextModels);
             }
         }
     }
 
-    public void loadChunk(int chunkX, int chunkZ){
-        Chunk chunk = world.getChunk(chunkX, chunkZ);
-        List<CubeModel> nextModels = game.getNextModels();
-        nextModels.clear();
-        loadChunkModels(chunk, nextModels);
-
-        modelsReady = true;
+    private void addVisibleBlockModels(AbstractBlock[] chunkRow, List<CubeModel> nextModels) {
+        for (AbstractBlock block : chunkRow) {
+            if (isRenderable(block)) {
+                nextModels.add(block.getCubeModel());
+            }
+        }
     }
 
-    public void cleanUp(){
+    private boolean isRenderable(AbstractBlock block) {
+        if (block == null || block.getBlockID() == -1) return false;
+
+        return renderAll || Arrays.stream(block.getNeighbouringBlocks())
+                .anyMatch(neighbour -> neighbour == null || neighbour.getBlockID() == -1);
+    }
+
+    public void toggleRenderAll() {
+        renderAll = !renderAll;
+        System.out.println(renderAll ? "Rendering all blocks" : "Rendering only visible blocks");
+    }
+
+    public void cleanUp() {
         executor.shutdown();
     }
 }

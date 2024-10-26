@@ -15,17 +15,19 @@ public abstract class AbstractBlock implements Serializable {
     private int blockID;
 
     private CubeModel cubeModel;
+    private BlockType blockType;
 
-    public AbstractBlock(int x, int y, int z, int blockID) {
+    public AbstractBlock(int x, int y, int z, int blockID, BlockType blockType) {
         this.x = x;
         this.y = y;
         this.z = z;
         this.blockID = blockID;
+        this.blockType = blockType;
 
         this.cubeModel = new CubeModel(new Vector3f(x, y, z), blockID);
     }
 
-    public AbstractBlock[] getNeighbouringBlocks(){
+    public AbstractBlock[] getNeighbouringBlocks() {
         Game game = Game.getInstance();
         World world = game.getWorld();
 

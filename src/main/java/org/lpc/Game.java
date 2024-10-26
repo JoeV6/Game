@@ -38,11 +38,10 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 public class Game {
     private static Game instance = null;
 
-    public static final int DEFAULT_WIDTH = 1080;
-    public static final int DEFAULT_HEIGHT = 720;
-    public static final float DEFAULT_MOVEMENT_SPEED = 0.10f;
-    public static final float UPDATES_PER_SECOND = 20.0f;
+    public static final int DEFAULT_WINDOW_WIDTH = 1080;
+    public static final int DEFAULT_WINDOW_HEIGHT = 720;
     public static final int RENDER_DISTANCE = 2;
+    public static final float DEFAULT_MOVEMENT_SPEED = 0.10f;
 
     @Setter private boolean fullscreen;
     private boolean renderTrigLines = false;
@@ -84,7 +83,7 @@ public class Game {
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
-        window = glfwCreateWindow(DEFAULT_WIDTH, DEFAULT_HEIGHT, "Game", NULL, NULL);
+        window = glfwCreateWindow(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT, "Game", NULL, NULL);
         if ( window == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
 

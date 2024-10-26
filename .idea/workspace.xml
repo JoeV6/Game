@@ -4,18 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="TextureAtlas fixed, needs debugging">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Timer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/SandBlock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/textures/blocks/block_3.png" afterDir="false" />
+    <list default="true" id="a8344706-919b-442f-9da9-570ac0de161f" name="Changes" comment="Refactored for readability">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/BlockType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/WaterBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/InputHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/handler/UpdateHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/handler/UpdateHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/utils/SystemUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/utils/SystemUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/World.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/TextureLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/render/pipeline/textures/TextureLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/AbstractBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/AbstractBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/AirBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/AirBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/CobbleStoneBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/CobbleStoneBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/DirtBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/DirtBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/GrassBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/GrassBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/SandBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/block/blocks/SandBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/chunk/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/chunk/Chunk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/texture_atlas.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/textures/texture_atlas.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/entities/PlayerEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lpc/world/entity/entities/PlayerEntity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,22 +87,22 @@
     &quot;assignee&quot;: &quot;JoeV6&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/JoeV6/Game.git",
-    "accountId": "825c1356-0b81-40b4-a4f9-f7e507eac450"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/JoeV6/Game.git&quot;,
+    &quot;accountId&quot;: &quot;825c1356-0b81-40b4-a4f9-f7e507eac450&quot;
   },
-  "recentNewPullRequestHead": {
-    "server": {
-      "useHttp": false,
-      "host": "github.com",
-      "port": null,
-      "suffix": null
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
     },
-    "owner": "JoeV6",
-    "repository": "Game"
+    &quot;owner&quot;: &quot;JoeV6&quot;,
+    &quot;repository&quot;: &quot;Game&quot;
   }
-}]]></component>
+}</component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="uz13l7w3" />
   </component>
@@ -486,7 +491,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729792267082</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Refactored for readability">
+      <option name="closed" value="true" />
+      <created>1729878486558</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1729878486558</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -524,7 +537,8 @@
     <MESSAGE value="Textures re-added through TextureAtlas.java and new shaders" />
     <MESSAGE value="Fixed multithreading issues, need to fix textureAtlas" />
     <MESSAGE value="TextureAtlas fixed, needs debugging" />
-    <option name="LAST_COMMIT_MESSAGE" value="TextureAtlas fixed, needs debugging" />
+    <MESSAGE value="Refactored for readability" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored for readability" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

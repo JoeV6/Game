@@ -21,13 +21,12 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL15.GL_DYNAMIC_DRAW;
 import static org.lwjgl.opengl.GL15.GL_STATIC_DRAW;
-import static org.lwjgl.opengl.GL20C.glGetUniformLocation;
 import static org.lwjgl.opengl.GL30C.GL_TEXTURE_2D_ARRAY;
 import static org.lwjgl.opengl.GL31C.glDrawElementsInstanced;
 
 @Getter
 public class Renderer {
-    private static final float FOV = 110;
+    private static final float FOV = 90;
     private static final float NEAR_PLANE = 0.1f;
     private static final float FAR_PLANE = 1000;
 
@@ -174,7 +173,7 @@ public class Renderer {
     }
 
     private VAO lineVAO;
-    private VBO lineVBO;
+        private VBO lineVBO;
 
     private void initLineRender() {
         lineVAO = new VAO();

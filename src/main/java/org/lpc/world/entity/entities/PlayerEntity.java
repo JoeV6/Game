@@ -16,6 +16,7 @@ public class PlayerEntity extends Entity {
         this.camera = camera;
 
         setPos(x, y, z);
+        applyGravity();
     }
 
     public void update(){
@@ -31,7 +32,6 @@ public class PlayerEntity extends Entity {
     }
 
     public AbstractBlock getFirstBlockInFront(float maxDistance, float stepSize) {
-        /*
         Vector3f position = camera.getPosition();
         float yaw = camera.getYaw();
         float pitch = camera.getPitch();
@@ -56,13 +56,12 @@ public class PlayerEntity extends Entity {
             int blockY = (int) Math.floor(checkY);
             int blockZ = (int) Math.floor(checkZ);
 
-            AbstractBlock block = game.getWorld().getBlockWorld(blockX, blockY, blockZ);
+            AbstractBlock block = game.getWorld().getBlockAt(blockX, blockY, blockZ);
 
-            if (block != null) {
+            if (block != null && block.getBlockID() != -1) {
                 return block;
             }
         }
-        */
         return null;
     }
 

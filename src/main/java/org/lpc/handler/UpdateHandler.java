@@ -5,6 +5,7 @@ import org.lpc.Game;
 import org.lpc.render.pipeline.models.CubeModel;
 import org.lpc.world.World;
 import org.lpc.world.block.AbstractBlock;
+import org.lpc.world.block.BlockType;
 import org.lpc.world.chunk.Chunk;
 import org.lpc.world.entity.entities.PlayerEntity;
 
@@ -78,16 +79,16 @@ public class UpdateHandler {
         for (AbstractBlock[][] chunkLayer : blocks) {
             if (chunkLayer == null) continue;
 
-            for (AbstractBlock[] chunkRow : chunkLayer) {
-                if (chunkRow == null) continue;
+            for (AbstractBlock[] chunkColumn : chunkLayer) {
+                if (chunkColumn == null) continue;
 
-                addVisibleBlockModels(chunkRow, nextModels);
+                addVisibleBlockModels(chunkColumn, nextModels);
             }
         }
     }
 
-    private void addVisibleBlockModels(AbstractBlock[] chunkRow, List<CubeModel> nextModels) {
-        for (AbstractBlock block : chunkRow) {
+    private void addVisibleBlockModels(AbstractBlock[] chunkColumn, List<CubeModel> nextModels) {
+        for (AbstractBlock block : chunkColumn) {
             if (isRenderable(block)) {
                 nextModels.add(block.getCubeModel());
             }
@@ -95,10 +96,10 @@ public class UpdateHandler {
     }
 
     private boolean isRenderable(AbstractBlock block) {
-        if (block == null || block.getBlockID() == -1) return false;
+        if (block == null || block.getBlockType().equals(BlockType.GAS)) return false;
 
         return renderAll || Arrays.stream(block.getNeighbouringBlocks())
-                .anyMatch(neighbour -> neighbour == null || neighbour.getBlockID() == -1);
+                .anyMatch(neighbour -> neighbour == null || neighbour.getBlockType().equals(BlockType.GAS));
     }
 
     public void toggleRenderAll() {

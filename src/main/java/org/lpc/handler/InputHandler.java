@@ -105,7 +105,7 @@ public class InputHandler {
 
         assert videoMode != null;
         if (game.isFullscreen()) {
-            GLFW.glfwSetWindowMonitor(window, 0, (videoMode.width() - DEFAULT_WIDTH) / 2, (videoMode.height() - DEFAULT_HEIGHT) / 2, DEFAULT_WIDTH, DEFAULT_HEIGHT, videoMode.refreshRate());
+            GLFW.glfwSetWindowMonitor(window, 0, (videoMode.width() - DEFAULT_WINDOW_WIDTH) / 2, (videoMode.height() - DEFAULT_WINDOW_HEIGHT) / 2, DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT, videoMode.refreshRate());
         } else {
             GLFW.glfwSetWindowMonitor(window, 0, 0, 0, videoMode.width(), videoMode.height(), videoMode.refreshRate());
         }
